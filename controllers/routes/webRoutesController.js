@@ -1,29 +1,42 @@
-const express       = module.require('express');
-const router        = express.Router();
-const path          = module.require('path');
+const express = module.require('express');
+const router = express.Router();
+const path = module.require('path');
+const puppeteer = module.require('puppeteer');
 
-const checkPerson   = module.require('../checkPersonController');
+const middleware = module.require('../middlewares/middleware');
 
-var viewsPath       = { root : path.join(__dirname, '../../views') };
-
-var checkUserData = (req, res, next) => {
-    if (req.body.username == '' || req.body.password == '') res.send('Fail to Register.');
+router.use((req, res, next) => {
+    console.log(`[${Date.now()}] ${req.method} ${req.originalUrl}`);
     next();
+});
+
+var viewsPath = {
+    root: path.join(__dirname, '../../views')
 };
 
 router.get('/checar', (req, res) => {
     res.sendFile('/web/ufalCheck.html', viewsPath);
 });
 
-router.post('/checar', checkUserData, (req, res) => {
-    (async () => {
-        try {
-            var url = await checkPerson(req.body.username, req.body.password);
-            res.send(url);
-        } catch (e) {
-            console.error(e);
-        }
+router.post('/checar', middleware.checkUserData, (req, res) => {
+    (async (username, password) => {
+        const browser = await puppeteer.launch();
+
+        const page = await browser.newPage();
+        await page.goto('https://sistemas.ufal.br/academico/login.seam');
+
+        await page.type('[id="loginForm:username"]', req.body.username);
+        await page.type('[id="loginForm:password"]', req.body.password);
+        await page.click('[id="loginForm:entrar"]');
+        // await page.waitForNavigation();
+
+        var url = page.url().split('?');
+
+        await browser.close();
+
+        if (url.length > 1) res.send('Logado.');
+        else res.send('Login ou Senha Incorretos.');
     })();
 });
 
-module.exports      = router;
+module.exports = router;
