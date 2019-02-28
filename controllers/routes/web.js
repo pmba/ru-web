@@ -10,12 +10,8 @@ router.use((req, res, next) => {
     next();
 });
 
-var viewsPath = {
-    root: path.join(__dirname, '../../views')
-};
-
 router.get('/checar', (req, res) => {
-    res.sendFile('/web/ufalCheck.html', viewsPath);
+    res.render('pages/home', {title: 'Homepage'});
 });
 
 router.post('/checar', middleware.checkUserData, (req, res) => {
