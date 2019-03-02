@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <% include ../partials/head %>
 </head>
+
 <body>
-    <div class="container h-100">
-        <form action="" method="POST">
+    <% include ../partials/navbar %>
+
+    <div class="container primary-container">
+        <form action="" method="POST" id="register">
             <div class="row">
                 <div class="col-sm-12">
                     <label for="text">Usuário</label>
-                    <input class="form-control" type="text" name="username" required autocomplete="off">
+                    <input id="username" class="form-control" type="text" name="username" required autocomplete="off">
                 </div>
                 <div class="col-sm-12">
                     <div class="form-group">
                         <label for="text">Senha</label>
-                        <input class="form-control" type="password" name="password" required autocomplete="off">
+                        <input id="password" class="form-control" type="password" name="password" required autocomplete="off">
                     </div>
                 </div>
                 <div class="col-sm-12">
@@ -26,6 +30,15 @@
         </form>
     </div>
 
+    <div id="loading-anim" class="d-none justify-content-center">
+        <div class="spinner-border text-danger" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+
     <% include ../partials/footer %>
+    <script src="js/register.js"></script>
 </body>
+
 </html>

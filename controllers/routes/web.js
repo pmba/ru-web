@@ -10,11 +10,11 @@ router.use((req, res, next) => {
     next();
 });
 
-router.get('/checar', (req, res) => {
-    res.render('pages/home', {title: 'Homepage'});
+router.get('/registrar', (req, res) => {
+    res.render('pages/register', {title: 'Homepage', active: 'home'});
 });
 
-router.post('/checar', middleware.checkUserData, (req, res) => {
+router.post('/registrar', middleware.checkUserData, (req, res) => {
     (async (username, password) => {
         const browser = await puppeteer.launch();
 
@@ -30,8 +30,8 @@ router.post('/checar', middleware.checkUserData, (req, res) => {
 
         await browser.close();
 
-        if (url.length > 1) res.send('Logado.');
-        else res.send('Login ou Senha Incorretos.');
+        if (url.length > 1) res.status(200).send({response: 'user exists'});
+        else res.status(404).send({error: 'user does not exists'});
     })();
 });
 

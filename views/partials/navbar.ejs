@@ -1,0 +1,29 @@
+<nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-light bg-light opaque">
+    <a class="navbar-brand mr-4" href="#">RU</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse w-100" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item <% if (active == 'home') { %> active <% } %>">
+                <a class="nav-link" href="#">Início</a>
+            </li>
+            <li class="nav-item <% if (active == 'food') { %> active <% } %>">
+                <a class="nav-link" href="#">Cardápio</a>
+            </li>
+        </ul>
+    </div>
+    <div class="collapse navbar-collapse " id="navbarNav">
+        <ul class="navbar-nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Entrar </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Cadastrar</a>
+            </li>
+        </ul>
+    </div>
+</nav>
