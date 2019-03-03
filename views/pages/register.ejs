@@ -8,36 +8,47 @@
 <body>
     <% include ../partials/navbar %>
 
-    <div class="container primary-container">
-        <form action="" method="POST" id="register">
-            <div class="row">
-                <div class="col-sm-12">
-                    <label for="text">Usuário</label>
-                    <input id="username" class="form-control" type="text" name="username" required autocomplete="off">
-                </div>
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label for="text">Senha</label>
-                        <input id="password" class="form-control" type="password" name="password" required autocomplete="off">
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <button class="btn btn-primary form-control" type="submit" name="action">Cadastrar</button>
-                    </div>
+    <div class="container-fluid p-4 main-home" id="home">
+        <div class="background"></div>
+        <div class="container text-uppercase">
+            <!-- <div class="row">
+                <div class="col-sm-12 text-center">
+                    <h1 class="r-title">Cadastro</h1>
                 </div>
             </div>
-        </form>
-    </div>
-
-    <div id="loading-anim" class="d-none justify-content-center">
-        <div class="spinner-border text-danger" role="status">
-            <span class="sr-only">Loading...</span>
+            <hr>
+            <form action="" id="registerForm" method="POST">
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <label for="username" class="sans-13">Login <i class="fas fa-user"></i></label>
+                        <input type="text" class="form-control" name="username" autocomplete="off">
+                    </div>
+                    <div class="col-sm-12 form-group">
+                        <label for="password" class="sans-13">Senha <i class="fas fa-key"></i></label>
+                        <input type="text" class="form-control" name="password" autocomplete="off">
+                    </div>
+                    <div class="col-sm-12 form-group">
+                        <button class="btn btn-outline-light form-control" type="input">Realizar Cadastro</button>
+                    </div>
+                </div>
+            </form> -->
+            <div class="card text-center">
+                    <div class="card-header">
+                      Cadastro
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">Special title treatment</h5>
+                      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                  </div>
         </div>
     </div>
 
 
+
     <% include ../partials/footer %>
+    <script src="js/main.js"></script>
     <script src="js/register.js"></script>
 </body>
 

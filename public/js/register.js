@@ -2,7 +2,7 @@ $(document).ready(() => {
 
 });
 
-$('#register').submit((e) => {
+$('#registerForm').submit((e) => {
     $('#loading-anim').removeClass('d-none');
     $('#loading-anim').addClass('d-flex');
     

@@ -10,8 +10,18 @@ router.use((req, res, next) => {
     next();
 });
 
+router.get('/inicio', (req, res) => {
+    res.render('pages/home', 
+    {
+        title: 'Página Inicial'
+    });
+});
+
 router.get('/registrar', (req, res) => {
-    res.render('pages/register', {title: 'Homepage', active: 'home'});
+    res.render('pages/register', 
+    {
+        title: 'Registrar'
+    });
 });
 
 router.post('/registrar', middleware.checkUserData, (req, res) => {

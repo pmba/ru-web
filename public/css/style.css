@@ -1,8 +1,89 @@
-.intro {
-    position: relative;
-    height: 100vh !important;
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.4);
 }
 
-.primary-container {
-    margin-top: 6em;
+.main-home {
+    margin-top: -3em;
+    padding-top: 9.5em !important;
+}
+
+.main-home .background {
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../img/main-bg.jpg');
+    background-size: cover;
+}
+
+.sans-13,
+.site-nav {
+    font-family: 'Lato', 'Helvetica', 'Arial', 'sans-serif' !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase;
+    font-size: 13px !important;
+}
+
+.site-nav a {
+    letter-spacing: 4px !important;
+    text-decoration: none;
+    color: #999;
+    transition: ease-in-out color .15s;
+}
+
+.site-nav a:hover {
+    color: #fff;
+}
+
+.site-nav {
+    background: rgba(0, 0, 0, 0.85);
+}
+
+.nav-op {
+    overflow: auto;
+}
+
+@media (max-width: 768px) {
+    .main-home {
+        margin-top: -6.5em;
+    }
+
+    .nav-op {
+        height: 0;
+    }
+
+    .btn-menu {
+        display: inline !important;
+    }
+
+    .background {
+        transform: scale(1.05);
+        -webkit-filter: blur(6px);
+        filter: blur(6px);
+    }
+}
+
+.py-0-5 {
+    padding: 0.5em 0;
+}
+
+.btn-menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1em 1.2em;
+    display: none;
+}
+
+.btn-menu:focus {
+    outline: none;
+}
+
+.bg-dark-tr {
+    background: rgba(0, 0, 0, 0.2);
 }
