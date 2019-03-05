@@ -1,14 +1,16 @@
-<nav class="shadow site-nav sticky-top py-0-5">
+<nav class="shadow site-nav sticky-top py-0-5 bg-light-f1">
     <div class="container d-flex flex-column flex-md-row justify-content-center text-uppercase text-center">
-        <a href="/inicio" class="py-2 px-4 nav-brand">RU</a>
+        <a href="/inicio" class="nav-brand mx-4">
+            <img src="/img/logo.svg" alt="">
+        </a>
         
-        <a id="toggleMenuBtn" class="btn btn-sm text-white btn-menu"><i class="fas fa-caret-down"></i></a>
+        <a id="toggleMenuBtn" class="btn btn-sm text-dark btn-menu"><i class="fas fa-caret-down"></i></a>
 
         <div id="navOptions" class="nav-op d-flex justify-content-between .d-md-none .d-lg-block">
             <a href="/inicio#home" class="py-2 px-4">Início</a>
             <a href="" class="py-2 px-4">Cardápio</a>
             <a href="" class="py-2 px-4">Login</a>
-            <a href="" class="py-2 px-4">Registrar</a>
+            <a href="/auth/registrar" class="py-2 px-4">Registrar</a>
         </div>
     </div>
 </nav>

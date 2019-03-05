@@ -8,12 +8,11 @@
 <body>
     <% include ../partials/navbar %>
 
-    <div class="container-fluid p-4 main-home" id="home">
-        <div class="background"></div>
+    <div class="container-fluid p-4 main-home background-red text-light" id="home">
         <div class="container">
-            <div class="row d-flex justify-content-center">
+            <div class="row justify-content-center">
                 <div class="col-sm-8 text-center text-uppercase">
-                    <h1>Restaurante Universitário</h1>
+                    <h1 class="page-title">Restaurante Universitário</h1>
                 </div>
                 <div class="col-sm-8">
                     <p class="px-4 pt-4 text-justify">
@@ -32,17 +31,27 @@
             </div>
             <div class="row d-flex justify-content-center">
                 <div class="col-sm-6 text-center">
-                    <a href="/registrar" class="btn btn-outline-dark btn-lg sans-13 px-4">CRIE SUA CONTA</a>
+                    <a href="/auth/registrar" class="btn btn-outline-light btn-lg sans-13 px-4">CRIE SUA CONTA</a>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="container-fluid bg-light-f1">
+        <br>
+    </div>
 
+    <div class="container-fluid bg-dark" id="menu">
+        <div class="container">
+            <div class="row">
+                
+            </div>
+        </div>
+    </div>
 
     <% include ../partials/footer %>
-    <script src="js/main.js"></script>
-    <script src="js/home.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/home.js"></script>
 </body>
 
 </html>

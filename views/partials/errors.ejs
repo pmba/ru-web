@@ -1,0 +1,10 @@
+<% if (errors) { %>
+    <% errors.forEach((error) => { %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= error.msg %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="far fa-times-circle"></i>
+            </button>
+        </div>
+    <% }) %>
+<% } %>

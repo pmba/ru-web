@@ -1,3 +1,7 @@
+body {
+    font-family: 'Questrial', sans-serif !important;
+}
+
 hr {
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -5,25 +9,29 @@ hr {
     border-top: 1px solid rgba(0, 0, 0, 0.4);
 }
 
-.main-home {
-    margin-top: -3em;
-    padding-top: 9.5em !important;
+.page-title {
+    font-family: 'Questrial', sans-serif;
+    font-weight: 600;
+    letter-spacing: 3px;
 }
 
-.main-home .background {
-    z-index: -1;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('../img/main-bg.jpg');
+.main-home {
+    margin-top: -3em;
+    padding: 8.5em 0 !important;
+}
+
+.background-blue {
+    background: url('../img/bg-blue.png');
+    background-size: cover;
+}
+
+.background-red {
+    background: url('../img/bg-red.png');
     background-size: cover;
 }
 
 .sans-13,
 .site-nav {
-    font-family: 'Lato', 'Helvetica', 'Arial', 'sans-serif' !important;
     letter-spacing: 2px !important;
     text-transform: uppercase;
     font-size: 13px !important;
@@ -32,20 +40,29 @@ hr {
 .site-nav a {
     letter-spacing: 4px !important;
     text-decoration: none;
-    color: #999;
+    color: #aaa;
     transition: ease-in-out color .15s;
 }
 
 .site-nav a:hover {
-    color: #fff;
+    color: rgb(58, 58, 58);
 }
 
-.site-nav {
-    background: rgba(0, 0, 0, 0.85);
+.bg-light-f1 {
+    background: #f1f1f1;
 }
 
 .nav-op {
     overflow: auto;
+}
+
+.nav-brand {
+    padding: 0;
+}
+
+.nav-brand img{
+    height: 30px;
+    width: auto;
 }
 
 @media (max-width: 768px) {
@@ -59,12 +76,6 @@ hr {
 
     .btn-menu {
         display: inline !important;
-    }
-
-    .background {
-        transform: scale(1.05);
-        -webkit-filter: blur(6px);
-        filter: blur(6px);
     }
 }
 
