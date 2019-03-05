@@ -15,7 +15,8 @@ var dbUrl = 'mongodb://admin:rudb1admin@ds021166.mlab.com:21166/ru-db';
 
 // Database Configuration
 mongoose.connect(dbUrl, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useCreateIndex: true
 });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

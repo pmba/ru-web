@@ -4,6 +4,8 @@ const puppeteer = module.require('puppeteer');
 
 const middleware = module.require('../middlewares/middleware');
 
+const User = module.require('../../models/user');
+
 router.get('/registrar', (req, res) => {
     res.render('pages/register', {
         title: 'Registrar',
@@ -41,9 +43,22 @@ router.post('/registrar', middleware.validation, (req, res) => {
                 });
     
                 await browser.close();
+
+                var newUser = new User({
+                    username: req.body.username,
+                    password: req.body.password,
+                    name: 'teste',
+                    registration: '0000'
+                });
+
+                User.createUser(newUser, (err, user) => {
+                    // TODO: Erro de criar usuário
+                    if (err) throw err;
+                });
+
                 res.status(200).send({
-                    response: 'user exists'
-                })
+                    response: 'user exists and was registered'
+                });
             } else {
                 await browser.close();
                 res.status(404).send({
