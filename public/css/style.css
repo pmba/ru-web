@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Questrial', sans-serif !important;
 }
@@ -9,8 +13,7 @@ hr {
     border-top: 1px solid rgba(0, 0, 0, 0.4);
 }
 
-.page-title {
-    font-family: 'Questrial', sans-serif;
+.content-title {
     font-weight: 600;
     letter-spacing: 3px;
 }
@@ -60,7 +63,7 @@ hr {
     padding: 0;
 }
 
-.nav-brand img{
+.nav-brand img {
     height: 30px;
     width: auto;
 }
@@ -76,6 +79,19 @@ hr {
 
     .btn-menu {
         display: inline !important;
+    }
+
+    .ru-map {
+        margin-top: 3em;
+    }
+
+    .footer-info .content {
+        width: 75% !important;
+    }
+
+    .footer-info {
+        display: flex;
+        align-items: center;
     }
 }
 
@@ -97,4 +113,34 @@ hr {
 
 .bg-dark-tr {
     background: rgba(0, 0, 0, 0.2);
+}
+
+.ls-3 {
+    letter-spacing: 2px;
+}
+
+.fas-sm {
+    font-size: 12px;
+}
+
+.footer-icon {
+    color: rgba(0, 0, 0, 0.6);
+    padding-top: .4em;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#gmap_canvas img {
+    max-width: none !important;
+    background: none !important
+}
+
+.menu-days li {
+    cursor: pointer;
+    transition: ease-in-out color .15s;
+}
+
+.menu-days li:hover {
+    color: #aaa;
 }
