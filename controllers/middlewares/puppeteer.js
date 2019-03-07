@@ -41,7 +41,8 @@ module.exports = {
                  username: username,
                  password: password,
                  name: name,
-                 registration: '0000'
+                 registration: '0000',
+                 intolerances: []
              });
 
              return await newUser;
