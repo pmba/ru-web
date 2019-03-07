@@ -1,8 +1,10 @@
 const express = module.require('express');
 const router = express.Router();
-const puppeteer = module.require('puppeteer');
+//const puppeteer = module.require('puppeteer');
+const bcrypt = module.require('bcryptjs');
 
 const middleware = module.require('../middlewares/middleware');
+const puppeteer = module.require('../middlewares/puppeteer');
 
 const User = module.require('../../models/user');
 
@@ -21,77 +23,61 @@ router.post('/registrar', middleware.validation, (req, res) => {
             title: 'Registrar',
             errors: errors
         });
+
     } else {
-        /*
-        TODO:
-          if (it's a valid cpf)
-          {
-              if (cpf is in database)
-              {
-                  if (password match)
-                  {
-                      ... login
-                  }
-                  else
-                  {
-                      try again
-                  }
-              }
-              else
-              {
-                puppeteer...
-              }
-          }
-          else
-          {
-              return error
-          }
-        */
-        (async () => {
-            const browser = await puppeteer.launch();
 
-            const page = await browser.newPage();
-            await page.goto('https://sistemas.ufal.br/academico/login.seam');
+        //Check if is a valid CPF
+        if(middleware.cpfCheck(req.body.username)) {
 
-            await page.type('[id="loginForm:username"]', req.body.username);
-            await page.type('[id="loginForm:password"]', req.body.password);
-            await page.click('[id="loginForm:entrar"]');
+            //Search cpf in database
+            User.find({username: req.body.username}, async (err, user) => {
+                if(err) throw err;
 
-            var url = page.url().split('?');
+                //CPF is found
+                if(user.length != 0) {
 
-            if (url.length > 1) {
-                var cid = url[1].split('=');
+                    //Compare hash with password
+                    await bcrypt.compare(req.body.password, user[0].password, function(err, res) {
+                        if(res) {
+                            //TODO: login
+                        } else {
+                            res.status(404).send({
+                                error: 'invalid password'
+                            });
+                            //TODO: tryagain
+                        }
+                    });
 
-                await page.goto(`https://sistemas.ufal.br/academico/matricula/visualizar.seam?cid=${cid[1]}`);
-                await page.screenshot({
-                    path: 'screenshot.png'
-                });
+                //Create new user (CPF not found)
+                } else {
+                  (async () => {
+                      //Start puppeteer
+                      const newUser = await puppeteer.collectData(req.body.username, req.body.password);
 
-                await browser.close();
+                      if(newUser != null) {
+                          User.createUser(newUser, (err, user) => {
+                              // TODO: Erro de criar usuário
+                              if (err) throw err;
+                          });
 
-                var newUser = new User({
-                    username: req.body.username,
-                    password: req.body.password,
-                    name: 'teste',
-                    registration: '0000'
-                });
+                          res.status(200).send({
+                              response: 'user exists and was registered'
+                          });
 
-                User.createUser(newUser, (err, user) => {
-                    // TODO: Erro de criar usuário
-                    if (err) throw err;
-                });
+                      } else {
+                          res.status(404).send({
+                              error: 'user does not exists'
+                          });
+                      }
+                  })();
+                }
+            });
 
-                res.status(200).send({
-                    response: 'user exists and was registered'
-                });
-            } else {
-                await browser.close();
-                res.status(404).send({
-                    error: 'user does not exists'
-                });
-            }
-
-        })();
+        } else {
+            res.status(404).send({
+                error: 'invalid cpf'
+            });
+        }
     }
 });
 
