@@ -1,6 +1,5 @@
 const express = module.require('express');
 const router = express.Router();
-//const puppeteer = module.require('puppeteer');
 const bcrypt = module.require('bcryptjs');
 
 const middleware = module.require('../middlewares/middleware');
@@ -27,7 +26,7 @@ router.post('/registrar', middleware.validation, (req, res) => {
     } else {
 
         //Check if is a valid CPF
-        if(middleware.cpfCheck(req.body.username)) {
+      //  if(middleware.cpfCheck(req.body.username)) {
 
             //Search cpf in database
             User.find({username: req.body.username}, async (err, user) => {
@@ -37,13 +36,12 @@ router.post('/registrar', middleware.validation, (req, res) => {
                 if(user.length != 0) {
 
                     //Compare hash with password
-                    await bcrypt.compare(req.body.password, user[0].password, function(err, res) {
+                    bcrypt.compare(req.body.password, user[0].password, function(err, res) {
                         if(res) {
+                            console.log("logged in");
                             //TODO: login
                         } else {
-                            res.status(404).send({
-                                error: 'invalid password'
-                            });
+                            console.log("invalid password");
                             //TODO: tryagain
                         }
                     });
@@ -73,11 +71,11 @@ router.post('/registrar', middleware.validation, (req, res) => {
                 }
             });
 
-        } else {
-            res.status(404).send({
-                error: 'invalid cpf'
-            });
-        }
+        // } else {
+        //     res.status(404).send({
+        //         error: 'invalid cpf'
+        //     });
+        // }
     }
 });
 
