@@ -26,7 +26,7 @@ router.post('/registrar', middleware.validation, (req, res) => {
     } else {
 
         //Check if is a valid CPF
-      //  if(middleware.cpfCheck(req.body.username)) {
+       if(middleware.cpfCheck(req.body.username)) {
 
             //Search cpf in database
             User.find({username: req.body.username}, async (err, user) => {
@@ -71,11 +71,11 @@ router.post('/registrar', middleware.validation, (req, res) => {
                 }
             });
 
-        // } else {
-        //     res.status(404).send({
-        //         error: 'invalid cpf'
-        //     });
-        // }
+        } else {
+            res.status(404).send({
+                error: 'invalid cpf'
+            });
+        }
     }
 });
 
