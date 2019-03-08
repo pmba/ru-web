@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const expressValidator = require('express-validator');
-const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
@@ -59,17 +58,8 @@ app.use(expressValidator({
     }
 }));
 
-// Flash
-app.use(flash());
 
 // Middlewares
-app.use((req, res, next) => {
-    res.locals.success_msg = req.flash('success_msg');
-    res.locals.error_msg = req.flash('error_msg');
-    res.locals.error = req.flash('error');
-    next();
-});
-
 app.use((req, res, next) => {
     console.log(`[${Date.now()}] ${req.method} ${req.originalUrl}`);
     next();
