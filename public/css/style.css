@@ -68,6 +68,22 @@ hr {
     width: auto;
 }
 
+.footer-info .content {
+    font-size: .89rem;
+}
+
+/* sm devices */
+@media (max-width: 600px) {
+    .footer-info .content {
+        text-align: center;
+    }
+
+    .footer-icon {
+        position: relative !important;
+    }
+}
+
+/* md devices */
 @media (max-width: 768px) {
     .main-home {
         margin-top: -6.5em;
@@ -83,10 +99,6 @@ hr {
 
     .ru-map {
         margin-top: 3em;
-    }
-
-    .footer-info .content {
-        width: 75% !important;
     }
 
     .footer-info {
