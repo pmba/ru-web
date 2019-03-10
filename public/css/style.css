@@ -156,3 +156,7 @@ hr {
 .menu-days li:hover {
     color: #aaa;
 }
+
+.op-80 {
+    opacity: .8;
+}

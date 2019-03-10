@@ -7,6 +7,7 @@ const expressValidator = require('express-validator');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const flash = require('connect-flash');
 
 //.env
 var port = process.env.PORT || 5000;
@@ -58,6 +59,15 @@ app.use(expressValidator({
     }
 }));
 
+// Flash
+app.use(flash());
+
+// Global Variables
+app.use((req, res, next) => {
+    res.locals.user = req.user || null;
+    res.locals.alerts = req.flash('alerts') || null;
+    next();
+});
 
 // Middlewares
 app.use((req, res, next) => {
@@ -67,10 +77,12 @@ app.use((req, res, next) => {
 
 // Routes
 var webRoutes = require('./controllers/routes/web');
-var userRoutes = require('./controllers/routes/auth');
+var authRoutes = require('./controllers/routes/auth');
+var userRoutes = require('./controllers/routes/user');
 
 app.use('/', webRoutes);
-app.use('/auth', userRoutes);
+app.use('/auth', authRoutes);
+app.use('/user', userRoutes);
 
 app.listen(port, () => {
     console.log(`[${Date.now()}] SERVER RUNNING: ${port}`);

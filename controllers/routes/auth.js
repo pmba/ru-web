@@ -9,46 +9,54 @@ const puppeteer = module.require('../middlewares/puppeteer');
 
 const User = module.require('../../models/user');
 
-router.get('/', (req, res) => {
+
+router.get('/', middleware.proceedIfNotAuthenticated, (req, res) => {
     res.render('pages/auth', {
-        title: 'Autenticação',
-        errors: null
+        title: 'Autenticação'
     });
 });
 
-router.post('/', middleware.validation, (req, res, next) => {
+router.post('/', middleware.proceedIfNotAuthenticated, middleware.validation, (req, res, next) => {
     var errors = req.validationErrors();
 
     if (errors) {
-        console.log(`errors: ${errors}`);
-        res.render('pages/auth', {
-            title: 'Autenticação',
-            errors: errors
-        });
+        req.flash('alerts', errors);
+        res.redirect('/auth');
     } else {
         passport.authenticate('local', function (err, user, info) {
             if (err) {
                 return next(err);
             }
             if (!user) {
-                // console.log('nao tem usuario.');
-                // Se não achar usuário, executa o resto da função
+                // if not user execute puppeteer function
                 (async () => {
                     //Start puppeteer
-                    await puppeteerDataCollection(req, res, next);
+                    user = await puppeteerDataCollection(req, res, next);
+                    
+                    // User was created, try to login with the new user
+
+                    req.logIn(user, function (err) {
+                        if (err) {
+                            return next(err);
+                        }
+                        // Redirect if it succeeds
+                        req.flash('alerts', [
+                            {param: 'user', msg: 'Você está logado', type: 'success'}
+                        ]);
+    
+                        res.redirect('/inicio');
+                    });
                 })();
             } else {
-                // console.log('tem usuário');
-                // Se achar usuário
+                // if user
                 if (info.status == 401) {
-                    // Senha incorreta
-                    return res.render('pages/auth', {
-                        title: 'Autenticação',
-                        errors: [{
-                            param: 'user',
-                            msg: 'Login ou Senha incorretos'
-                        }]
-                    });
+                    // Incorrect Password
+                    
+                    req.flash('alerts', [
+                        { param: 'user', msg: 'Login ou Senha incorretos' }
+                    ]);
+    
+                    res.redirect('/auth');
                 } else if (info.status == 200) {
                     // Senha correta
                     req.logIn(user, function (err) {
@@ -56,12 +64,28 @@ router.post('/', middleware.validation, (req, res, next) => {
                             return next(err);
                         }
                         // Redirect if it succeeds
-                        return res.send('logado');
+                        req.flash('alerts', [
+                            {param: 'user', msg: 'Você está logado', type: 'success'}
+                        ]);
+    
+                        res.redirect('/inicio');
                     });
                 }
             }
+
+            
         })(req, res, next);
     }
+});
+
+router.get('/logout', middleware.proceedIfAuthenticated, (req, res) => {
+    req.logout();
+
+    req.flash('alerts', [
+        {param: 'user', msg: 'Você está deslogado', type: 'success'}
+    ]);
+
+    return res.redirect('/inicio');
 });
 
 passport.use(new LocalStrategy(
@@ -106,36 +130,30 @@ passport.deserializeUser((id, done) => {
 });
 
 async function puppeteerDataCollection(req, res, next) {
-    const newUser = await puppeteer.collectData(req.body.username, req.body.password);
+    var newUser = await puppeteer.collectData(req.body.username, req.body.password);
 
     if (newUser != null) {
         User.createUser(newUser, (err, user) => {
             // TODO: Erro de criar usuário
             if (err) {
-                res.render('pages/auth', {
-                    title: 'Autenticação',
-                    errors: [{
-                        param: 'user',
-                        msg: 'Não foi possível autenticar sua conta, por favor, tente novamente em alguns instantes',
-                        type: 'warning'
-                    }]
-                });
+                req.flash('alerts', [
+                    { param: 'user', msg: 'Não foi possível fazer login em sua conta, tente novamente em instantes', type: 'warning' }
+                ]);
+
+                res.redirect('/auth');
             }
-        });
 
-        res.status(200).send({
-            response: 'user exists and was registered'
+            newUser = user;
         });
-
     } else {
-        res.render('pages/auth', {
-            title: 'Autenticação',
-            errors: [{
-                param: 'user',
-                msg: 'Login ou Senha incorretos'
-            }]
-        });
+        req.flash('alerts', [
+            { param: 'user', msg: 'Login ou Senha incorretos' }
+        ]);
+
+        res.redirect('/auth');  
     }
+
+    return newUser;
 }
 
 

@@ -9,7 +9,12 @@
         <div id="navOptions" class="nav-op d-flex justify-content-between .d-md-none .d-lg-block">
             <a href="/inicio#home" class="py-2 px-4">Início</a>
             <a href="/inicio#menu" class="py-2 px-4">Cardápio</a>
+            <% if (!locals.user) { %>
             <a href="/auth" class="py-2 px-4">Login</a>
+            <% } else { %>
+            <a href="/auth/logout" class="py-2 px-4">Logout</a>
+            <% } %>
+
         </div>
     </div>
 </nav>
