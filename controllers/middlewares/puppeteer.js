@@ -28,9 +28,9 @@ module.exports = {
             var cid = url[1].split('=');
 
             await page.goto(`https://sistemas.ufal.br/academico/matricula/visualizar.seam?cid=${cid[1]}`);
-            await page.screenshot({
-                path: 'screenshot.png'
-            });
+            // await page.screenshot({
+            //     path: 'screenshot.png'
+            // });
 
             //Gets student name
             var name = await page.evaluate(() =>
@@ -48,14 +48,15 @@ module.exports = {
                 username: username,
                 password: password,
                 name: name,
-                registration: registration
+                registration: registration,
+                intolerances: []
             });
 
             return await newUser;
 
         } else {
             await browser.close();
-            return await null;
+            return null;
         }
     }
 }
