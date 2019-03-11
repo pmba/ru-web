@@ -17,6 +17,9 @@ var UserSchema = new mongoose.Schema({
     registration: {
         type: String
     },
+    course: {
+        type: String
+    },
     intolerances: {
         type: [IntoleranceSchema]
     }
@@ -27,15 +30,17 @@ var User = module.exports = mongoose.model('User', UserSchema);
 module.exports.createUser = (newUser, callback) => {
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
-            //console.log(newUser.username, newUser.password, newUser.name, hash);
             newUser.password = hash;
             newUser.save(callback);
+            console.log(`Usuario cadastrado: ${newUser.username}, ${newUser.name}`);
         });
     });
-} 
+}
 
 module.exports.getUserByUsername = (username, callback) => {
-    var query = {username: username};
+    var query = {
+        username: username
+    };
     User.findOne(query, callback);
 }
 
