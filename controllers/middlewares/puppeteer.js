@@ -13,12 +13,12 @@ module.exports = {
 
         await page.type('[id="loginForm:username"]', username);
         await page.type('[id="loginForm:password"]', password);
-        await Promise.all([
-            page.click('[id="loginForm:entrar"]'),
-            page.waitForNavigation({
-                waitUntil: 'networkidle0'
-            }),
-        ]);
+        page.click('[id="loginForm:entrar"]');
+        // await Promise.all([
+        //     page.waitForNavigation({
+        //         waitUntil: 'networkidle0'
+        //     }),
+        // ]);
         console.log('Logging in with', username, password);
 
         var url = page.url().split('?');

@@ -1,7 +1,6 @@
 module.exports = {
   validation: (req, res, next) => {
     req.checkBody('username').custom(value => cpfCheck(value)).withMessage('CPF Digitado é inválido');
-    req.checkBody('username', 'CPF não pode ser vazio').notEmpty();
     req.checkBody('password', 'Senha não pode ser vazia').notEmpty();
     // req.checkBody('passwordConfirmation', 'As senhas digitadas não correspondem').equals(req.body.password);
 
