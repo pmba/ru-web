@@ -9,7 +9,6 @@ const puppeteer = module.require('../middlewares/puppeteer');
 
 const User = module.require('../../models/user');
 
-
 router.get('/', middleware.proceedIfNotAuthenticated, (req, res) => {
     res.render('pages/auth', {
         title: 'Autenticação'
@@ -23,7 +22,7 @@ router.post('/', middleware.proceedIfNotAuthenticated, middleware.validation, (r
         req.flash('alerts', errors);
         res.redirect('/auth');
     } else {
-        passport.authenticate('local', function (err, user, info) {
+        passport.authenticate('local', function(err, user, info) {
             if (err) {
                 return next(err);
             }
@@ -32,48 +31,71 @@ router.post('/', middleware.proceedIfNotAuthenticated, middleware.validation, (r
                 (async () => {
                     //Start puppeteer
                     user = await puppeteerDataCollection(req, res, next);
-                    
-                    // User was created, try to login with the new user
 
-                    req.logIn(user, function (err) {
-                        if (err) {
-                            return next(err);
-                        }
-                        // Redirect if it succeeds
-                        req.flash('alerts', [
-                            {param: 'user', msg: 'Você está logado', type: 'success'}
-                        ]);
-    
-                        res.redirect('/inicio');
-                    });
+                    if (!user) {
+                        // Puppeteer couldn't login. user = null
+                        req.flash('alerts', [{
+                            param: 'user',
+                            msg: 'Login ou Senha incorretos'
+                        }]);
+
+                        res.redirect('/auth');
+
+                    } else if (user instanceof User) {
+                        // User was created, try to login with the new user
+                        req.logIn(user, function(err) {
+                            if (err) {
+                                return next(err);
+                            }
+                            // Redirect if it succeeds
+                            req.flash('alerts', [{
+                                param: 'user',
+                                msg: 'Você está logado',
+                                type: 'success'
+                            }]);
+
+                            res.redirect('/inicio');
+                        });
+                    } else {
+                        // Error creating user. user = undefined
+                        req.flash('alerts', [{
+                            param: 'user',
+                            msg: 'Algo deu errado'
+                        }]);
+
+                        res.redirect('/auth');
+                    }
                 })();
             } else {
                 // if user
                 if (info.status == 401) {
                     // Incorrect Password
-                    
-                    req.flash('alerts', [
-                        { param: 'user', msg: 'Login ou Senha incorretos' }
-                    ]);
-    
+
+                    req.flash('alerts', [{
+                        param: 'user',
+                        msg: 'Login ou Senha incorretos'
+                    }]);
+
                     res.redirect('/auth');
+
                 } else if (info.status == 200) {
-                    // Senha correta
-                    req.logIn(user, function (err) {
+                    // Correct password
+
+                    req.logIn(user, function(err) {
                         if (err) {
                             return next(err);
                         }
                         // Redirect if it succeeds
-                        req.flash('alerts', [
-                            {param: 'user', msg: 'Você está logado', type: 'success'}
-                        ]);
-    
+                        req.flash('alerts', [{
+                            param: 'user',
+                            msg: 'Você está logado',
+                            type: 'success'
+                        }]);
+
                         res.redirect('/inicio');
                     });
                 }
             }
-
-            
         })(req, res, next);
     }
 });
@@ -81,9 +103,11 @@ router.post('/', middleware.proceedIfNotAuthenticated, middleware.validation, (r
 router.get('/logout', middleware.proceedIfAuthenticated, (req, res) => {
     req.logout();
 
-    req.flash('alerts', [
-        {param: 'user', msg: 'Você está deslogado', type: 'success'}
-    ]);
+    req.flash('alerts', [{
+        param: 'user',
+        msg: 'Você está deslogado',
+        type: 'success'
+    }]);
 
     return res.redirect('/inicio');
 });
@@ -130,30 +154,31 @@ passport.deserializeUser((id, done) => {
 });
 
 async function puppeteerDataCollection(req, res, next) {
+
     var newUser = await puppeteer.collectData(req.body.username, req.body.password);
 
     if (newUser != null) {
         User.createUser(newUser, (err, user) => {
             // TODO: Erro de criar usuário
             if (err) {
-                req.flash('alerts', [
-                    { param: 'user', msg: 'Não foi possível fazer login em sua conta, tente novamente em instantes', type: 'warning' }
-                ]);
-
-                res.redirect('/auth');
+                console.log(err);
+                req.flash('alerts', [{
+                    param: 'user',
+                    msg: 'Não foi possível fazer login em sua conta, tente novamente em instantes',
+                    type: 'warning'
+                }]);
             }
-
+            console.log(user);
             newUser = user;
         });
+
+        return newUser;
+        //Return esta errado pois nao espera a atribuição newUser = user
+        //Ta retornando o puppeteer (linha 158)
+
     } else {
-        req.flash('alerts', [
-            { param: 'user', msg: 'Login ou Senha incorretos' }
-        ]);
-
-        res.redirect('/auth');  
+        return null;
     }
-
-    return newUser;
 }
 
 
