@@ -30,41 +30,45 @@ router.post('/', middleware.proceedIfNotAuthenticated, middleware.validation, (r
                 // if not user execute puppeteer function
                 (async () => {
                     //Start puppeteer
-                    user = await puppeteerDataCollection(req, res, next);
+                    await puppeteerDataCollection(req, res, next, (newUser) => {
 
-                    if (!user) {
-                        // Puppeteer couldn't login. user = null
-                        req.flash('alerts', [{
-                            param: 'user',
-                            msg: 'Login ou Senha incorretos'
-                        }]);
+                        if (newUser instanceof User) {
+                           // User was created, try to login with the new user
 
-                        res.redirect('/auth');
+                           req.logIn(newUser, function(err) {
+                               if (err) {
+                                   return next(err);
+                               }
 
-                    } else if (user instanceof User) {
-                        // User was created, try to login with the new user
-                        req.logIn(user, function(err) {
-                            if (err) {
-                                return next(err);
-                            }
-                            // Redirect if it succeeds
+                               req.flash('alerts', [{
+                                   param: 'user',
+                                   msg: 'Você está logado',
+                                   type: 'success'
+                               }]);
+
+                               res.redirect('/inicio');
+                           });
+
+                       } else if (newUser === null) {
+                            // Puppeteer couldn't login. user = null
+
                             req.flash('alerts', [{
                                 param: 'user',
-                                msg: 'Você está logado',
-                                type: 'success'
+                                msg: 'Login ou Senha incorretos'
                             }]);
 
-                            res.redirect('/inicio');
-                        });
-                    } else {
-                        // Error creating user. user = undefined
-                        req.flash('alerts', [{
-                            param: 'user',
-                            msg: 'Algo deu errado'
-                        }]);
+                            res.redirect('/auth');
 
-                        res.redirect('/auth');
-                    }
+                        } else {
+                            // Error creating user. user = undefined
+                            req.flash('alerts', [{
+                                param: 'user',
+                                msg: 'Algo deu errado'
+                            }]);
+
+                            res.redirect('/auth');
+                        }
+                    });
                 })();
             } else {
                 // if user
@@ -153,7 +157,7 @@ passport.deserializeUser((id, done) => {
     });
 });
 
-async function puppeteerDataCollection(req, res, next) {
+async function puppeteerDataCollection(req, res, next, callback) {
 
     var newUser = await puppeteer.collectData(req.body.username, req.body.password);
 
@@ -168,18 +172,12 @@ async function puppeteerDataCollection(req, res, next) {
                     type: 'warning'
                 }]);
             }
-            console.log(user);
-            newUser = user;
+            callback(user);
         });
 
-        return newUser;
-        //Return esta errado pois nao espera a atribuição newUser = user
-        //Ta retornando o puppeteer (linha 158)
-
     } else {
-        return null;
+        callback(null);
     }
 }
-
 
 module.exports = router;
