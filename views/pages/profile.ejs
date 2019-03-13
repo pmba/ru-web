@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <% include ../partials/head %>
+    <link rel="stylesheet" href="/css/profile.css">
+</head>
+
+<body>
+    <% include ../partials/navbar %>
+
+
+
+    <div class="container-fluid p-4 main-home background-blue" id="home">
+        <h1 class="d-none">Login Restaurante Universitário</h1>
+
+        <div class="container text-uppercase">
+            <% include ../partials/alerts %>
+        </div>
+
+        <div class="container text-uppercase">
+            <div class="card shadow">
+                <div class="card-header">
+                    <%= locals.user.name %>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-4 wallet-money table-responsive-sm">
+                            <table class="text-uppercase text-center bg-light table table-success shadow">
+                                <tr class="">
+                                    <th><i class="fas fa-money-bill-alt text-success"></i> Minha Carteira</th>
+                                </tr>
+                                <tr class="table-success ls-1">
+                                    <td class="h4">
+                                        R$ <span id="wallet">
+                                            <%= locals.user.wallet.toFixed(2) %></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="form-group">
+                                        <a href="#" class="btn btn-outline-success btn-md text-uppercase form-control"
+                                            data-toggle="modal" data-target="#addCashToWallet">Adicionar</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-sm-8 table-responsive-sm">
+                            <table class="text-uppercase table">
+                                <tr class="text-primary">
+                                    <th><i class="fas fa-info-circle"></i> Minhas Informações</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>CPF:</strong>
+                                        <%= locals.user.username %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Matrícula:</strong>
+                                        <%= locals.user.registration %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Curso:</strong>
+                                        <%= locals.user.course %>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 table-responsive-sm text-uppercase">
+                            <table class="table">
+                                <tr class="text-danger text-sm-resp">
+                                    <th>
+                                        <i class="fas fa-allergies"></i> Intolerâncias
+                                        <a tabindex="0" href="#" role="button" data-trigger="focus" title="Intolerâncias"
+                                            class="text-decoration-none text-muted" data-container="body" data-toggle="popover"
+                                            data-placement="top" data-content="Aqui você deve adicionar suas intolerâncias alimentícias para que caso algum prato seja prejudicial à sua saúde, isso fique mais fácil de ser detectado. Intolerâncias de contaminação, são aquelas que com o mínimo requício dela, causará uma reação. Analogamente, temos as intolerâncias de não contaminação.">
+                                            <i class="fas fa-question-circle"></i>
+                                        </a>
+                                    </th>
+                                    <th class="text-right">
+                                        <a href="#" class="text-decoration-none" data-toggle="modal" data-target="#addIntoleranceModal"><i
+                                                class="fas fa-plus-circle"></i>
+                                            Editar</a>
+                                    </th>
+                                </tr>
+                                <% if (locals.user.intolerances.length > 0) { %>
+                                <% locals.user.intolerances.forEach(intolerance => { %>
+                                <tr>
+                                    <td>
+                                        <%= intolerance.food %>
+                                    </td>
+                                    <% if (intolerance.contamination) { %>
+                                    <td class="text-right text-danger">Contaminação</td>
+                                    <% } else { %>
+                                    <td class="text-right text-success">Não Contaminação</td>
+                                    <% } %>
+                                </tr>
+                                <% }) %>
+                                <% } else { %>
+                                <tr>
+                                    <td>Você não possui nenhuma intolerância.</td>
+                                    <td class="text-right"></td>
+                                </tr>
+                                <% } %>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addIntoleranceModal" tabindex="-1" role="dialog" aria-labelledby="addIntoleranceModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Adicionar Intolerâncias</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="far fa-times-circle"></i>
+                    </button>
+                </div>
+                <form action="/user/intolerances/update" method="POST" enctype="application/json" id="newIntoleranceForm">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <select multiple data-live-search="true" class="form-control" id="intolerancesSelect" name="intolerances[]">
+                                <% locals.intolerances.forEach((intolerance) => { %>
+                                <option value="<%= intolerance.food %>">
+                                    <%= intolerance.food %>
+                                </option>
+                                <% }) %>
+                                <% locals.user.intolerances.forEach((intolerance) => { %>
+                                <option selected value="<%= intolerance.food %>">
+                                    <%= intolerance.food %>
+                                </option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="submitIntoleranceBtn" disabled>Salvar
+                            Mudanças</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addCashToWallet" tabindex="-1" role="dialog" aria-labelledby="addCashToWalletLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-hand-holding-usd"></i> Recarga</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="far fa-times-circle"></i>
+                    </button>
+                </div>
+                <form action="/user/wallet/update" method="POST" enctype="application/json" id="addCashToWalletForm">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12 input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">R$</div>
+                                </div>
+                                <input type="number" class="form-control" name="amount" step="0.01" min="3" value="3.00">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="submitCash">Salvar Mudanças</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <% include ../partials/footer %>
+    <script src="/js/main.js"></script>
+    <script src="/js/profile.js"></script>
+</body>
+
+</html>

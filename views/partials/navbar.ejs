@@ -3,7 +3,7 @@
         <a href="/inicio" class="nav-brand mx-4">
             <img src="/img/logo.svg" alt="">
         </a>
-        
+
         <a id="toggleMenuBtn" class="btn btn-sm text-dark btn-menu"><i class="fas fa-caret-down"></i></a>
 
         <div id="navOptions" class="nav-op d-flex justify-content-between .d-md-none .d-lg-block">
@@ -12,9 +12,9 @@
             <% if (!locals.user) { %>
             <a href="/auth" class="py-2 px-4">Login</a>
             <% } else { %>
+            <a href="/user" class="py-2 px-4 right">Perfil</a>
             <a href="/auth/logout" class="py-2 px-4">Logout</a>
             <% } %>
-
         </div>
     </div>
 </nav>

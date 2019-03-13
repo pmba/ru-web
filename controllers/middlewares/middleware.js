@@ -21,6 +21,19 @@ module.exports = {
     } else {
       res.redirect('/inicio');
     }
+  },
+
+  validateWalletCash: (req, res, next) => {
+    if (req.body.amount >= 3) {
+      next();
+    } else {
+      req.flash('alerts', [{
+        param: 'user-wallet',
+        msg: `Recargas só podem ser feitas apartir de R$ 3,00`,
+        type: 'warning'
+      }]);
+      res.redirect('/user');
+    }
   }
 }
 

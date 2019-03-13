@@ -1,0 +1,9 @@
+.wallet-money tr {
+    border: 1px solid #8fd19e;
+}
+
+@media (max-width: 768px) {
+    .text-sm-resp {
+        font-size: 12px;
+    }
+}

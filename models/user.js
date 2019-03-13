@@ -22,6 +22,9 @@ var UserSchema = new mongoose.Schema({
     },
     intolerances: {
         type: [IntoleranceSchema]
+    },
+    wallet: {
+        type: Number
     }
 });
 
@@ -46,6 +49,18 @@ module.exports.getUserByUsername = (username, callback) => {
 
 module.exports.getUserById = (id, callback) => {
     User.findById(id, callback);
+}
+
+module.exports.updateIntolerances = (userID, intolerances, callback) => {
+    User.updateOne({_id: userID}, {
+        intolerances: intolerances
+    }, callback);
+}
+
+module.exports.addMoneyToWallet = (userID, amount, callback) => {
+    User.updateOne({_id: userID}, {
+        $inc: { wallet: amount }
+    }, callback);
 }
 
 module.exports.comparePassword = (candidatePassword, hash, callback) => {

@@ -131,6 +131,10 @@ hr {
     letter-spacing: 2px;
 }
 
+.ls-1 {
+    letter-spacing: 1px;
+}
+
 .fas-sm {
     font-size: 12px;
 }

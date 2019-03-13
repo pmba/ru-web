@@ -67,7 +67,8 @@ module.exports = {
                     password: password,
                     name: name,
                     registration: registration,
-                    course: course
+                    course: course,
+                    wallet: 0
                 });
 
                 return newUser;

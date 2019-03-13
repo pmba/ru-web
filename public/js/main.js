@@ -11,3 +11,5 @@ $('#toggleMenuBtn').on('click', () => {
         menuOpened = !menuOpened;
     }
 });
+
+$('[data-toggle="popover"]').popover();

@@ -40,13 +40,7 @@ router.post('/', middleware.proceedIfNotAuthenticated, middleware.validation, (r
                                 return next(err);
                             }
 
-                            req.flash('alerts', [{
-                                param: 'user',
-                                msg: 'Você está logado',
-                                type: 'success'
-                            }]);
-
-                            res.redirect('/inicio');
+                            res.redirect('/user');
                         });
 
                     } else if (error) {
@@ -93,13 +87,8 @@ router.post('/', middleware.proceedIfNotAuthenticated, middleware.validation, (r
                             return next(err);
                         }
                         // Redirect if it succeeds
-                        req.flash('alerts', [{
-                            param: 'user',
-                            msg: 'Você está logado',
-                            type: 'success'
-                        }]);
 
-                        res.redirect('/inicio');
+                        res.redirect('/user');
                     });
                 }
             }
