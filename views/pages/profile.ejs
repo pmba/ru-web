@@ -114,6 +114,46 @@
                     </div>
                 </div>
                 <div class="card-footer">
+                    <div class="row">
+                        <div class="col-sm-12 table-responsive-sm text-uppercase">
+                            <table class="table table-borderless">
+                                <tr class="text-info">
+                                    <th><i class="fas fa-ticket-alt"></i> Suas Fichas</th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-sm-12 table-responsive-sm text-uppercase">
+                            <table class="table tickets-table">
+                                <tr>
+                                    <td>
+                                        <div class="tickets-slide d-flex">
+                                            <% if (locals.tickets.length > 0) { %>
+                                                <% locals.tickets.forEach(ticket => { %>
+                                                <div class="card ticket m-2 shadow">
+                                                    <div class="card-header">
+                                                        Ficha Disponível
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <p class="card-text">
+                                                            <strong>Valor:</strong> R$ <%= ticket.value.toFixed(2) %> <br>
+                                                            <strong>Data:</strong> <%= ticket.date.getDate() %>/<%= ticket.date.getMonth() %>/<%= ticket.date.getFullYear() %> <br>
+                                                            <strong>Hora:</strong> <%= ticket.date.getHours() %>:<%= ticket.date.getMinutes() %>
+                                                        </p>
+                                                        
+                                                        <button class="btn btn-outline-success text-center form-control" onclick="showQrCode('<%= ticket.id %>')">VISUALIZAR
+                                                            FICHA</button>
+                                                    </div>
+                                                </div>
+                                                <% }) %>
+                                            <% } else { %>
+                                                Você não possui fichas disponíveis
+                                            <% } %>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -188,9 +228,32 @@
         </div>
     </div>
 
+    <div class="modal fade" id="qrCodeTicket" tabindex="-1" role="dialog" aria-labelledby="qrCodeTicketLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-qrcode"></i> Ficha QR Code</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="far fa-times-circle"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row text-center">
+                        <div class="col-sm-12 d-flex justify-content-center" id="qrCodeHolder">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <% include ../partials/footer %>
     <script src="/js/main.js"></script>
     <script src="/js/profile.js"></script>
+    <script src="/js/qrcode/qrcode.min.js"></script>
 </body>
 
 </html>

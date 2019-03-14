@@ -5,18 +5,29 @@ const middleware = module.require('../middlewares/middleware');
 
 const Intolerance = module.require('../../models/intolerance');
 const User = module.require('../../models/user');
+const Ticket = module.require('../../models/ticket');
 
 router.all('/*', middleware.proceedIfAuthenticated);
 
 router.get('/', (req, res) => {
     Intolerance.getManyBut(req.user.intolerances, (err, intolerances) => {
         if (err) throw err;
-        
-        res.render('pages/profile', {
-            title: 'Meu Perfil',
-            intolerances: intolerances
+        Ticket.getByUserID(req.user.id, (err2, tickets) => {
+            if (err2) throw err2;
+
+            res.render('pages/profile', {
+                title: 'Meu Perfil',
+                intolerances: intolerances,
+                tickets: tickets
+            });
         });
     })
+});
+
+router.get('/tickets', (req, res) => {
+    Ticket.getByUserID(req.user.id, (err, tickets) => {
+        res.json(tickets);
+    });
 });
 
 router.post('/intolerances/update', (req, res) => {

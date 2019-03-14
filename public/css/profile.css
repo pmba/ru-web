@@ -4,6 +4,14 @@
 
 @media (max-width: 768px) {
     .text-sm-resp {
-        font-size: 12px;
+        font-size: 14px;
     }
+}
+
+.tickets-table td {
+    overflow: hidden;
+}
+
+.ticket {
+    width: 15em;
 }
