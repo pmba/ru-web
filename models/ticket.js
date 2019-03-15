@@ -1,11 +1,10 @@
 var mongoose = module.require('mongoose');
 
 var TicketSchema = new mongoose.Schema({
-    user_id: {
-        type: String
-    },
-    user_name: {
-        type: String
+    user_info: {
+        name: String,
+        id: String,
+        registration: String
     },
     value: {
         type: Number
@@ -24,6 +23,6 @@ module.exports.createTicket = (newTicket, callback) => {
 
 module.exports.getByUserID = (userID, callback) => {
     Ticket.find({
-        user_id: userID
+        'user_info.id': userID
     }, callback);
 }

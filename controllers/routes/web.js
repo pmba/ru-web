@@ -12,16 +12,23 @@ router.get('/inicio', (req, res) => {
     });
 });
 
-router.post('/intolerance', (req, res) => {
-    var newIntolerance = new Intolerance({
-        food: 'Camarão',
-        contamination: false
-    });
+// router.post('/intolerance', (req, res) => {
+//     var newIntolerance = new Intolerance({
+//         food: 'Camarão',
+//         contamination: false
+//     });
 
-    Intolerance.createIntolerance(newIntolerance, (err, Intolerance) => {
-        if (err) throw err;
+//     Intolerance.createIntolerance(newIntolerance, (err, Intolerance) => {
+//         if (err) throw err;
 
-        res.send('ok');
+//         res.send('ok');
+//     });
+// });
+
+router.get('/validar', (req, res) => {
+    res.render('pages/validation',
+    {
+        title: 'Validação'
     });
 });
 
