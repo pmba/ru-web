@@ -25,12 +25,4 @@ router.get('/inicio', (req, res) => {
 //     });
 // });
 
-router.get('/validar', (req, res) => {
-    res.render('pages/validation',
-    {
-        title: 'Validação'
-    });
-});
-
-
 module.exports = router;

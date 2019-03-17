@@ -4,7 +4,7 @@ let scanner = new Instascan.Scanner({
 });
 
 scanner.addListener('scan', (content) => {
-    alert('Escaneou o conteudo' + content);
+    alert('Escaneou o conteudo ' + content);
 });
 
 Instascan.Camera.getCameras().then(cameras => {
@@ -14,3 +14,5 @@ Instascan.Camera.getCameras().then(cameras => {
         alert("Não existe camera no dispositivo");
     }
 });
+
+$('.alert').alert();
