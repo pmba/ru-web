@@ -76,13 +76,10 @@ app.use((req, res, next) => {
 });
 
 // Routes
-var webRoutes = require('./controllers/routes/web');
-var authRoutes = require('./controllers/routes/auth');
-var userRoutes = require('./controllers/routes/user');
-
-app.use('/', webRoutes);
-app.use('/auth', authRoutes);
-app.use('/user', userRoutes);
+app.use('/', require('./controllers/routes/web'));
+app.use('/auth', require('./controllers/routes/auth'));
+app.use('/user', require('./controllers/routes/user'));
+app.use('/admin', require('./controllers/routes/admin'));
 
 app.listen(port, () => {
     console.log(`[${Date.now()}] SERVER RUNNING: ${port}`);

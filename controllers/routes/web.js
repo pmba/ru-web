@@ -12,17 +12,4 @@ router.get('/inicio', (req, res) => {
     });
 });
 
-// router.post('/intolerance', (req, res) => {
-//     var newIntolerance = new Intolerance({
-//         food: 'Camarão',
-//         contamination: false
-//     });
-
-//     Intolerance.createIntolerance(newIntolerance, (err, Intolerance) => {
-//         if (err) throw err;
-
-//         res.send('ok');
-//     });
-// });
-
 module.exports = router;

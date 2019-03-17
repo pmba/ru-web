@@ -12,6 +12,25 @@
         <video id="preview" width="100%" height="100%"></video>
     </div>
 
+    <div class="container-fluid bg-primary qrcode-info-holder fixed-bottom shadow" id="status">
+        <div class="row text-uppercase text-center font-weight-bold py-2">
+            <div class="col-sm-12 ls-3" id="idle">
+                Esperando Leitura
+            </div>
+            <div class="col-sm-12 ls-3" id="invalidUser" style="display: none;">
+                Ticket Inválido
+            </div>
+            <div class="col-sm-12 ls-3" id="userInfo" style="display: none;">
+                <div class="col-sm-8" id="userName">
+                    Phyllipe Bezerra
+                </div>
+                <div class="col-sm-4">
+                    <small id="userRegistration">123456</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="/js/jquery/jquery-3.3.1.js"></script>
     <script src="/js/bootstrap/bootstrap.min.js"></script>
     <script src="/js/bootstrap/bootstrap.bundle.min.js"></script>

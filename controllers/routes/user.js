@@ -53,12 +53,4 @@ router.post('/wallet/update', middleware.validateWalletCash, (req, res) => {
     });
 });
 
-router.get('/validation', (req, res) => {
-    res.render('pages/validation',
-    {
-        title: 'Validação'
-    });
-});
-
-
 module.exports = router;

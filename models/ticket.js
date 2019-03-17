@@ -21,6 +21,10 @@ module.exports.createTicket = (newTicket, callback) => {
     newTicket.save(callback);
 }
 
+module.exports.getById = (ticketID, callback) => {
+    Ticket.findById(ticketID, callback);
+}
+
 module.exports.getByUserID = (userID, callback) => {
     Ticket.find({
         'user_info.id': userID
