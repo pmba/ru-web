@@ -4,7 +4,7 @@ let scanner = new Instascan.Scanner({
 });
 
 scanner.addListener('scan', (content) => {
-    alert('Escaneou o conteudo ' + content);
+    checkForTicketValidation(content);
 });
 
 Instascan.Camera.getCameras().then(cameras => {
