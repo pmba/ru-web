@@ -1,3 +1,12 @@
+var statusHolder = $('#status');
+var idle = $('#idle');
+var userInfo = $('#userInfo');
+var userName = $('#userName');
+var userRegistration = $('#userRegistration');
+var ticketValue = $('#value');
+var invalidUser = $('#invalidUser');
+var displayingUser = false;
+
 let scanner = new Instascan.Scanner({
     video: document.getElementById('preview'),
     mirror: false
@@ -15,26 +24,29 @@ Instascan.Camera.getCameras().then(cameras => {
     }
 });
 
-var statusHolder = $('#status');
-var idle = $('#idle');
-var userInfo = $('#userInfo');
-var userName = $('#userName');
-var userRegistration = $('#userRegistration');
-var invalidUser = $('#invalidUser')
+statusHolder.on('click', () => {
+    hideValidTicket();
+});
 
-function validTicket(user) {
+function hideValidTicket() {
+    if (displayingUser) {
+        userInfo.hide();
+        userName.html('');
+        ticketValue.html('');
+        userRegistration.html('');
+        statusHolder.removeClass('bg-success').addClass('bg-primary');
+        idle.show();
+    }
+}
+
+function displayValidTicket(user) {
     idle.hide();
     userName.html(user.name);
     userRegistration.html(user.registration);
+    ticketValue.html(user.value.toFixed(2));
     userInfo.show();
     statusHolder.removeClass('bg-primary').addClass('bg-success');
-    setTimeout(() => {
-        userInfo.hide();
-        userName.html('');
-        userRegistration.html('');
-        idle.show();
-        statusHolder.removeClass('bg-success').addClass('bg-primary');
-    }, 2000);
+    displayingUser = true;
 }
 
 function invalidTicket() {
@@ -56,7 +68,7 @@ function checkForTicketValidation(id) {
             id: id
         }
     }).done((res) => {
-        validTicket(res);
+        displayValidTicket(res);
     }).fail((err) => {
         invalidTicket();
     });

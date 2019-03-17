@@ -21,10 +21,10 @@ router.post('/validation', (req, res) => {
         if (err) res.status(404).send('Ocorreu um erro ao tentar validar, tente novamente.')
 
         if (ticket) {
-            console.log(ticket);
             res.status(200).json({
                 name: ticket.user_info.name,
-                registration: ticket.user_info.registration
+                registration: ticket.user_info.registration,
+                value: ticket.value
             });
         } else {
             res.status(404).send('ticket inválido');
