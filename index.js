@@ -40,6 +40,14 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+passport.serializeUser((user, done) => {
+    done(null, user);
+});
+
+passport.deserializeUser((obj, done) => {
+    done(null, obj);
+});
+
 // Express Validator
 app.use(expressValidator({
     errorFormatter: (param, msg, value) => {
@@ -66,6 +74,7 @@ app.use(flash());
 app.use((req, res, next) => {
     res.locals.user = req.user || null;
     res.locals.alerts = req.flash('alerts') || null;
+    res.locals.profile_link = req.flash('profile_link') || '/user';
     next();
 });
 

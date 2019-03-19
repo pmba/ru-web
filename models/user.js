@@ -6,7 +6,9 @@ const IntoleranceSchema = module.require('./intolerance').Schema;
 var UserSchema = new mongoose.Schema({
     username: {
         type: String,
-        index: true
+        index: {
+            unique: true
+        }
     },
     password: {
         type: String
@@ -24,7 +26,12 @@ var UserSchema = new mongoose.Schema({
         type: [IntoleranceSchema]
     },
     wallet: {
-        type: Number
+        type: Number,
+        default: 0
+    },
+    role: {
+        type: Number,
+        default: 0
     }
 });
 

@@ -8,6 +8,7 @@ const middleware = module.require('../middlewares/middleware');
 const puppeteer = module.require('../middlewares/puppeteer');
 
 const User = module.require('../../models/user');
+const Admin = module.require('../../models/admin');
 
 router.get('/', middleware.proceedIfNotAuthenticated, (req, res) => {
     res.render('pages/auth', {
@@ -22,7 +23,7 @@ router.post('/', middleware.proceedIfNotAuthenticated, middleware.validation, (r
         req.flash('alerts', errors);
         res.redirect('/auth');
     } else {
-        passport.authenticate('local', function(err, user, info) {
+        passport.authenticate('user', function(err, user, info) {
             if (err) {
                 return next(err);
             }
@@ -108,7 +109,7 @@ router.get('/logout', middleware.proceedIfAuthenticated, (req, res) => {
     return res.redirect('/inicio');
 });
 
-passport.use(new LocalStrategy(
+passport.use('user', new LocalStrategy(
     (username, password, done) => {
         User.getUserByUsername(username, (err, user) => {
             if (err) {
@@ -138,16 +139,6 @@ passport.use(new LocalStrategy(
         });
     }
 ));
-
-passport.serializeUser((user, done) => {
-    done(null, user.id);
-});
-
-passport.deserializeUser((id, done) => {
-    User.getUserById(id, (err, user) => {
-        done(err, user);
-    });
-});
 
 async function puppeteerDataCollection(req, res, next, callback) {
 

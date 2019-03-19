@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <% include ../../partials/head %>
+</head>
+
+<body>
+    <% include ../../partials/navbar %>
+
+
+
+    <div class="container-fluid p-4 main-home background-blue" id="home">
+        <h1 class="d-none">Login Restaurante Universitário</h1>
+
+        <div class="container text-uppercase">
+            <% include ../../partials/alerts %>
+        </div>
+
+        <div class="container text-uppercase">
+            <div class="card shadow">
+                <div class="card-header">
+                    Login
+                    <small>Administração</small>
+                </div>
+                <form action="" method="POST" id="registerForm">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <label for="username" class="sans-13">Login</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fas fa-user"></i></div>
+                                    </div>
+                                    <input id="username" type="text" class="form-control" name="username" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 form-group">
+                                <label for="password" class="sans-13">Senha</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fas fa-key"></i></div>
+                                    </div>
+                                    <input id="password" type="password" class="form-control" name="password"
+                                        autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <button class="btn btn-primary form-control" type="input">Fazer Login</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <% include ../../partials/footer %>
+    <script src="/js/main.js"></script>
+</body>
+
+</html>
