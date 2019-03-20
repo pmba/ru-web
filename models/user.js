@@ -37,6 +37,10 @@ var UserSchema = new mongoose.Schema({
 
 var User = module.exports = mongoose.model('User', UserSchema);
 
+module.exports.getAll = (options, callback) => {
+    User.find({}, options, callback);
+}
+
 module.exports.createUser = (newUser, callback) => {
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {

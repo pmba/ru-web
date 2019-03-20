@@ -11,12 +11,19 @@ var AdminSchema = new mongoose.Schema({
     password: {
         type: String
     },
+    name: {
+        type: String
+    },
     role: {
         type: Number
     }
 });
 
 var Admin = module.exports = mongoose.model('Admin', AdminSchema);
+
+module.exports.getAll = (options, callback) => {
+    Admin.find({}, options, callback);
+}
 
 module.exports.createUser = (newUser, callback) => {
     bcrypt.genSalt(10, (err, salt) => {

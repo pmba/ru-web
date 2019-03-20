@@ -6,6 +6,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const adminMiddleware = module.require('../middlewares/admin');
 
 const Intolerance = module.require('../../models/intolerance');
+const User = module.require('../../models/user');
 const Admin = module.require('../../models/admin');
 const Ticket = module.require('../../models/ticket');
 
@@ -15,10 +16,26 @@ router.all('/*', (req, res, next) => {
 });
 
 router.get('/profile', adminMiddleware.proceedIfAuthenticated, (req, res) => {
-    res.render('pages/admin/profile',
-    {
-        title: 'Perfil Administração'
+    Intolerance.getAll((intoleranceError, intolerances) => {
+        if (intoleranceError) throw intoleranceError;
+
+        User.getAll('-password', (userError, users) => {
+            if (userError) throw userError;
+            
+            Admin.getAll('-password', (adminsError, admins) => {
+                if (adminsError) throw adminsError;
+
+                res.render('pages/admin/profile',
+                {
+                    title: 'Perfil Administração',
+                    intolerances: intolerances,
+                    users: users,
+                    admins: admins
+                });
+            });
+        });
     });
+
 });
 
 router.get('/validation', adminMiddleware.proceedIfAuthenticated ,(req, res) => {

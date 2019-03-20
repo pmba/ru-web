@@ -3,6 +3,7 @@
 
 <head>
     <% include ../../partials/head %>
+    <link rel="stylesheet" href="/css/datatables/datatables.min.css">
 </head>
 
 <body>
@@ -22,13 +23,125 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-4">
-                            <div class="list-group shadow-sm">
-                                <a href="#" class="list-group-item list-group-item-action">Intolerâncias</i></a>
-                                <a href="#" class="list-group-item list-group-item-action">Cardápio</a>
-                                <a href="#" class="list-group-item list-group-item-action">Usuários</a>
-                                <a href="#" class="list-group-item list-group-item-action">Administradores</a>
-                                <a href="#" class="list-group-item list-group-item-action"></a>
+                        <div class="col-lg-4 mb-4">
+                            <div class="list-group" id="list-tab" role="tablist">
+                                <a class="d-flex justify-content-between align-items-center list-group-item list-group-item-action active"
+                                    id="list-intolerances-list" data-toggle="list" href="#list-intolerances" role="tab"
+                                    aria-controls="intolerances">
+                                    Intolerâncias
+
+                                    <span class="badge badge-light shadow badge-pill">
+                                        <%= locals.intolerances.length %></span>
+                                </a>
+                                <a class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
+                                    id="list-menu-list" data-toggle="list" href="#list-menu" role="tab" aria-controls="menu">
+                                    Cardápio
+
+                                    <span class="badge badge-light shadow badge-pill">14</span>
+                                </a>
+                                <a class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
+                                    id="list-users-list" data-toggle="list" href="#list-users" role="tab" aria-controls="users">
+                                    Usuários
+
+                                    <span class="badge badge-light shadow badge-pill">
+                                        <%= locals.users.length %></span>
+                                </a>
+                                <a class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
+                                    id="list-admins-list" data-toggle="list" href="#list-admins" role="tab"
+                                    aria-controls="admins">
+                                    Administradores
+
+                                    <span class="badge badge-light shadow badge-pill">
+                                        <%= locals.admins.length %></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="tab-content" id="nav-tabContent">
+
+                                <div class="table-responsive tab-pane fade show active" id="list-intolerances" role="tabpanel"
+                                    aria-labelledby="list-home-list">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Comida</th>
+                                                <th scope="col">Contaminação</th>
+                                                <th scope="col">Opções</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% locals.intolerances.forEach(intolerance => { %>
+                                            <tr scope="row">
+                                                <td>
+                                                    <%= intolerance.food %>
+                                                </td>
+                                                <td class="<%= intolerance.contamination ? 'text-danger' : 'text-success' %>">
+                                                    <%= intolerance.contamination ? 'Contaminação' : 'Não Contaminação' %>
+                                                </td>
+                                                <td>Opções</td>
+                                            </tr>
+                                            <% }) %>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="tab-pane fade" id="list-menu" role="tabpanel" aria-labelledby="list-profile-list">
+                                    menu
+                                </div>
+                                <div class="table-responsive tab-pane fade" id="list-users" role="tabpanel"
+                                    aria-labelledby="list-messages-list">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Nome</th>
+                                                <th scope="col">Matrícula</th>
+                                                <th scope="col">Informações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% locals.users.forEach(user => { %>
+                                            <tr scope="row">
+                                                <td>
+                                                    <%= user.name %>
+                                                </td>
+                                                <td>
+                                                    <%= user.registration %>
+                                                </td>
+                                                <td>
+                                                    Informações
+                                                </td>
+                                            </tr>
+                                            <% }) %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="table-responsive tab-pane fade" id="list-admins" role="tabpanel"
+                                    aria-labelledby="list-settings-list">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Nome</th>
+                                                <th scope="col">Permissão</th>
+                                                <th scope="col">Informações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% locals.admins.forEach(admin => { %>
+                                            <tr scope="row">
+                                                <td>
+                                                    <%= admin.name %>
+                                                </td>
+                                                <td>
+                                                    <%= admin.role == -1 ? 'Super Admin' : admin.role == -2 ? 'Admin' : admin.role == -3 ? 'Contribuidor' : 'Indefinido' %>
+                                                </td>
+                                                <td>
+                                                    Informações
+                                                </td>
+                                            </tr>
+                                            <% }) %>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -42,9 +155,10 @@
     </div>
 
 
-
     <% include ../../partials/footer %>
     <script src="/js/main.js"></script>
+    <script src="/js/admin-profile.js"></script>
+    <script src="/js/datatables/datatables.min.js"></script>
 </body>
 
 </html>
