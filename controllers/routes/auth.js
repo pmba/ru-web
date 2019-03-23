@@ -23,7 +23,7 @@ router.post('/', middleware.proceedIfNotAuthenticated, middleware.validation, (r
         req.flash('alerts', errors);
         res.redirect('/auth');
     } else {
-        passport.authenticate('user', function(err, user, info) {
+        passport.authenticate('user', function (err, user, info) {
             if (err) {
                 return next(err);
             }
@@ -36,7 +36,7 @@ router.post('/', middleware.proceedIfNotAuthenticated, middleware.validation, (r
                     if (newUser) {
                         // User was created, try to login with the new user
 
-                        req.logIn(newUser, function(err) {
+                        req.logIn(newUser, function (err) {
                             if (err) {
                                 return next(err);
                             }
@@ -83,7 +83,7 @@ router.post('/', middleware.proceedIfNotAuthenticated, middleware.validation, (r
                 } else if (info.status == 200) {
                     // Correct password
 
-                    req.logIn(user, function(err) {
+                    req.logIn(user, function (err) {
                         if (err) {
                             return next(err);
                         }
@@ -146,7 +146,6 @@ async function puppeteerDataCollection(req, res, next, callback) {
 
     if (newUser) {
         User.createUser(newUser, (err, user) => {
-            // TODO: Erro de criar usuário // *done?
             callback(user, err);
         });
 

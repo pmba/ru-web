@@ -1,11 +1,11 @@
 const express = module.require('express');
-const router = express.Router();
+const router  = express.Router();
 
 const middleware = module.require('../middlewares/middleware');
 
 const Intolerance = module.require('../../models/intolerance');
-const User = module.require('../../models/user');
-const Ticket = module.require('../../models/ticket');
+const User        = module.require('../../models/user');
+const Ticket      = module.require('../../models/ticket');
 
 router.all('/*', middleware.proceedIfAuthenticated);
 
@@ -16,9 +16,9 @@ router.get('/', (req, res) => {
             if (err2) throw err2;
 
             res.render('pages/profile', {
-                title: 'Meu Perfil',
+                title       : 'Meu Perfil',
                 intolerances: intolerances,
-                tickets: tickets
+                tickets     : tickets
             });
         });
     })
@@ -46,8 +46,8 @@ router.post('/wallet/update', middleware.validateWalletCash, (req, res) => {
         if (err) throw err;
         req.flash('alerts', [{
             param: 'user-wallet',
-            msg: `R$ ${req.body.amount} Adicionados à sua carteira`,
-            type: 'success'
+            msg  : `R$ ${req.body.amount} Adicionados à sua carteira`,
+            type : 'success'
         }]);
         res.redirect('/user');
     });

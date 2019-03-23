@@ -1,9 +1,9 @@
 var mongoose = module.require('mongoose');
-var bcrypt = module.require('bcryptjs');
+var bcrypt   = module.require('bcryptjs');
 
 var AdminSchema = new mongoose.Schema({
     username: {
-        type: String,
+        type : String,
         index: {
             unique: true
         }

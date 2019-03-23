@@ -1,11 +1,11 @@
 var mongoose = module.require('mongoose');
-var bcrypt = module.require('bcryptjs');
+var bcrypt   = module.require('bcryptjs');
 
 const IntoleranceSchema = module.require('./intolerance').Schema;
 
 var UserSchema = new mongoose.Schema({
     username: {
-        type: String,
+        type : String,
         index: {
             unique: true
         }
@@ -26,11 +26,11 @@ var UserSchema = new mongoose.Schema({
         type: [IntoleranceSchema]
     },
     wallet: {
-        type: Number,
+        type   : Number,
         default: 0
     },
     role: {
-        type: Number,
+        type   : Number,
         default: 0
     }
 });

@@ -13,3 +13,20 @@ module.exports.proceedIfNotAuthenticated = (req, res, next) => {
         res.redirect('/inicio');
     }
 }
+
+module.exports.validateIntoleranceCreation = (req, res, next) => {
+    req.checkBody('food', 'Alimento não pode ser vazio').notEmpty();
+    req.checkBody('contamination', 'Selecione o tipo de alergia').notEmpty();
+
+    next();
+}
+
+module.exports.validateAdminCreation = (req, res, next) => {
+    req.checkBody('name', 'Nome não pode ser vazio').notEmpty();
+    req.checkBody('username', 'Usuário não pode ser vazio').notEmpty();
+    req.checkBody('role', 'Usuário não pode ser vazio').notEmpty();
+    req.checkBody('password', 'Senha não pode ser vazia').notEmpty();
+    req.checkBody('passwordConfirmation', 'As senhas digitadas não correspondem').equals(req.body.password);
+
+    next();
+}

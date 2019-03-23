@@ -2,15 +2,15 @@ var mongoose = module.require('mongoose');
 
 var TicketSchema = new mongoose.Schema({
     user_info: {
-        name: String,
-        id: String,
+        name        : String,
+        id          : String,
         registration: String
     },
     value: {
         type: Number
     },
     date: {
-        type: Date,
+        type   : Date,
         default: Date.now
     }
 });

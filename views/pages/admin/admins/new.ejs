@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <% include ../../../partials/head %>
+</head>
+
+<body>
+    <% include ../../../partials/navbar %>
+
+    <div class="container-fluid p-4 main-home background-blue text-uppercase" id="home">
+        <h1 class="d-none">Adicionar Novo Administrador - Administrador</h1>
+
+        <div class="container">
+            <% include ../../../partials/alerts %>
+        </div>
+
+        <div class="container">
+
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/admin/profile" class="text-decoration-none">Perfil</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Adicionar Administrador</li>
+                </ol>
+            </nav>
+
+            <div class="card shadow">
+                <div class="card-header">
+                    Adicionar Administrador
+                </div>
+                <form action="" method="POST">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <label for="username" class="sans-13">Nome Completo</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fas fa-id-card"></i></div>
+                                    </div>
+                                    <input id="name" type="text" class="form-control" name="name" autocomplete="off">
+                                </div>
+                                <small id="nameHelp" class="form-text text-muted">Nome completo do novo
+                                    administrador</small>
+                            </div>
+
+                            <div class="col-sm-12 form-group">
+                                <label for="role" class="sans-13">Permissão</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fas fa-user-shield"></i></div>
+                                    </div>
+                                    <select class="form-control" name="role">
+                                        <option selected disabled>Selecione</option>
+                                        <option value="-1">Administrador Geral</option>
+                                        <option value="-2">Administrador</option>
+                                        <option value="-3">Contribuidor</option>
+                                    </select>
+                                </div>
+                                <small id="roleHelp" class="form-text text-muted">Permissão de acesso</small>
+                            </div>
+
+                            <div class="col-sm-12 form-group">
+                                <label for="username" class="sans-13">Login</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fas fa-user"></i></div>
+                                    </div>
+                                    <input id="username" type="text" class="form-control" name="username"
+                                        autocomplete="nope">
+                                </div>
+                                <small id="usernameHelp" class="form-text text-muted">Login de acesso do novo
+                                    administrador</small>
+                            </div>
+
+                            <div class="col-sm-12 form-group">
+                                <label for="username" class="sans-13">Senha</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fas fa-key"></i></div>
+                                    </div>
+                                    <input id="password" type="password" class="form-control" name="password"
+                                        autocomplete="new-password">
+                                    <div class="input-group-append">
+                                        <button type="button" onclick="showPassword(this);"
+                                            class="btn btn-light text-decoration-none input-group-text"><i
+                                                class="fas fa-eye"></i></button>
+                                    </div>
+                                </div>
+                                <small id="passwordHelp" class="form-text text-muted">Senha de acesso do novo
+                                    administrador</small>
+                            </div>
+
+                            <div class="col-sm-12 form-group">
+                                <label for="username" class="sans-13">Confirmação Senha</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fas fa-lock"></i></div>
+                                    </div>
+                                    <input id="passwordConfirmation" type="password" class="form-control"
+                                        name="passwordConfirmation" autocomplete="new-password">
+                                </div>
+                                <small id="passwordConfirmationHelp" class="form-text text-muted">Confirmação da
+                                    senha</small>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <button class="btn btn-primary form-control" type="input">Adicionar
+                                    Administrador</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <% include ../../../partials/footer %>
+    <script src="/js/main.js"></script>
+    <script src="/js/admin-create-admin.js"></script>
+</body>
+
+</html>

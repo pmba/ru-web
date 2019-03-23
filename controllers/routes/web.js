@@ -1,5 +1,5 @@
 const express = module.require('express');
-const router = express.Router();
+const router  = express.Router();
 
 const middleware = module.require('../middlewares/middleware');
 

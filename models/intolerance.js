@@ -2,7 +2,10 @@ var mongoose = module.require('mongoose');
 
 var IntoleranceSchema = new mongoose.Schema({
     food: {
-        type: String
+        type: String,
+        index: {
+            unique: true
+        }
     },
     contamination: {
         type: Boolean
@@ -17,7 +20,9 @@ module.exports.createIntolerance = (newIntolerance, callback) => {
 
 module.exports.getMany = (names, callback) => {
     Intolerance.find({
-        food: { $in: names}
+        food: {
+            $in: names
+        }
     }, callback);
 }
 
@@ -27,7 +32,9 @@ module.exports.getManyBut = (butIntolerances, callback) => {
     butIntolerances.forEach(intolerance => names.push(intolerance.food));
 
     Intolerance.find({
-        food: { $nin: names}
+        food: {
+            $nin: names
+        }
     }, callback);
 }
 
