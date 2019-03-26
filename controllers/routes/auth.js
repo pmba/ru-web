@@ -10,11 +10,11 @@ const puppeteer = module.require('../middlewares/puppeteer');
 const User = module.require('../../models/user');
 const Admin = module.require('../../models/admin');
 
-router.all('/*', (req, res, next) => {
-    req.flash('profile_link', '/user');
-    req.flash('logout_link', '/auth/logout');
-    next();
-});
+// router.all('/*', (req, res, next) => {
+//     req.flash('profile_link', '/user');
+//     req.flash('logout_link', '/auth/logout');
+//     next();
+// });
 
 router.get('/', middleware.proceedIfNotAuthenticated, (req, res) => {
     res.render('pages/auth', {

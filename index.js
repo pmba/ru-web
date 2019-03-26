@@ -1,22 +1,22 @@
-const express          = require('express');
-const app              = express();
-const bodyParser       = require('body-parser');
-const mongoose         = require('mongoose');
-const cookieParser     = require('cookie-parser');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 const expressValidator = require('express-validator');
-const session          = require('express-session');
-const passport         = require('passport');
-const LocalStrategy    = require('passport-local').Strategy;
-const flash            = require('connect-flash');
+const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const flash = require('connect-flash');
 
 //.env
-var port  = process.env.PORT || 5000;
+var port = process.env.PORT || 5000;
 var dbUrl = 'mongodb://admin:rudb1admin@ds021166.mlab.com:21166/ru-db';
 
 // Database Configuration
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
-    useCreateIndex : true
+    useCreateIndex: true
 });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -31,9 +31,9 @@ app.use(express.static(__dirname + '/public'));
 
 // Express Session
 app.use(session({
-    secret           : 'secret',
+    secret: 'secret',
     saveUninitialized: true,
-    resave           : true
+    resave: true
 }));
 
 // Passport Initialization 
@@ -52,7 +52,7 @@ passport.deserializeUser((obj, done) => {
 app.use(expressValidator({
     errorFormatter: (param, msg, value) => {
         var namespace = param.split('.'),
-            root      = namespace.shift(),
+            root = namespace.shift(),
             formParam = root;
 
         while (namespace.length) {
@@ -61,7 +61,7 @@ app.use(expressValidator({
 
         return {
             param: formParam,
-            msg  : msg,
+            msg: msg,
             value: value
         };
     }
@@ -72,10 +72,10 @@ app.use(flash());
 
 // Global Variables
 app.use((req, res, next) => {
-    res.locals.user         = req.user || null;
-    res.locals.alerts       = req.flash('alerts') || null;
-    res.locals.profile_link = req.flash('profile_link') || null;
-    res.locals.logout_link  = req.flash('logout_link') || null;
+    res.locals.user = req.user || null;
+    res.locals.alerts = req.flash('alerts') != '' ? req.flash('alerts') : null;
+    res.locals.profile_link = req.flash('profile_link') != '' ? req.flash('profile_link') : '/user';
+    res.locals.logout_link = req.flash('logout_link') != '' ? req.flash('logout_link') : '/auth/logout';
     next();
 });
 
