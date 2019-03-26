@@ -36,7 +36,7 @@ app.use(session({
     resave: true
 }));
 
-// Passport Initialization 
+// Passport Initialization
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -72,7 +72,7 @@ app.use(flash());
 
 // Global Variables
 app.use((req, res, next) => {
-    res.locals.user = req.user || null;
+    res.locals.user = req.user != '' ? req.user : null;
     res.locals.alerts = req.flash('alerts') != '' ? req.flash('alerts') : null;
     res.locals.profile_link = req.flash('profile_link') != '' ? req.flash('profile_link') : '/user';
     res.locals.logout_link = req.flash('logout_link') != '' ? req.flash('logout_link') : '/auth/logout';

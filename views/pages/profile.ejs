@@ -139,7 +139,7 @@
                                                             <strong>Data:</strong> <%= ticket.date.getDate() %>/<%= ticket.date.getMonth() %>/<%= ticket.date.getFullYear() %> <br>
                                                             <strong>Hora:</strong> <%= ticket.date.getHours() %>:<%= ticket.date.getMinutes() %>
                                                         </p>
-                                                        
+
                                                         <button class="btn btn-outline-success text-center form-control" onclick="showQrCode('<%= ticket.id %>')">VISUALIZAR
                                                             FICHA</button>
                                                     </div>
@@ -174,9 +174,9 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <select multiple data-live-search="true" class="form-control" id="intolerancesSelect" name="intolerances[]">
-                                <% locals.intolerances.forEach((intolerance) => { %>
-                                <option value="<%= intolerance.food %>">
-                                    <%= intolerance.food %>
+                                <% locals.notIntolerances.forEach((notIntolerance) => { %>
+                                <option value="<%= notIntolerance.food %>">
+                                    <%= notIntolerance.food %>
                                 </option>
                                 <% }) %>
                                 <% locals.user.intolerances.forEach((intolerance) => { %>
@@ -242,7 +242,7 @@
                 <div class="modal-body">
                     <div class="row text-center">
                         <div class="col-sm-12 d-flex justify-content-center" id="qrCodeHolder">
-                            
+
                         </div>
                     </div>
                 </div>
