@@ -29,7 +29,7 @@ router.get('/profile', adminMiddleware.proceedIfAuthenticated, (req, res) => {
                 res.render('pages/admin/profile', {
                     title       : 'Perfil Administração',
                     intolerances: intolerances,
-                    users       : users,
+                    ruUsers       : users,
                     admins      : admins
                 });
             });
@@ -91,7 +91,7 @@ router.post('/admins/new', adminMiddleware.proceedIfAuthenticated, adminMiddlewa
 
     if (errors) {
         req.flash('alerts', errors);
-        res.redirect('/admin/intolerances/new');
+        res.redirect('/admin/admins/new');
     } else {
         var newAdmin = new Admin({
             name    : req.body.name,

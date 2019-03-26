@@ -46,7 +46,7 @@
                                     Usuários
 
                                     <span class="badge badge-light shadow badge-pill">
-                                        <%= locals.users.length %></span>
+                                        <%= locals.ruUsers.length %></span>
                                 </a>
                                 <a class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
                                     id="list-admins-list" data-toggle="list" href="#list-admins" role="tab"
@@ -124,8 +124,6 @@
                                     <div class="card">
                                         <div class="card-header d-flex justify-content-between">
                                             Usuários
-                                            <a href="" class="text-success text-decoration-none"><i
-                                                    class="fas fa-plus-circle"></i></a>
                                         </div>
                                         <div class="card-body">
                                             <table class="table table-bordered">
@@ -137,16 +135,16 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <% locals.users.forEach(user => { %>
+                                                    <% locals.ruUsers.forEach(ruUser => { %>
                                                     <tr scope="row">
                                                         <td>
-                                                            <%= user.name %>
+                                                            <%= ruUser.name %>
                                                         </td>
                                                         <td>
-                                                            <%= user.registration %>
+                                                            <%= ruUser.registration %>
                                                         </td>
                                                         <td>
-                                                            Informações
+                                                           Informações
                                                         </td>
                                                     </tr>
                                                     <% }) %>
@@ -186,7 +184,13 @@
                                                             <%= admin.role == -1 ? 'Super Admin' : admin.role == -2 ? 'Admin' : admin.role == -3 ? 'Contribuidor' : 'Indefinido' %>
                                                         </td>
                                                         <td>
-                                                            Informações
+                                                            <% if(user.role == -1) { %>
+                                                                <!-- TODO: Admin Options-->
+                                                                Adminfo
+                                                                <% } else if(user.role == -2) { %>
+                                                                <!-- TODO: Moderator Options-->
+                                                                Informações
+                                                            <% } %>
                                                         </td>
                                                     </tr>
                                                     <% }) %>
