@@ -9,6 +9,7 @@ const Intolerance = module.require('../../models/intolerance');
 const User        = module.require('../../models/user');
 const Admin       = module.require('../../models/admin');
 const Ticket      = module.require('../../models/ticket');
+const Dish        = module.require('../../models/dish');
 
 router.all('/*', (req, res, next) => {
     res.locals.profile_link = '/admin/profile';
@@ -27,11 +28,16 @@ router.get('/profile', adminMiddleware.proceedIfAuthenticated, (req, res) => {
             Admin.getAll('-password', (adminsError, admins) => {
                 if (adminsError) throw adminsError;
 
-                res.render('pages/admin/profile', {
-                    title       : 'Perfil Administração',
-                    intolerances: intolerances,
-                    ruUsers       : users,
-                    admins      : admins
+                Dish.getAll((dishError, dishes) => {
+                    if (dishError) throw dishError;
+
+                    res.render('pages/admin/profile', {
+                        title       : 'Perfil Administração',
+                        intolerances: intolerances,
+                        ruUsers     : users,
+                        admins      : admins,
+                        dishes      : dishes
+                    });
                 });
             });
         });
@@ -245,6 +251,80 @@ router.post('/validation', adminMiddleware.proceedIfAuthenticated, (req, res) =>
         } else {
             res.status(404).send('ticket inválido');
         }
+    });
+});
+
+/* Dishes Group */
+
+router.get('/dishes/new', adminMiddleware.proceedIfAuthenticated, (req, res) => {
+    Intolerance.getAll((err, intolerances) => {
+        if (err) throw err;
+
+        res.render('pages/admin/dishes/new', {
+            title: 'Cadastro de Prato',
+            intolerances: intolerances
+        });
+    });
+});
+
+router.post('/dishes/new', adminMiddleware.proceedIfAuthenticated, adminMiddleware.validateDishCreation, (req, res) => {
+    var errors = req.validationErrors();
+
+    if (errors) {
+        req.flash('alerts', errors);
+        res.redirect('/admin/dishes/new');
+    } else {
+        var newDish = new Dish({
+            name: req.body.name,
+            intolerances: req.body.intolerances
+        });
+
+        Dish.createDish(newDish, (dishErr, dish) => {
+            if (dishErr) throw dishErr;
+
+            req.flash('alerts', [{
+                param: 'new-dish',
+                msg  : `Prato ${newDish.name} criado com sucesso`,
+                type : 'success'
+            }]);
+
+            res.redirect('/admin/profile');
+        });
+    }
+});
+
+router.get('/dishes/edit/:id', adminMiddleware.proceedIfAuthenticated, (req, res) => {
+    Dish.getDishById(req.params.id, (dishErr, dish) => {
+        if (dishErr) throw dishErr;
+
+        Intolerance.getMany(dish.intolerances, (dishIntoleranceErr, dishIntolerances) => {
+            if (dishIntoleranceErr) throw dishIntoleranceErr;
+
+            Intolerance.getManyButByNames(dish.intolerances, (notDishIntolerancesErr, notDishIntolerances) => {
+                if (notDishIntolerancesErr) throw notDishIntolerancesErr;
+            
+                res.render('pages/admin/dishes/edit', {
+                    title: 'Editar Prato',
+                    dish: dish,
+                    notDishIntolerances: notDishIntolerances,
+                    dishIntolerances: dishIntolerances
+                });
+            });
+        });
+    });
+});
+
+router.delete('/dishes/delete/:id', adminMiddleware.proceedIfAuthenticated, (req, res) => {
+    Dish.deleteDishById(req.params.id, (err) => {
+        if (err) throw err;
+
+        req.flash('alerts', [{
+            param: 'dish',
+            msg  : `Prato deletado com sucesso`,
+            type : 'success'
+        }]);
+
+        res.redirect('/admin/profile');
     });
 });
 

@@ -30,6 +30,14 @@ module.exports.getMany = (names, callback) => {
     }, callback);
 }
 
+module.exports.getManyButByNames = (names, callback) => {
+    Intolerance.find({
+        food: {
+            $nin: names
+        }
+    }, callback);
+}
+
 module.exports.getManyBut = (butIntolerances, callback) => {
     names = [];
 

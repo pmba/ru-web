@@ -44,3 +44,9 @@ module.exports.validateAdminEdition = (req, res, next) => {
 
     next();
 }
+
+module.exports.validateDishCreation = (req, res, next) => {
+    req.checkBody('name', 'Nome não pode ser vazio').notEmpty();
+
+    next();
+}

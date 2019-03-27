@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <% include ../../../partials/head %>
+</head>
+
+<body>
+    <% include ../../../partials/navbar %>
+
+    <div class="container-fluid p-4 main-home background-blue text-uppercase" id="home">
+        <h1 class="d-none">Editar Prato - Administrador</h1>
+
+        <div class="container">
+            <% include ../../../partials/alerts %>
+        </div>
+
+        <div class="container">
+
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/admin/profile" class="text-decoration-none">Perfil</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Adicionar Prato</li>
+                </ol>
+            </nav>
+
+            <div class="card shadow">
+                <div class="card-header">
+                    Editar Prato
+                </div>
+                <form action="" method="POST">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <label for="username" class="sans-13">Nome</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fas fa-cookie-bite"></i></div>
+                                    </div>
+                                    <input value="<%= dish.name %>" id="name" type="text" class="form-control" name="name" autocomplete="off">
+                                </div>
+                                <small id="nameHelp" class="form-text text-muted">Nome do prato</small>
+                            </div>
+
+                            <div class="col-sm-12 form-group">
+                                <label for="username" class="sans-13">Contaminação</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fas fa-allergies"></i></div>
+                                    </div>
+                                    <select multiple data-live-search="true" class="form-control" id="intolerancesSelect" name="intolerances[]">
+                                        <% locals.dishIntolerances.forEach((dishIntolerance) => { %>
+                                        <option selected value="<%= dishIntolerance.food %>">
+                                            <%= dishIntolerance.food %>
+                                        </option>
+                                        <% }) %>
+                                        <% locals.notDishIntolerances.forEach((notDishIntolerance) => { %>
+                                        <option value="<%= notDishIntolerance.food %>">
+                                            <%= notDishIntolerance.food %>
+                                        </option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                                <small id="contaminationHelp" class="form-text text-muted">Intolerâncias que esse prato contém</small>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <button class="btn btn-primary form-control" type="input">Adicionar
+                                    Prato</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <% include ../../../partials/footer %>
+    <script src="/js/main.js"></script>
+    <script src="/js/profile.js"></script>
+</body>
+
+</html>
