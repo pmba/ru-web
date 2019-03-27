@@ -91,7 +91,13 @@
                                                             <%= intolerance.contamination ? 'Contaminação' : 'Não Contaminação' %>
                                                         </td>
                                                         <td>
-                                                            Op
+                                                            <div class="btn-group btn-group-sm input-group" role="group"
+                                                                aria-label="Intolerance Options">
+                                                                <a href="/admin/intolerances/edit/<%= intolerance._id %>" class="btn btn-primary"><i
+                                                                        class="fas fa-edit"></i></a>
+                                                                <button type="button" class="btn btn-danger"><i
+                                                                        class="fas fa-trash-alt"></i></button>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                     <% }) %>
@@ -144,7 +150,7 @@
                                                             <%= ruUser.registration %>
                                                         </td>
                                                         <td>
-                                                           Informações
+                                                            Informações
                                                         </td>
                                                     </tr>
                                                     <% }) %>
@@ -185,11 +191,11 @@
                                                         </td>
                                                         <td>
                                                             <% if(user.role == -1) { %>
-                                                                <!-- TODO: Admin Options-->
-                                                                Adminfo
-                                                                <% } else if(user.role == -2) { %>
-                                                                <!-- TODO: Moderator Options-->
-                                                                Informações
+                                                            <!-- TODO: Admin Options-->
+                                                            Adminfo
+                                                            <% } else if(user.role == -2) { %>
+                                                            <!-- TODO: Moderator Options-->
+                                                            Informações
                                                             <% } %>
                                                         </td>
                                                     </tr>

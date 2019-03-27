@@ -44,6 +44,17 @@ router.get('/intolerances/new', adminMiddleware.proceedIfAuthenticated, (req, re
     });
 });
 
+router.get('/intolerances/edit/:id', adminMiddleware.proceedIfAuthenticated, (req, res) => {
+    Intolerance.findById(req.params.id, (err, intolerance) => {
+        if (err) throw err;
+
+        res.render('pages/admin/intolerances/edit', {
+            title: 'Editar Intolerância',
+            intolerance: intolerance
+        });
+    });
+});
+
 router.post('/intolerances/new', adminMiddleware.proceedIfAuthenticated, adminMiddleware.validateIntoleranceCreation, (req, res) => {
     var errors = req.validationErrors();
 
@@ -78,6 +89,24 @@ router.post('/intolerances/new', adminMiddleware.proceedIfAuthenticated, adminMi
             }
         });
     }
+});
+
+router.put('/intolerances/edit/:id', adminMiddleware.proceedIfAuthenticated, adminMiddleware.validateIntoleranceCreation, (req, res) => {
+    var updatedIntolerance = new Intolerance({
+        food: req.body.food,
+        contamination: req.body.contamination
+    });
+    Intolerance.updateIntoleranceById(req.params.id, updatedIntolerance, (err, resultIntolerance) => {
+        if (err) throw err;
+
+        req.flash('alerts', [{
+            param: 'intolerance',
+            msg  : `Intolerância "${req.body.food}" atualizada com sucesso`,
+            type : 'success'
+        }]);
+
+        res.redirect('/admin/profile');
+    });
 });
 
 router.get('/admins/new', adminMiddleware.proceedIfAuthenticated, (req, res) => {

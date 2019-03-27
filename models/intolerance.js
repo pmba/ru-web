@@ -18,6 +18,10 @@ module.exports.createIntolerance = (newIntolerance, callback) => {
     newIntolerance.save(callback);
 }
 
+module.exports.getIntoleranceById = (id, callback) => {
+    Intolerance.findById(id, callback);
+}
+
 module.exports.getMany = (names, callback) => {
     Intolerance.find({
         food: {
@@ -40,4 +44,11 @@ module.exports.getManyBut = (butIntolerances, callback) => {
 
 module.exports.getAll = (callback) => {
     Intolerance.find({}, callback);
+}
+
+module.exports.updateIntoleranceById = (id, updatedIntolerance, callback) => {
+    Intolerance.updateOne({_id: id}, {
+        food: updatedIntolerance.food,
+        contamination: updatedIntolerance.contamination
+    }, callback);
 }

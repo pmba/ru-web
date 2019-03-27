@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <% include ../../../partials/head %>
+</head>
+
+<body>
+    <% include ../../../partials/navbar %>
+
+    <div class="container-fluid p-4 main-home background-blue text-uppercase" id="home">
+        <h1 class="d-none">Adicionar Nova Intolerância - Administrador</h1>
+
+        <div class="container">
+            <% include ../../../partials/alerts %>
+        </div>
+
+        <div class="container">
+
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/admin/profile" class="text-decoration-none">Perfil</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Editar Intolerância</li>
+                </ol>
+            </nav>
+
+            <div class="card shadow">
+                <div class="card-header">
+                    Editar Intolerância
+                </div>
+                <form action="?_method=PUT" method="POST">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <label for="username" class="sans-13">Alimento</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fas fa-cookie-bite"></i></div>
+                                    </div>
+                                    <input value="<%= locals.intolerance.food %>" id="food" type="text" class="form-control" name="food" autocomplete="off">
+                                </div>
+                                <small id="foodHelp" class="form-text text-muted">O Alimento (ou Elemento) a qual a
+                                    alergia é definida. (Ex: Camarão, Glúten)</small>
+                            </div>
+
+                            <div class="col-sm-12 form-group">
+                                <label for="username" class="sans-13">Contaminação</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fas fa-allergies"></i></div>
+                                    </div>
+                                    <select class="form-control" name="contamination">
+                                        <% if (locals.intolerance.contamination) { %>
+                                            <option value="true" selected>Contaminação</option>
+                                            <option value="false">Não Contaminação</option>
+                                        <% } else { %>
+                                            <option value="true">Contaminação</option>
+                                            <option value="false" selected>Não Contaminação</option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                                <small id="contaminationHelp" class="form-text text-muted">Alergia de Contaminação, são
+                                    alergias
+                                    que com traços mínimos ou até restícios dele podem causar uma reação.<br>Selecione
+                                    "Não
+                                    Contaminação" se, e somente se tiver <span
+                                        class="text-danger font-weight-bold">absoluta certeza</span>.</small>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <button class="btn btn-primary form-control" type="input">Editar
+                                    Intolerância</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <% include ../../../partials/footer %>
+    <script src="/js/main.js"></script>
+</body>
+
+</html>
