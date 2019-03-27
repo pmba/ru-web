@@ -58,6 +58,10 @@ module.exports.getUserByUsername = (username, callback) => {
     User.findOne(query, callback);
 }
 
+module.exports.getUserWithoutPassword = (id, callback) => {
+    User.findById(id, '-password', callback);
+}
+
 module.exports.getUserById = (id, callback) => {
     User.findById(id, callback);
 }

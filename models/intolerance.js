@@ -6,9 +6,6 @@ var IntoleranceSchema = new mongoose.Schema({
         index: {
             unique: true
         }
-    },
-    contamination: {
-        type: Boolean
     }
 });
 

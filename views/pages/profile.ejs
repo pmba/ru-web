@@ -89,25 +89,14 @@
                                             Editar</a>
                                     </th>
                                 </tr>
-                                <% if (locals.user.intolerances.length > 0) { %>
                                 <% locals.user.intolerances.forEach(intolerance => { %>
                                 <tr>
                                     <td>
                                         <%= intolerance.food %>
                                     </td>
-                                    <% if (intolerance.contamination) { %>
-                                    <td class="text-right text-danger">Contaminação</td>
-                                    <% } else { %>
-                                    <td class="text-right text-success">Não Contaminação</td>
-                                    <% } %>
+                                    <td></td>
                                 </tr>
                                 <% }) %>
-                                <% } else { %>
-                                <tr>
-                                    <td>Você não possui nenhuma intolerância.</td>
-                                    <td class="text-right"></td>
-                                </tr>
-                                <% } %>
                             </table>
 
                         </div>

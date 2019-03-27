@@ -85,7 +85,6 @@
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">Comida</th>
-                                                        <th scope="col">Contaminação</th>
                                                         <th scope="col">Opções</th>
                                                     </tr>
                                                 </thead>
@@ -94,10 +93,6 @@
                                                     <tr scope="row">
                                                         <td>
                                                             <%= intolerance.food %>
-                                                        </td>
-                                                        <td
-                                                            class="<%= intolerance.contamination ? 'text-danger' : 'text-success' %>">
-                                                            <%= intolerance.contamination ? 'Contaminação' : 'Não Contaminação' %>
                                                         </td>
                                                         <td>
                                                             <div class="btn-group btn-group-sm input-group" role="group"
