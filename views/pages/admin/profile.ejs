@@ -93,11 +93,12 @@
                                                         <td>
                                                             <div class="btn-group btn-group-sm input-group" role="group"
                                                                 aria-label="Intolerance Options">
-                                                                <a href="/admin/intolerances/edit/<%= intolerance._id %>"
-                                                                    class="btn btn-primary"><i
-                                                                        class="fas fa-edit"></i></a>
-                                                                <button onclick="proceedToDeleteIntolerance('<%= intolerance._id %>');" type="button" class="btn btn-danger"><i
-                                                                        class="fas fa-trash-alt"></i></button>
+                                                                <a href="/admin/intolerances/edit/<%= intolerance._id %>" class="btn btn-primary">
+                                                                    <i class="far fa-edit"></i>
+                                                                </a>
+                                                                <button onclick="proceedToDeleteIntolerance('<%= intolerance._id %>');" type="button" class="btn btn-danger">
+                                                                    <i class="far fa-trash-alt"></i>
+                                                                </button>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -138,7 +139,7 @@
                                                     <tr>
                                                         <th scope="col">Nome</th>
                                                         <th scope="col">Matrícula</th>
-                                                        <th scope="col">Informações</th>
+                                                        <th scope="col">CPF</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -151,7 +152,7 @@
                                                             <%= ruUser.registration %>
                                                         </td>
                                                         <td>
-                                                            Informações
+                                                            <%= ruUser.username %>
                                                         </td>
                                                     </tr>
                                                     <% }) %>
@@ -188,12 +189,20 @@
                                                             <%= admin.name %>
                                                         </td>
                                                         <td>
-                                                            <%= admin.role == -1 ? 'Super Admin' : admin.role == -2 ? 'Admin' : admin.role == -3 ? 'Contribuidor' : 'Indefinido' %>
+                                                            <%= admin.role == -1 ? 'Administrador(a)' : admin.role == -2 ? 'Moderador(a)' : admin.role == -3 ? 'Contribuidor(a)' : 'Indefinido' %>
                                                         </td>
-                                                        <td>
+                                                        <td class="form-group">
                                                             <% if(user.role == -1) { %>
                                                             <!-- TODO: Admin Options-->
-                                                            Adminfo
+                                                                <div class="btn-group btn-group-sm input-group" role="group"
+                                                                    aria-label="Intolerance Options">
+                                                                    <a href="/admin/admins/edit/<%= admin._id %>" class="btn btn-primary">
+                                                                        <i class="far fa-edit"></i>
+                                                                    </a>
+                                                                    <button onclick="proceedToDeleteAdmin('<%= admin._id %>');" type="button" class="btn btn-danger">
+                                                                        <i class="far fa-trash-alt"></i>
+                                                                    </button>
+                                                                </div>
                                                             <% } else if(user.role == -2) { %>
                                                             <!-- TODO: Moderator Options-->
                                                             Informações
@@ -220,8 +229,8 @@
     </div>
 
     <!-- Delete Confirmation Modal -->
-    <div class="modal fade" id="deleConfirmationIntoleranceModal" tabindex="-1" role="dialog"
-        aria-labelledby="deleConfirmationIntoleranceModalTitle" aria-hidden="true">
+    <div class="modal fade" id="deleConfirmationModal" tabindex="-1" role="dialog"
+        aria-labelledby="deleConfirmationModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header font-weight-bold">
@@ -235,7 +244,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-                    <form action="" method="POST" id="confirmIntoleranceDeleteForm">
+                    <form action="" method="POST" id="confirmDeleteForm">
                         <button type="submit" class="btn btn-danger">Continuar</button>
                     </form>
                 </div>

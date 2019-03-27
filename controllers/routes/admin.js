@@ -11,8 +11,9 @@ const Admin       = module.require('../../models/admin');
 const Ticket      = module.require('../../models/ticket');
 
 router.all('/*', (req, res, next) => {
-    req.flash('profile_link', '/admin/profile');
-    req.flash('logout_link', '/admin/logout');
+    res.locals.profile_link = '/admin/profile';
+    res.locals.logout_link = '/admin/logout';
+    
     next();
 });
 
@@ -38,9 +39,10 @@ router.get('/profile', adminMiddleware.proceedIfAuthenticated, (req, res) => {
 
 });
 
+/* Intolerances Group */
+
 router.get('/intolerances/new', adminMiddleware.proceedIfAuthenticated, (req, res) => {
     res.render('pages/admin/intolerances/new', {
-        title: 'Adicionar Intolerâncias'
     });
 });
 
@@ -123,6 +125,8 @@ router.delete('/intolerances/delete/:id', adminMiddleware.proceedIfAuthenticated
     });
 });
 
+/* Admin Group */
+
 router.get('/admins/new', adminMiddleware.proceedIfAuthenticated, (req, res) => {
     res.render('pages/admin/admins/new', {
         title: 'Criar Novo Administrador'
@@ -167,15 +171,64 @@ router.post('/admins/new', adminMiddleware.proceedIfAuthenticated, adminMiddlewa
     }
 });
 
-router.get('/validation', adminMiddleware.proceedIfAuthenticated, (req, res) => {
-    res.render('pages/admin/validation', {
-        title: 'Validação'
+router.get('/admins/edit/:id', adminMiddleware.proceedIfAuthenticated, (req, res) => {
+    Admin.getUserById(req.params.id, (err, admin) => {
+        if (err) throw err;
+
+        res.render('pages/admin/admins/edit', {
+            title: 'Editar Administrador',
+            admin: admin
+        });
     });
 });
 
-router.get('/login', adminMiddleware.proceedIfNotAuthenticated, (req, res) => {
-    res.render('pages/admin/login', {
-        title: 'Login Administração'
+router.put('/admins/edit/:id', adminMiddleware.proceedIfAuthenticated, adminMiddleware.validateAdminEdition, (req, res) => {
+    var errors = req.validationErrors();
+
+    if (errors) {
+        req.flash('alerts', errors);
+        res.redirect(`/admin/admins/edit/${req.params.id}`);
+    } else {
+        var modifiedAdmin = new Admin({
+            name: req.body.name,
+            username: req.body.username,
+            role: req.body.role,
+            password: req.body.password
+        });
+
+        Admin.updateUserById(req.params.id, req.body.passwordWillChange, modifiedAdmin, (err, adminChanges) => {
+            if (err) throw err;
+
+            req.flash('alerts', [{
+                param: 'admin',
+                msg  : 'Administrador(a) modificado(a) com sucesso',
+                type : 'success'
+            }]);
+
+            res.redirect('/admin/profile');
+        });
+    }
+});
+
+router.delete('/admins/delete/:id', adminMiddleware.proceedIfAuthenticated, (req, res) => {
+    Admin.deleteUserById(req.params.id, (err) => {
+        if (err) throw err;
+
+        req.flash('alerts', [{
+            param: 'Admin',
+            msg  : `Administrador(a) deletado(a) com sucesso`,
+            type : 'success'
+        }]);
+
+        res.redirect('/admin/profile');
+    });
+});
+
+/* Validation Group */
+
+router.get('/validation', adminMiddleware.proceedIfAuthenticated, (req, res) => {
+    res.render('pages/admin/validation', {
+        title: 'Validação'
     });
 });
 
@@ -192,6 +245,14 @@ router.post('/validation', adminMiddleware.proceedIfAuthenticated, (req, res) =>
         } else {
             res.status(404).send('ticket inválido');
         }
+    });
+});
+
+/* Authentication Group */
+
+router.get('/login', adminMiddleware.proceedIfNotAuthenticated, (req, res) => {
+    res.render('pages/admin/login', {
+        title: 'Login Administração'
     });
 });
 
@@ -231,6 +292,8 @@ router.get('/logout', adminMiddleware.proceedIfAuthenticated, (req, res) => {
 
     return res.redirect('/admin/login');
 });
+
+/* ............................................................................. */
 
 module.exports = router;
 

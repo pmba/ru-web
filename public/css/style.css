@@ -164,3 +164,8 @@ hr {
 .op-80 {
     opacity: .8;
 }
+
+.disabled-div {
+    pointer-events: none;
+    opacity: 0.4;
+}

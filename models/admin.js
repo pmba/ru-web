@@ -34,6 +34,33 @@ module.exports.createUser = (newUser, callback) => {
     });
 }
 
+module.exports.updateUserById = (id, changePassword, modifiedUser, callback) => {
+    if (changePassword) {
+        bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(modifiedUser.password, salt, (err, hash) => {
+                modifiedUser.password = hash;
+                
+                Admin.updateOne({_id: id}, {
+                    username: modifiedUser.username,
+                    name: modifiedUser.name,
+                    role: modifiedUser.role,
+                    password: modifiedUser.password
+                }, callback);
+            });
+        });
+    } else {
+        Admin.updateOne({_id: id}, {
+            username: modifiedUser.username,
+            name: modifiedUser.name,
+            role: modifiedUser.role,
+        }, callback);
+    }
+}
+
+module.exports.deleteUserById = (id, callback) => {
+    Admin.deleteOne({_id: id}, callback);
+}
+
 module.exports.getUserByUsername = (username, callback) => {
     var query = {
         username: username

@@ -12,8 +12,8 @@
             <% if (!locals.user) { %>
             <a href="/auth" class="py-2 px-4">Login</a>
             <% } else { %>
-            <a href="<%= locals.profile_link %>" class="py-2 px-4 right">Perfil</a>
-            <a href="<%= locals.logout_link %>" class="py-2 px-4">Logout</a>
+            <a href="<%= profile_link %>" class="py-2 px-4 right">Perfil</a>
+            <a href="<%= logout_link %>" class="py-2 px-4">Logout</a>
             <% } %>
         </div>
     </div>

@@ -30,3 +30,17 @@ module.exports.validateAdminCreation = (req, res, next) => {
 
     next();
 }
+
+module.exports.validateAdminEdition = (req, res, next) => {
+    
+    if (req.body.passwordWillChange) {
+        req.checkBody('password', 'Senha não pode ser vazia').notEmpty();
+        req.checkBody('passwordConfirmation', 'As senhas digitadas não correspondem').equals(req.body.password);
+    }
+
+    req.checkBody('name', 'Nome não pode ser vazio').notEmpty();
+    req.checkBody('username', 'Usuário não pode ser vazio').notEmpty();
+    req.checkBody('role', 'Usuário não pode ser vazio').notEmpty();
+
+    next();
+}

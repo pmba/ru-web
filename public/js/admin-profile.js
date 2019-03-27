@@ -27,6 +27,11 @@ $(document).ready(function () {
 });
 
 function proceedToDeleteIntolerance(intoleranceID) {
-    $('#confirmIntoleranceDeleteForm').attr('action', `/admin/intolerances/delete/${intoleranceID}?_method=DELETE`);
-    $('#deleConfirmationIntoleranceModal').modal('show');
+    $('#confirmDeleteForm').attr('action', `/admin/intolerances/delete/${intoleranceID}?_method=DELETE`);
+    $('#deleConfirmationModal').modal('show');
+}
+
+function proceedToDeleteAdmin(adminID) {
+    $('#confirmDeleteForm').attr('action', `/admin/admins/delete/${adminID}?_method=DELETE`);
+    $('#deleConfirmationModal').modal('show');
 }
