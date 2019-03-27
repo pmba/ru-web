@@ -9,6 +9,9 @@ var DishSchema = new mongoose.Schema({
             unique: true
         }
     },
+    type: {
+        type: String
+    },
     intolerances: {
         type: [String]
     }
@@ -35,6 +38,7 @@ module.exports.deleteDishById = (id, callback) => {
 module.exports.updateDishById = (id, modifiedDish, callback) => {
     Dish.updateOne({_id: id}, {
         name: modifiedDish.name,
-        intolerances: modifiedDish.intolerances
+        intolerances: modifiedDish.intolerances,
+        type: modifiedDish.type
     }, callback);
 }

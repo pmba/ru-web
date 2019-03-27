@@ -10,6 +10,7 @@ const User        = module.require('../../models/user');
 const Admin       = module.require('../../models/admin');
 const Ticket      = module.require('../../models/ticket');
 const Dish        = module.require('../../models/dish');
+const Menu        = module.require('../../models/menu');
 
 router.all('/*', (req, res, next) => {
     res.locals.profile_link = '/admin/profile';
@@ -276,7 +277,8 @@ router.post('/dishes/new', adminMiddleware.proceedIfAuthenticated, adminMiddlewa
     } else {
         var newDish = new Dish({
             name: req.body.name,
-            intolerances: req.body.intolerances
+            intolerances: req.body.intolerances,
+            type: req.body.type
         });
 
         Dish.createDish(newDish, (dishErr, dish) => {
@@ -323,7 +325,8 @@ router.put('/dishes/edit/:id', adminMiddleware.proceedIfAuthenticated, adminMidd
     } else {
         var modifiedDish = new Dish({
             name: req.body.name,
-            intolerances: req.body.intolerances
+            intolerances: req.body.intolerances,
+            type: req.body.type
         });
 
         Dish.updateDishById(req.params.id, modifiedDish, (err, updatedDish) => {
@@ -351,6 +354,14 @@ router.delete('/dishes/delete/:id', adminMiddleware.proceedIfAuthenticated, (req
         }]);
 
         res.redirect('/admin/profile');
+    });
+});
+
+/* Menu Group */
+
+router.get('/menu/new', adminMiddleware.proceedIfAuthenticated, (req, res) => {
+    res.render('pages/admin/menu/new', {
+        title: 'Cadastro de Menu'
     });
 });
 

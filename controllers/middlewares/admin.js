@@ -47,6 +47,7 @@ module.exports.validateAdminEdition = (req, res, next) => {
 
 module.exports.validateDishCreation = (req, res, next) => {
     req.checkBody('name', 'Nome não pode ser vazio').notEmpty();
+    req.checkBody('type', 'Tipo do prato não pode ser vazio').notEmpty();
 
     next();
 }

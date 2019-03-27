@@ -133,6 +133,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">Nome</th>
+                                                        <th scope="col">Tipo</th>
                                                         <th scope="col">Intolerâncias</th>
                                                         <th scope="col">Informações</th>
                                                     </tr>
@@ -142,6 +143,9 @@
                                                     <tr scope="row">
                                                         <td>
                                                             <%= dish.name %>
+                                                        </td>
+                                                        <td>
+                                                            <%= dish.type %>
                                                         </td>
                                                         <td style="overflow: auto !important;">
                                                             <% if(dish.intolerances.length > 0) { %>
@@ -176,7 +180,7 @@
                                     <div class="card">
                                         <div class="card-header d-flex justify-content-between">
                                             Cardápio Semanal
-                                            <a href="" class="text-success text-decoration-none"><i
+                                            <a href="/admin/menu/new" class="text-success text-decoration-none"><i
                                                     class="fas fa-plus-circle"></i></a>
                                         </div>
                                         <div class="card-body">

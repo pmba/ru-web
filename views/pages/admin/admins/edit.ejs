@@ -42,8 +42,6 @@
                                 <small id="nameHelp" class="form-text text-muted">Nome completo do administrador</small>
                             </div>
 
-
-                            <!-- TODO: Selecionar Role do Administrador -->
                             <div class="col-sm-12 form-group">
                                 <label for="role" class="sans-13">Permissão</label>
                                 <div class="input-group mb-2">
@@ -51,9 +49,9 @@
                                         <div class="input-group-text"><i class="fas fa-user-shield"></i></div>
                                     </div>
                                     <select class="form-control" name="role">
-                                        <option value="-1" >Administrador(a)</option>
-                                        <option value="-2" >Moderador(a)</option>
-                                        <option value="-3" >Contribuidor(a)</option>
+                                        <option value="-1" <% if (locals.admin.role == -1) { %>selected<% } %> >Administrador(a)</option>
+                                        <option value="-2" <% if (locals.admin.role == -2) { %>selected<% } %> >Moderador(a)</option>
+                                        <option value="-3" <% if (locals.admin.role == -3) { %>selected<% } %> >Contribuidor(a)</option>
                                     </select>
                                 </div>
                                 <small id="roleHelp" class="form-text text-muted">Permissão de acesso</small>

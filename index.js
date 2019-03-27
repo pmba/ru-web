@@ -14,6 +14,11 @@ const flash            = require('connect-flash');
 var port = process.env.PORT || 5000;
 var dbUrl = 'mongodb://admin:rudb1admin@ds021166.mlab.com:21166/ru-db';
 
+Date.prototype.getWeek = function () {
+    var dt = new Date(this.getFullYear(), 0, 1);
+    return Math.ceil((((this - dt) / 86400000) + dt.getDay() + 1) / 7);
+};
+
 // Database Configuration
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
