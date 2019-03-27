@@ -25,3 +25,8 @@ $(document).ready(function () {
         }
     });
 });
+
+function proceedToDeleteIntolerance(intoleranceID) {
+    $('#confirmIntoleranceDeleteForm').attr('action', `/admin/intolerances/delete/${intoleranceID}?_method=DELETE`);
+    $('#deleConfirmationIntoleranceModal').modal('show');
+}

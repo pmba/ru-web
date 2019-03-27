@@ -109,6 +109,20 @@ router.put('/intolerances/edit/:id', adminMiddleware.proceedIfAuthenticated, adm
     });
 });
 
+router.delete('/intolerances/delete/:id', adminMiddleware.proceedIfAuthenticated, (req, res) => {
+    Intolerance.deleteIntoleranceById(req.params.id, (err) => {
+        if (err) throw err;
+
+        req.flash('alerts', [{
+            param: 'intolerance',
+            msg  : `Intolerância deletada com sucesso`,
+            type : 'success'
+        }]);
+
+        res.redirect('/admin/profile');
+    });
+});
+
 router.get('/admins/new', adminMiddleware.proceedIfAuthenticated, (req, res) => {
     res.render('pages/admin/admins/new', {
         title: 'Criar Novo Administrador'

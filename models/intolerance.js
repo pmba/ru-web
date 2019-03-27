@@ -52,3 +52,7 @@ module.exports.updateIntoleranceById = (id, updatedIntolerance, callback) => {
         contamination: updatedIntolerance.contamination
     }, callback);
 }
+
+module.exports.deleteIntoleranceById = (id, callback) => {
+    Intolerance.deleteOne({_id: id}, callback);
+}
