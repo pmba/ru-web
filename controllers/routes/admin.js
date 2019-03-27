@@ -365,6 +365,10 @@ router.get('/menu/new', adminMiddleware.proceedIfAuthenticated, (req, res) => {
     });
 });
 
+router.post('/menu/new', adminMiddleware.proceedIfAuthenticated, (req, res) => {
+    res.json(req.body);
+});
+
 /* Authentication Group */
 
 router.get('/login', adminMiddleware.proceedIfNotAuthenticated, (req, res) => {
