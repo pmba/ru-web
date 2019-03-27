@@ -31,3 +31,10 @@ module.exports.createDish = (newDish, callback) => {
 module.exports.deleteDishById = (id, callback) => {
     Dish.deleteOne({_id: id}, callback);
 }
+
+module.exports.updateDishById = (id, modifiedDish, callback) => {
+    Dish.updateOne({_id: id}, {
+        name: modifiedDish.name,
+        intolerances: modifiedDish.intolerances
+    }, callback);
+}

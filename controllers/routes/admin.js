@@ -314,6 +314,32 @@ router.get('/dishes/edit/:id', adminMiddleware.proceedIfAuthenticated, (req, res
     });
 });
 
+router.put('/dishes/edit/:id', adminMiddleware.proceedIfAuthenticated, adminMiddleware.validateDishCreation, (req, res) => {
+    var errors = req.validationErrors();
+
+    if (errors) {
+        req.flash('alerts', errors);
+        res.redirect('/admin/dishes/new');
+    } else {
+        var modifiedDish = new Dish({
+            name: req.body.name,
+            intolerances: req.body.intolerances
+        });
+
+        Dish.updateDishById(req.params.id, modifiedDish, (err, updatedDish) => {
+            if (err) throw err;
+
+            req.flash('alerts', [{
+                param: 'dish',
+                msg  : `Prato atualizado com sucesso`,
+                type : 'success'
+            }]);
+
+            res.redirect('/admin/profile');
+        });
+    }
+});
+
 router.delete('/dishes/delete/:id', adminMiddleware.proceedIfAuthenticated, (req, res) => {
     Dish.deleteDishById(req.params.id, (err) => {
         if (err) throw err;
