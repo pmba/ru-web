@@ -23,6 +23,20 @@ module.exports.getDishById = (id, callback) => {
     Dish.findById(id, callback);
 }
 
+module.exports.getByType = (type, callback) => {
+    Dish.find({
+        type: type
+    }, callback);
+}
+
+module.exports.getMany = (dishNames, callback) => {
+    Dish.find({
+        name: {
+            $in: dishNames
+        }
+    }, callback);
+}
+
 module.exports.getAll = (callback) => {
     Dish.find({}, callback);
 }

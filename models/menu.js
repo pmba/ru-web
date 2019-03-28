@@ -99,8 +99,8 @@ var MenuSchema = new mongoose.Schema({
     }
 });
 
-var Menu = module.exports = mongoose.model('Menu', MenuSchema);
-var DailyMenuSchema = module.exports = mongoose.model('DailyMenu', DailyMenuSchema);
+var Menu = module.exports.MenuSchema = mongoose.model('Menu', MenuSchema);
+var DailyMenuSchema = module.exports.DailyMenuSchema = mongoose.model('DailyMenu', DailyMenuSchema);
 
 module.exports.createMenu = (newMenu, callback) => {
     newMenu.save(callback);

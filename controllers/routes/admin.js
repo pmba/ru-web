@@ -10,7 +10,8 @@ const User        = module.require('../../models/user');
 const Admin       = module.require('../../models/admin');
 const Ticket      = module.require('../../models/ticket');
 const Dish        = module.require('../../models/dish');
-const Menu        = module.require('../../models/menu');
+const Menu        = module.require('../../models/menu').MenuSchema;
+const DailyMenu   = module.require('../../models/menu').DailyMenuSchema;
 
 router.all('/*', (req, res, next) => {
     res.locals.profile_link = '/admin/profile';
@@ -359,12 +360,60 @@ router.delete('/dishes/delete/:id', adminMiddleware.proceedIfAuthenticated, (req
 /* Menu Group */
 
 router.get('/menu/new', adminMiddleware.proceedIfAuthenticated, (req, res) => {
-    res.render('pages/admin/menu/new', {
-        title: 'Cadastro de Menu'
+    Dish.getByType('Carnívoro', (meatErr, meat) => {
+        if (meatErr) throw meatErr;
+
+        Dish.getByType('Vegetariano', (vegErr, veg) => {
+            if (vegErr) throw vegErr;
+
+            Dish.getByType('Acompanhamento', (sideDishErr, sideDish) => {
+                if (sideDishErr) throw sideDishErr;
+
+                Dish.getByType('Sobremesa', (dessertErr, dessert) => {
+                    if (dessertErr) throw dessertErr;
+
+                    Dish.getByType('Bebida', (drinkErr, drink) => {
+                        if (drinkErr) throw drinkErr;
+
+                        res.render('pages/admin/menu/new', {
+                            title: 'Cadastro de Menu',
+                            meats: meat,
+                            vegetarians: veg,
+                            sideDishes: sideDish,
+                            desserts: dessert,
+                            drinks: drink
+                        });
+                    });
+                });
+            });
+        });
     });
 });
+// adminMiddleware.proceedIfAuthenticated
+router.post('/menu/new', (req, res) => {
+    var DailyMenuArray = [];
 
-router.post('/menu/new', adminMiddleware.proceedIfAuthenticated, (req, res) => {
+    var currentDay;
+
+    for (let i = 0; i <= 6; ++i) {
+
+        // TODO: Essa Caralha
+        currentDay = req.body.days[i];
+
+        if (typeof req.body.days[i].lunch != "undefined") {
+            if (typeof req.body.days[i].lunch.meat != "undefined") {
+                Dish.getMany(req.body.days[i].lunch.meat, (err, dishes) => { currentDay.lunch.meat = dishes });
+            }
+        }
+
+        console.log(i, currentDay);
+
+        let newDailyMenu = new DailyMenu(req.body.days[i]);
+        // console.log(i, newDailyMenu);
+        DailyMenuArray.push(newDailyMenu);
+    }
+
+    // console.log(DailyMenuArray);
     res.json(req.body);
 });
 

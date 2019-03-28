@@ -44,8 +44,10 @@
                                 <div class="list-group disabled-div" id="list-tab" role="tablist">
                                     <a onclick="selectDay(1);"
                                         class="d-flex justify-content-between align-items-center list-group-item list-group-item-action active"
-                                        id="list-intolerances-list" data-toggle="list" role="tab" href="#"
-                                        aria-controls="monday">
+                                        id="listDay1" data-toggle="list" role="tab" href="#" aria-controls="monday">
+
+                                        <span id="dayStatus1"><i class="fas fa-times"></i></span>
+
                                         Segunda
 
                                         <small id="dayDate1"></small>
@@ -53,8 +55,10 @@
 
                                     <a onclick="selectDay(2);"
                                         class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
-                                        id="list-intolerances-list" data-toggle="list" role="tab" href="#"
-                                        aria-controls="tuesday">
+                                        id="listDay2" data-toggle="list" role="tab" href="#" aria-controls="tuesday">
+
+                                        <span id="dayStatus2"><i class="fas fa-times"></i></span>
+
                                         Terça
 
                                         <small id="dayDate2"></small>
@@ -62,8 +66,10 @@
 
                                     <a onclick="selectDay(3);"
                                         class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
-                                        id="list-intolerances-list" data-toggle="list" role="tab" href="#"
-                                        aria-controls="wednesday">
+                                        id="listDay3" data-toggle="list" role="tab" href="#" aria-controls="wednesday">
+
+                                        <span id="dayStatus3"><i class="fas fa-times"></i></span>
+
                                         Quarta
 
                                         <small id="dayDate3"></small>
@@ -71,8 +77,10 @@
 
                                     <a onclick="selectDay(4);"
                                         class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
-                                        id="list-intolerances-list" data-toggle="list" role="tab" href="#"
-                                        aria-controls="thursday">
+                                        id="listDay4" data-toggle="list" role="tab" href="#" aria-controls="thursday">
+
+                                        <span id="dayStatus4"><i class="fas fa-times"></i></span>
+
                                         Quinta
 
                                         <small id="dayDate4"></small>
@@ -80,8 +88,10 @@
 
                                     <a onclick="selectDay(5);"
                                         class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
-                                        id="list-intolerances-list" data-toggle="list" role="tab" href="#"
-                                        aria-controls="friday">
+                                        id="listDay5" data-toggle="list" role="tab" href="#" aria-controls="friday">
+
+                                        <span id="dayStatus5"><i class="fas fa-times"></i></span>
+
                                         Sexta
 
                                         <small id="dayDate5"></small>
@@ -89,8 +99,10 @@
 
                                     <a onclick="selectDay(6);"
                                         class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
-                                        id="list-intolerances-list" data-toggle="list" role="tab" href="#"
-                                        aria-controls="saturday">
+                                        id="listDay6" data-toggle="list" role="tab" href="#" aria-controls="saturday">
+
+                                        <span id="dayStatus6"><i class="fas fa-times"></i></span>
+
                                         Sábado
 
                                         <small id="dayDate6"></small>
@@ -98,8 +110,10 @@
 
                                     <a onclick="selectDay(0);"
                                         class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
-                                        id="list-intolerances-list" data-toggle="list" role="tab" href="#"
-                                        aria-controls="sunday">
+                                        id="listDay0" data-toggle="list" role="tab" href="#" aria-controls="sunday">
+
+                                        <span id="dayStatus0"><i class="fas fa-times"></i></span>
+
                                         Domingo
 
                                         <small id="dayDate0"></small>
@@ -122,7 +136,7 @@
                                             </div>
                                         </div>
                                         <div class="card-body">
-                                            <div class="card mb-2" id="lunchCard">
+                                            <div class="card" id="lunchCard">
                                                 <div class="card-header bg-white">
                                                     <i class="fas fa-sun mr-2"></i>
                                                     Almoço
@@ -132,14 +146,11 @@
                                                         <!-- Carnes Almoço -->
                                                         <div class="col-sm-12 form-group">
                                                             <label for="lunchMeat">Carne</label>
-                                                            <select placeholder="ok" multiple data-live-search="true"
+                                                            <select multiple data-live-search="true"
                                                                 class="form-control" id="lunchMeat" name="lunchMeat[]">
-                                                                <option value="Carnívoro">Carnívoro</option>
-                                                                <option value="Vegetariano">Vegetariano</option>
-                                                                <option value="Acompanhamento">Acompanhamento
-                                                                </option>
-                                                                <option value="Sobremesa">Sobremesa</option>
-                                                                <option value="Bebida">Bebida</option>
+                                                                <% locals.meats.forEach(meat => { %>
+                                                                    <option value="<%= meat.name %>"><%= meat.name %></option>
+                                                                <% }) %>
                                                             </select>
                                                         </div>
                                                         <!-- Vegetariano Almoço -->
@@ -148,12 +159,9 @@
                                                             <select multiple data-live-search="true"
                                                                 class="form-control" id="lunchVegetarian"
                                                                 name="lunchVegetarian[]">
-                                                                <option value="Carnívoro">Carnívoro</option>
-                                                                <option value="Vegetariano">Vegetariano</option>
-                                                                <option value="Acompanhamento">Acompanhamento
-                                                                </option>
-                                                                <option value="Sobremesa">Sobremesa</option>
-                                                                <option value="Bebida">Bebida</option>
+                                                                <% locals.vegetarians.forEach(vegetarian => { %>
+                                                                    <option value="<%= vegetarian.name %>"><%= vegetarian.name %></option>
+                                                                <% }) %>
                                                             </select>
                                                         </div>
                                                         <!-- Acompanhamento Almoço -->
@@ -162,12 +170,9 @@
                                                             <select multiple data-live-search="true"
                                                                 class="form-control" id="lunchSideDish"
                                                                 name="lunchSideDish[]">
-                                                                <option value="Carnívoro">Carnívoro</option>
-                                                                <option value="Vegetariano">Vegetariano</option>
-                                                                <option value="Acompanhamento">Acompanhamento
-                                                                </option>
-                                                                <option value="Sobremesa">Sobremesa</option>
-                                                                <option value="Bebida">Bebida</option>
+                                                                <% locals.sideDishes.forEach(sideDish => { %>
+                                                                    <option value="<%= sideDish.name %>"><%= sideDish.name %></option>
+                                                                <% }) %>
                                                             </select>
                                                         </div>
                                                         <!-- Sobremesa Almoço -->
@@ -176,12 +181,9 @@
                                                             <select multiple data-live-search="true"
                                                                 class="form-control" id="lunchDessert"
                                                                 name="lunchDessert[]">
-                                                                <option value="Carnívoro">Carnívoro</option>
-                                                                <option value="Vegetariano">Vegetariano</option>
-                                                                <option value="Acompanhamento">Acompanhamento
-                                                                </option>
-                                                                <option value="Sobremesa">Sobremesa</option>
-                                                                <option value="Bebida">Bebida</option>
+                                                                <% locals.desserts.forEach(dessert => { %>
+                                                                    <option value="<%= dessert.name %>"><%= dessert.name %></option>
+                                                                <% }) %>
                                                             </select>
                                                         </div>
                                                         <!-- Bebida Almoço -->
@@ -190,12 +192,9 @@
                                                             <select multiple data-live-search="true"
                                                                 class="form-control" id="lunchDrink"
                                                                 name="lunchDrink[]">
-                                                                <option value="Carnívoro">Carnívoro</option>
-                                                                <option value="Vegetariano">Vegetariano</option>
-                                                                <option value="Acompanhamento">Acompanhamento
-                                                                </option>
-                                                                <option value="Sobremesa">Sobremesa</option>
-                                                                <option value="Bebida">Bebida</option>
+                                                                <% locals.drinks.forEach(drink => { %>
+                                                                    <option value="<%= drink.name %>"><%= drink.name %></option>
+                                                                <% }) %>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -215,12 +214,9 @@
                                                             <select placeholder="ok" multiple data-live-search="true"
                                                                 class="form-control" id="dinnerMeat"
                                                                 name="dinnerMeat[]">
-                                                                <option value="Carnívoro">Carnívoro</option>
-                                                                <option value="Vegetariano">Vegetariano</option>
-                                                                <option value="Acompanhamento">Acompanhamento
-                                                                </option>
-                                                                <option value="Sobremesa">Sobremesa</option>
-                                                                <option value="Bebida">Bebida</option>
+                                                                <% locals.meats.forEach(meat => { %>
+                                                                    <option value="<%= meat.name %>"><%= meat.name %></option>
+                                                                <% }) %>
                                                             </select>
                                                         </div>
                                                         <!-- Vegetariano Janta -->
@@ -229,12 +225,9 @@
                                                             <select multiple data-live-search="true"
                                                                 class="form-control" id="dinnerVegetarian"
                                                                 name="dinnerVegetarian[]">
-                                                                <option value="Carnívoro">Carnívoro</option>
-                                                                <option value="Vegetariano">Vegetariano</option>
-                                                                <option value="Acompanhamento">Acompanhamento
-                                                                </option>
-                                                                <option value="Sobremesa">Sobremesa</option>
-                                                                <option value="Bebida">Bebida</option>
+                                                                <% locals.vegetarians.forEach(vegetarian => { %>
+                                                                    <option value="<%= vegetarian.name %>"><%= vegetarian.name %></option>
+                                                                <% }) %>
                                                             </select>
                                                         </div>
                                                         <!-- Acompanhamento Janta -->
@@ -243,12 +236,9 @@
                                                             <select multiple data-live-search="true"
                                                                 class="form-control" id="dinnerSideDish"
                                                                 name="dinnerSideDish[]">
-                                                                <option value="Carnívoro">Carnívoro</option>
-                                                                <option value="Vegetariano">Vegetariano</option>
-                                                                <option value="Acompanhamento">Acompanhamento
-                                                                </option>
-                                                                <option value="Sobremesa">Sobremesa</option>
-                                                                <option value="Bebida">Bebida</option>
+                                                                <% locals.sideDishes.forEach(sideDish => { %>
+                                                                    <option value="<%= sideDish.name %>"><%= sideDish.name %></option>
+                                                                <% }) %>
                                                             </select>
                                                         </div>
                                                         <!-- Sobremesa Janta -->
@@ -257,12 +247,9 @@
                                                             <select multiple data-live-search="true"
                                                                 class="form-control" id="dinnerDessert"
                                                                 name="dinnerDessert[]">
-                                                                <option value="Carnívoro">Carnívoro</option>
-                                                                <option value="Vegetariano">Vegetariano</option>
-                                                                <option value="Acompanhamento">Acompanhamento
-                                                                </option>
-                                                                <option value="Sobremesa">Sobremesa</option>
-                                                                <option value="Bebida">Bebida</option>
+                                                                <% locals.desserts.forEach(dessert => { %>
+                                                                    <option value="<%= dessert.name %>"><%= dessert.name %></option>
+                                                                <% }) %>
                                                             </select>
                                                         </div>
                                                         <!-- Bebida Janta -->
@@ -271,12 +258,9 @@
                                                             <select multiple data-live-search="true"
                                                                 class="form-control" id="dinnerDrink"
                                                                 name="dinnerDrink[]">
-                                                                <option value="Carnívoro">Carnívoro</option>
-                                                                <option value="Vegetariano">Vegetariano</option>
-                                                                <option value="Acompanhamento">Acompanhamento
-                                                                </option>
-                                                                <option value="Sobremesa">Sobremesa</option>
-                                                                <option value="Bebida">Bebida</option>
+                                                                <% locals.drinks.forEach(drink => { %>
+                                                                    <option value="<%= drink.name %>"><%= drink.name %></option>
+                                                                <% }) %>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -284,7 +268,8 @@
                                             </div>
                                         </div>
                                         <div class="card-footer">
-                                            <button id="saveDailyBtn" day="1" type="button" class="btn btn-primary form-control" onclick="saveDaily(this.day);" >Salvar
+                                            <button id="saveDailyBtn" day="1" type="button"
+                                                class="btn btn-primary form-control" onclick="saveDaily();">Salvar
                                                 Cardápio Diário</button>
                                         </div>
                                     </div>
@@ -293,9 +278,32 @@
                         </div>
                     </div>
                     <div class="card-footer">
-
+                        <button id="saveAllBtn" type="button" class="btn btn-success form-control" onclick="saveAllMenu();"
+                            >Salvar Cardápio Geral</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="saveAllMenuModal" tabindex="-1" role="dialog"
+        aria-labelledby="saveAllMenuModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header font-weight-bold">
+                    <h5 class="modal-title" id="saveAllMenuModalTitle"><i class="fas fa-exclamation-triangle mr-2 text-danger"></i> Deseja Continuar?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="far fa-times-circle"></i>
+                    </button>
+                </div>
+                <div class="modal-body" id="saveAllMenuModalBody">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+                    <button onclick="submitAllMenu();" type="submit" class="btn btn-danger">Salvar</button>
+                </div>
             </div>
         </div>
     </div>
