@@ -15,7 +15,7 @@ var TicketSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    validate: {
+    validation: {
         status: {
             type: Boolean,
             default: false
@@ -53,8 +53,8 @@ module.exports.validateTicket = (ticketID, callback) => {
     {
         _id: ticketID
     }, {
-        'validate.status': true,
-        'validate.date': Date.now()
+        'validation.status': true,
+        'validation.date': Date.now()
     }, callback);
 }
 
@@ -63,8 +63,8 @@ module.exports.validateRating = (ticketID, comment, callback) => {
     Ticket.updateOne({
         _id: ticketID
     }, {
-        validateRating: true,
-        ratingComment: comment
+        'rating.status': true,
+        'rating.comment': comment
     }, callback);
 }
 
