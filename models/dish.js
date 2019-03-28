@@ -37,6 +37,14 @@ module.exports.getByType = (type, callback) => {
     }, callback);
 }
 
+module.exports.getManyPromisses = (dishNames) => {
+    return Dish.find({name: { $in: dishNames }}).exec();
+}
+
+module.exports.getAllPromisses = () => {
+    return Dish.find({}).exec();
+}
+
 module.exports.getMany = (dishNames, callback) => {
     Dish.find({
         name: {

@@ -12,20 +12,21 @@ $(document).ready(() => {
 
     for (let i = 0; i < 7; ++i) {
         daysFakeSchema.push({
-        lunch: {
-            meat: [],
-            vegetarian: [],
-            sideDish: [],
-            dessert: [],
-            drinks: []
-        },
-        dinner: {
-            meat: [],
-            vegetarian: [],
-            sideDish: [],
-            dessert: [],
-            drinks: []
-        }});
+            lunch: {
+                meat: [],
+                vegetarian: [],
+                sideDish: [],
+                dessert: [],
+                drinks: []
+            },
+            dinner: {
+                meat: [],
+                vegetarian: [],
+                sideDish: [],
+                dessert: [],
+                drinks: []
+            }
+        });
     }
 
     var container, display, input, datepicker, dates;
@@ -199,8 +200,17 @@ function submitAllMenu() {
             days: daysFakeSchema
         }
     }).done((res) => {
-        console.log(res);
+        window.location.replace(res);
     }).fail((err) => {
-        console.log(err);
+        $('#alerts').html(`
+            <div class="alert alert-warning alert-dismissible fade show shadow" role="alert">
+                ${ err.responseText }
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="far fa-times-circle"></i>
+                </button>
+            </div>
+        `);
+        $('#saveAllMenuModal').modal('hide');
+        window.scrollTo(0, 0);
     });
 }

@@ -1,58 +1,13 @@
 var mongoose = module.require('mongoose');
 
-const DishSchema = module.require('./dish').Schema;
-
 var dayNames = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
 
 var DailyMenuSchema = new mongoose.Schema({
-    lunch: {
-        meat: {
-            type: [DishSchema],
-            default: null
-        },
-        vegetarian: {
-            type: [DishSchema],
-            default: null
-        },
-        sideDish: {
-            type: [DishSchema],
-            default: null
-        },
-        dessert: {
-            type: [DishSchema],
-            default: null
-        },
-        drinks: {
-            type: [DishSchema],
-            default: null
-        }
-    },
-    dinner: {
-        meat: {
-            type: [DishSchema],
-            default: null
-        },
-        vegetarian: {
-            type: [DishSchema],
-            default: null
-        },
-        sideDish: {
-            type: [DishSchema],
-            default: null
-        },
-        dessert: {
-            type: [DishSchema],
-            default: null
-        },
-        drinks: {
-            type: [DishSchema],
-            default: null
-        }
-    }
-});
-
-var DaySchema = new mongoose.Schema({
     date: {
+        name: {
+            type: String,
+            default: dayNames[new Date().getDay()]
+        },
         day: {
             type: Number,
             default: new Date().getDate()
@@ -66,12 +21,39 @@ var DaySchema = new mongoose.Schema({
             default: new Date().getFullYear()
         }
     },
-    name: {
-        type: String,
-        default: dayNames[new Date().getDay()]
+    lunch: {
+        meat: {
+            type: [Object]
+        },
+        vegetarian: {
+            type: [Object]
+        },
+        sideDish: {
+            type: [Object]
+        },
+        dessert: {
+            type: [Object]
+        },
+        drinks: {
+            type: [Object]
+        }
     },
-    menu: {
-        type: DailyMenuSchema
+    dinner: {
+        meat: {
+            type: [Object]
+        },
+        vegetarian: {
+            type: [Object]
+        },
+        sideDish: {
+            type: [Object]
+        },
+        dessert: {
+            type: [Object]
+        },
+        drinks: {
+            type: [Object]
+        }
     }
 });
 
@@ -91,11 +73,14 @@ var MenuSchema = new mongoose.Schema({
         },
         week: {
             type: Number,
-            default: new Date().getWeek()
+            default: new Date().getWeek(),
+            index: {
+                unique: true
+            }
         }
     },
     days: {
-        type: [DaySchema]
+        type: [Object]
     }
 });
 

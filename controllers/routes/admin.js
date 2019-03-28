@@ -1,17 +1,19 @@
-const express       = module.require('express');
-const router        = express.Router();
-const passport      = require('passport');
+const express = module.require('express');
+const router = express.Router();
+const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const adminMiddleware = module.require('../middlewares/admin');
 
 const Intolerance = module.require('../../models/intolerance');
-const User        = module.require('../../models/user');
-const Admin       = module.require('../../models/admin');
-const Ticket      = module.require('../../models/ticket');
-const Dish        = module.require('../../models/dish');
-const Menu        = module.require('../../models/menu').MenuSchema;
-const DailyMenu   = module.require('../../models/menu').DailyMenuSchema;
+const User = module.require('../../models/user');
+const Admin = module.require('../../models/admin');
+const Ticket = module.require('../../models/ticket');
+const Dish = module.require('../../models/dish');
+const Menu = module.require('../../models/menu');
+const DailyMenu = module.require('../../models/menu').DailyMenuSchema;
+
+var dayNames = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
 
 router.all('/*', (req, res, next) => {
     res.locals.profile_link = '/admin/profile';
@@ -34,11 +36,11 @@ router.get('/profile', adminMiddleware.proceedIfAuthenticated, (req, res) => {
                     if (dishError) throw dishError;
 
                     res.render('pages/admin/profile', {
-                        title       : 'Perfil Administração',
+                        title: 'Perfil Administração',
                         intolerances: intolerances,
-                        ruUsers     : users,
-                        admins      : admins,
-                        dishes      : dishes
+                        ruUsers: users,
+                        admins: admins,
+                        dishes: dishes
                     });
                 });
             });
@@ -82,8 +84,8 @@ router.post('/intolerances/new', adminMiddleware.proceedIfAuthenticated, adminMi
                 if (err.name === 'MongoError' && err.code === 11000) {
                     req.flash('alerts', [{
                         param: 'intolerance',
-                        msg  : `Intolerância ${req.body.food} já existe`,
-                        type : 'danger'
+                        msg: `Intolerância ${req.body.food} já existe`,
+                        type: 'danger'
                     }]);
 
                     res.redirect('/admin/intolerances/new');
@@ -91,8 +93,8 @@ router.post('/intolerances/new', adminMiddleware.proceedIfAuthenticated, adminMi
             } else {
                 req.flash('alerts', [{
                     param: 'intolerance',
-                    msg  : `Intolerância "${req.body.food}" criada com sucesso`,
-                    type : 'success'
+                    msg: `Intolerância "${req.body.food}" criada com sucesso`,
+                    type: 'success'
                 }]);
 
                 res.redirect('/admin/profile');
@@ -110,8 +112,8 @@ router.put('/intolerances/edit/:id', adminMiddleware.proceedIfAuthenticated, adm
 
         req.flash('alerts', [{
             param: 'intolerance',
-            msg  : `Intolerância "${req.body.food}" atualizada com sucesso`,
-            type : 'success'
+            msg: `Intolerância "${req.body.food}" atualizada com sucesso`,
+            type: 'success'
         }]);
 
         res.redirect('/admin/profile');
@@ -124,8 +126,8 @@ router.delete('/intolerances/delete/:id', adminMiddleware.proceedIfAuthenticated
 
         req.flash('alerts', [{
             param: 'intolerance',
-            msg  : `Intolerância deletada com sucesso`,
-            type : 'success'
+            msg: `Intolerância deletada com sucesso`,
+            type: 'success'
         }]);
 
         res.redirect('/admin/profile');
@@ -148,10 +150,10 @@ router.post('/admins/new', adminMiddleware.proceedIfAuthenticated, adminMiddlewa
         res.redirect('/admin/admins/new');
     } else {
         var newAdmin = new Admin({
-            name    : req.body.name,
+            name: req.body.name,
             username: req.body.username,
             password: req.body.password,
-            role    : req.body.role
+            role: req.body.role
         });
 
         Admin.createUser(newAdmin, (err, admin) => {
@@ -159,8 +161,8 @@ router.post('/admins/new', adminMiddleware.proceedIfAuthenticated, adminMiddlewa
                 if (err.name === 'MongoError' && err.code === 11000) {
                     req.flash('alerts', [{
                         param: 'new-admin',
-                        msg  : 'Nome de Usuário não está disponível',
-                        type : 'danger'
+                        msg: 'Nome de Usuário não está disponível',
+                        type: 'danger'
                     }]);
 
                     res.redirect('/admin/admins/new');
@@ -168,8 +170,8 @@ router.post('/admins/new', adminMiddleware.proceedIfAuthenticated, adminMiddlewa
             } else {
                 req.flash('alerts', [{
                     param: 'new-admin',
-                    msg  : 'Novo Administrador registrado com sucesso',
-                    type : 'success'
+                    msg: 'Novo Administrador registrado com sucesso',
+                    type: 'success'
                 }]);
 
                 res.redirect('/admin/profile');
@@ -208,8 +210,8 @@ router.put('/admins/edit/:id', adminMiddleware.proceedIfAuthenticated, adminMidd
 
             req.flash('alerts', [{
                 param: 'admin',
-                msg  : 'Administrador(a) modificado(a) com sucesso',
-                type : 'success'
+                msg: 'Administrador(a) modificado(a) com sucesso',
+                type: 'success'
             }]);
 
             res.redirect('/admin/profile');
@@ -223,8 +225,8 @@ router.delete('/admins/delete/:id', adminMiddleware.proceedIfAuthenticated, (req
 
         req.flash('alerts', [{
             param: 'Admin',
-            msg  : `Administrador(a) deletado(a) com sucesso`,
-            type : 'success'
+            msg: `Administrador(a) deletado(a) com sucesso`,
+            type: 'success'
         }]);
 
         res.redirect('/admin/profile');
@@ -257,7 +259,7 @@ router.post('/validation', adminMiddleware.proceedIfAuthenticated, (req, res) =>
                     }
                 });
             } else {
-                res.status(404).send('ticket ja validado.')
+                res.status(404).send('ticket ja validado.');
                 console.log('ticket ja validado.');
                 //TODO: redirect
             }
@@ -299,8 +301,8 @@ router.post('/dishes/new', adminMiddleware.proceedIfAuthenticated, adminMiddlewa
 
             req.flash('alerts', [{
                 param: 'new-dish',
-                msg  : `Prato ${newDish.name} criado com sucesso`,
-                type : 'success'
+                msg: `Prato ${newDish.name} criado com sucesso`,
+                type: 'success'
             }]);
 
             res.redirect('/admin/profile');
@@ -347,8 +349,8 @@ router.put('/dishes/edit/:id', adminMiddleware.proceedIfAuthenticated, adminMidd
 
             req.flash('alerts', [{
                 param: 'dish',
-                msg  : `Prato atualizado com sucesso`,
-                type : 'success'
+                msg: `Prato atualizado com sucesso`,
+                type: 'success'
             }]);
 
             res.redirect('/admin/profile');
@@ -362,8 +364,8 @@ router.delete('/dishes/delete/:id', adminMiddleware.proceedIfAuthenticated, (req
 
         req.flash('alerts', [{
             param: 'dish',
-            msg  : `Prato deletado com sucesso`,
-            type : 'success'
+            msg: `Prato deletado com sucesso`,
+            type: 'success'
         }]);
 
         res.redirect('/admin/profile');
@@ -402,32 +404,104 @@ router.get('/menu/new', adminMiddleware.proceedIfAuthenticated, (req, res) => {
         });
     });
 });
-// adminMiddleware.proceedIfAuthenticated
-router.post('/menu/new', (req, res) => {
+
+router.get('/menu/new/success', adminMiddleware.proceedIfAuthenticated, (req, res) => {
+    req.flash('alerts', [{
+        param: 'menu',
+        msg: `Cardápio Semanal criado com sucesso`,
+        type: 'success'
+    }]);
+
+    res.redirect('/admin/profile');
+});
+
+router.post('/menu/new', adminMiddleware.proceedIfAuthenticated, (req, res) => {
     var DailyMenuArray = [];
+    var week, weekIsDone = 0;
 
-    var currentDay;
-
-    for (let i = 0; i <= 6; ++i) {
-
-        // TODO: Essa Caralha
-        currentDay = req.body.days[i];
-
-        if (typeof req.body.days[i].lunch != "undefined") {
-            if (typeof req.body.days[i].lunch.meat != "undefined") {
-                Dish.getMany(req.body.days[i].lunch.meat, (err, dishes) => { currentDay.lunch.meat = dishes });
+    const start = async () => {
+        console.log(`[${Date.now()}] NEW MENU CREATION`)
+        await asyncForEach(req.body.days, async (day) => {
+        
+            let newDailyMenu = await new DailyMenu();
+            let currentDate = new Date(day.date);
+            
+            if (weekIsDone == 0) {
+                week = currentDate.getWeek();
+                weekIsDone = 1;
             }
-        }
 
-        console.log(i, currentDay);
+            newDailyMenu.date.name = await dayNames[currentDate.getDay()];
+            newDailyMenu.date.day = await currentDate.getDate();
+            newDailyMenu.date.month = await currentDate.getMonth() + 1;
+            newDailyMenu.date.year = await currentDate.getFullYear();
 
-        let newDailyMenu = new DailyMenu(req.body.days[i]);
-        // console.log(i, newDailyMenu);
-        DailyMenuArray.push(newDailyMenu);
+            console.log(`\t[${Date.now()}] ${currentDate}`);
+
+            if (typeof day.lunch != "undefined") {
+                if (typeof day.lunch.meat != "undefined") {
+                    newDailyMenu.lunch.meat = await Dish.getManyPromisses(day.lunch.meat);
+                }
+                if (typeof day.lunch.vegetarian != "undefined") {
+                    newDailyMenu.lunch.vegetarian = await Dish.getManyPromisses(day.lunch.vegetarian);
+                }
+                if (typeof day.lunch.sideDish != "undefined") {
+                    newDailyMenu.lunch.sideDish = await Dish.getManyPromisses(day.lunch.sideDish);
+                }
+                if (typeof day.lunch.dessert != "undefined") {
+                    newDailyMenu.lunch.dessert = await Dish.getManyPromisses(day.lunch.dessert);
+                }
+                if (typeof day.lunch.drinks != "undefined") {
+                    newDailyMenu.lunch.drinks = await Dish.getManyPromisses(day.lunch.drinks);
+                }
+            }
+
+            if (typeof day.dinner != "undefined") {
+                if (typeof day.dinner.meat != "undefined") {
+                    newDailyMenu.dinner.meat = await Dish.getManyPromisses(day.dinner.meat);
+                }
+                if (typeof day.dinner.vegetarian != "undefined") {
+                    newDailyMenu.dinner.vegetarian = await Dish.getManyPromisses(day.dinner.vegetarian);
+                }
+                if (typeof day.dinner.sideDish != "undefined") {
+                    newDailyMenu.dinner.sideDish = await Dish.getManyPromisses(day.dinner.sideDish);
+                }
+                if (typeof day.dinner.dessert != "undefined") {
+                    newDailyMenu.dinner.dessert = await Dish.getManyPromisses(day.dinner.dessert);
+                }
+                if (typeof day.dinner.drinks != "undefined") {
+                    newDailyMenu.dinner.drinks = await Dish.getManyPromisses(day.dinner.drinks);
+                }
+            }
+
+            await DailyMenuArray.push(newDailyMenu);
+        });
+        
+        let todayDate = await new Date();
+        let newMenu = await new Menu.MenuSchema({
+            date: {
+                day: DailyMenuArray[0].date.day,
+                month: DailyMenuArray[0].date.month,
+                year: DailyMenuArray[0].date.year,
+                week: week
+            },
+            days: DailyMenuArray
+        });
+
+        Menu.createMenu(newMenu, (err, menu) => {
+            if (err) {
+                if (err.name === 'MongoError' && err.code === 11000) {
+                    res.status(404).send('Já existe um cardápio cadastrado para a semana selecionada');
+                } else {
+                    throw err;
+                }
+            } else {
+                res.status(200).send('/admin/menu/new/success');
+            }
+        });
     }
 
-    // console.log(DailyMenuArray);
-    res.json(req.body);
+    start();
 });
 
 /* Authentication Group */
@@ -446,7 +520,7 @@ router.post('/login', adminMiddleware.proceedIfNotAuthenticated, (req, res, next
         if (!user) {
             req.flash('alerts', [{
                 param: 'user',
-                msg  : 'Login ou Senha incorretos'
+                msg: 'Login ou Senha incorretos'
             }]);
 
             res.redirect('/admin/login');
@@ -468,8 +542,8 @@ router.get('/logout', adminMiddleware.proceedIfAuthenticated, (req, res) => {
 
     req.flash('alerts', [{
         param: 'user',
-        msg  : 'Você está deslogado',
-        type : 'success'
+        msg: 'Você está deslogado',
+        type: 'success'
     }]);
 
     return res.redirect('/admin/login');
@@ -505,3 +579,9 @@ passport.use('admin', new LocalStrategy({
         });
     }
 ));
+
+async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array);
+    }
+}
