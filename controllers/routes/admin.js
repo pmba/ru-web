@@ -16,7 +16,7 @@ const DailyMenu   = module.require('../../models/menu').DailyMenuSchema;
 router.all('/*', (req, res, next) => {
     res.locals.profile_link = '/admin/profile';
     res.locals.logout_link = '/admin/logout';
-    
+
     next();
 });
 
@@ -240,15 +240,28 @@ router.get('/validation', adminMiddleware.proceedIfAuthenticated, (req, res) => 
 });
 
 router.post('/validation', adminMiddleware.proceedIfAuthenticated, (req, res) => {
+    //req.body.dishs é um array de dishs que foram comprados com o Ticket
+
     Ticket.getById(req.body.id, (err, ticket) => {
         if (err) res.status(404).send('Ocorreu um erro ao tentar validar, tente novamente.')
 
         if (ticket) {
-            res.status(200).json({
-                name        : ticket.user_info.name,
-                registration: ticket.user_info.registration,
-                value       : ticket.value
-            });
+            if (ticket.validatedStatus === false) {
+                Ticket.validateTicket(ticket._id, req.body.dishs, (err2, affected, response) => {
+
+                    if (err2) throw err2;
+
+                    else {
+                        console.log('success message');
+                        //TODO: redirect
+                    }
+                });
+            } else {
+                res.status(404).send('ticket ja validado.')
+                console.log('ticket ja validado.');
+                //TODO: redirect
+            }
+
         } else {
             res.status(404).send('ticket inválido');
         }
@@ -304,7 +317,7 @@ router.get('/dishes/edit/:id', adminMiddleware.proceedIfAuthenticated, (req, res
 
             Intolerance.getManyButByNames(dish.intolerances, (notDishIntolerancesErr, notDishIntolerances) => {
                 if (notDishIntolerancesErr) throw notDishIntolerancesErr;
-            
+
                 res.render('pages/admin/dishes/edit', {
                     title: 'Editar Prato',
                     dish: dish,
