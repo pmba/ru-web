@@ -248,13 +248,14 @@ router.get('/validation', adminMiddleware.proceedIfAuthenticated, (req, res) => 
 });
 
 router.post('/validation', adminMiddleware.proceedIfAuthenticated, (req, res) => {
-    //req.body.dishs é um array de dishs que foram comprados com o Ticket
 
     Ticket.getById(req.body.id, (err, ticket) => {
         if (err) res.status(404).send('Ocorreu um erro ao tentar validar, tente novamente.')
 
+        console.log(ticket);
+
         if (ticket) {
-            if (ticket.validatedStatus === false) {
+            if (ticket.validation.status === false) {
                 Ticket.validateTicket(ticket._id, (err2, affected, response) => {
 
                     if (err2) throw err2;
