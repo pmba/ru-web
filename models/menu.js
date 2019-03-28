@@ -90,3 +90,7 @@ var DailyMenuSchema = module.exports.DailyMenuSchema = mongoose.model('DailyMenu
 module.exports.createMenu = (newMenu, callback) => {
     newMenu.save(callback);
 }
+
+module.exports.getAll = (callback) => {
+    Menu.find({}, callback);
+}

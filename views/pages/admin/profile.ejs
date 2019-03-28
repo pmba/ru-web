@@ -47,7 +47,9 @@
                                     aria-controls="menu">
                                     Cardápio
 
-                                    <span class="badge badge-light shadow badge-pill">14</span>
+                                    <span class="badge badge-light shadow badge-pill">
+                                        <%= locals.menus.length %>
+                                    </span>
                                 </a>
                                 <a class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
                                     id="list-users-list" data-toggle="list" href="#list-users" role="tab"
@@ -100,7 +102,7 @@
                                                                 <a href="/admin/intolerances/edit/<%= intolerance._id %>" class="btn btn-primary">
                                                                     <i class="far fa-edit"></i>
                                                                 </a>
-                                                                <button onclick="proceedToDeleteIntolerance('<%= intolerance._id %>');" type="button" class="btn btn-danger">
+                                                                <button onclick="proceedToDelete('/admin/intolerances/delete/<%= intolerance._id %>');" type="button" class="btn btn-danger">
                                                                     <i class="far fa-trash-alt"></i>
                                                                 </button>
                                                             </div>
@@ -155,7 +157,7 @@
                                                                 <a href="/admin/dishes/edit/<%= dish._id %>" class="btn btn-primary">
                                                                     <i class="far fa-edit"></i>
                                                                 </a>
-                                                                <button onclick="proceedToDeleteDish('<%= dish._id %>');" type="button" class="btn btn-danger">
+                                                                <button onclick="proceedToDelete('/admin/dishes/delete/<%= dish._id %>');" type="button" class="btn btn-danger">
                                                                     <i class="far fa-trash-alt"></i>
                                                                 </button>
                                                             </div>
@@ -179,7 +181,38 @@
                                                     class="fas fa-plus-circle"></i></a>
                                         </div>
                                         <div class="card-body table-responsive">
-
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Semana</th>
+                                                        <th scope="col">1º Dia</th>
+                                                        <th scope="col">Opções</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% locals.menus.forEach(menu => { %>
+                                                    <tr scope="row">
+                                                        <td>
+                                                            <%= menu.date.week %>
+                                                        </td>
+                                                        <td>
+                                                            <%= menu.date.day %>/<%= menu.date.month %>/<%= menu.date.year %>
+                                                        </td>
+                                                        <td>
+                                                            <div class="btn-group btn-group-sm input-group" role="group"
+                                                                aria-label="menu Options">
+                                                                <a href="/admin/menu/edit/<%= menu._id %>" class="btn btn-primary">
+                                                                    <i class="far fa-edit"></i>
+                                                                </a>
+                                                                <button onclick="proceedToDelete('/admin/menu/delete/<%= menu._id %>');" type="button" class="btn btn-danger">
+                                                                    <i class="far fa-trash-alt"></i>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <% }) %>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -258,7 +291,7 @@
                                                                     <a href="/admin/admins/edit/<%= admin._id %>" class="btn btn-primary">
                                                                         <i class="far fa-edit"></i>
                                                                     </a>
-                                                                    <button onclick="proceedToDeleteAdmin('<%= admin._id %>');" type="button" class="btn btn-danger">
+                                                                    <button onclick="proceedToDelete('/admin/admins/delete/<%= admin._id %>');" type="button" class="btn btn-danger">
                                                                         <i class="far fa-trash-alt"></i>
                                                                     </button>
                                                                 </div>

@@ -26,19 +26,8 @@ $(document).ready(function () {
     });
 });
 
-function proceedToDeleteIntolerance(intoleranceID) {
-    $('#confirmDeleteForm').attr('action', `/admin/intolerances/delete/${intoleranceID}?_method=DELETE`);
+function proceedToDelete(deleteURL) {
+    $('#confirmDeleteForm').attr('action', `${deleteURL}?_method=DELETE`);
     $('#deleConfirmationModal').modal('show');
 }
-
-function proceedToDeleteAdmin(adminID) {
-    $('#confirmDeleteForm').attr('action', `/admin/admins/delete/${adminID}?_method=DELETE`);
-    $('#deleConfirmationModal').modal('show');
-}
-
-function proceedToDeleteDish(dishID) {
-    $('#confirmDeleteForm').attr('action', `/admin/dishes/delete/${dishID}?_method=DELETE`);
-    $('#deleConfirmationModal').modal('show');
-}
-
 

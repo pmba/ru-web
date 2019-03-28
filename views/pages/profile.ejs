@@ -28,7 +28,7 @@
                         <div class="col-sm-4 wallet-money table-responsive-sm">
                             <table class="text-uppercase text-center bg-light table table-success shadow">
                                 <tr class="">
-                                    <th><i class="fas fa-money-bill-alt text-success"></i> Minha Carteira</th>
+                                    <th><i class="fas fa-money-bill-alt text-success mr-2"></i> Minha Carteira</th>
                                 </tr>
                                 <tr class="table-success ls-1">
                                     <td class="h4">
@@ -47,7 +47,7 @@
                         <div class="col-sm-8 table-responsive-sm">
                             <table class="text-uppercase table">
                                 <tr class="text-primary">
-                                    <th><i class="fas fa-info-circle"></i> Minhas Informações</th>
+                                    <th><i class="fas fa-info-circle mr-2"></i> Minhas Informações</th>
                                 </tr>
                                 <tr>
                                     <td>
@@ -76,17 +76,20 @@
                             <table class="table">
                                 <tr class="text-danger text-sm-resp">
                                     <th>
-                                        <i class="fas fa-allergies"></i> Intolerâncias
-                                        <a tabindex="0" href="#" role="button" data-trigger="focus" title="Intolerâncias"
-                                            class="text-decoration-none text-muted" data-container="body" data-toggle="popover"
-                                            data-placement="top" data-content="Aqui você deve adicionar suas intolerâncias alimentícias para que caso algum prato seja prejudicial à sua saúde, isso fique mais fácil de ser detectado. Intolerâncias de contaminação, são aquelas que com o mínimo requício dela, causará uma reação. Analogamente, temos as intolerâncias de não contaminação.">
+                                        <i class="fas fa-allergies mr-2"></i> Intolerâncias
+                                        <a tabindex="0" href="#" role="button" data-trigger="focus"
+                                            title="Intolerâncias" class="text-decoration-none text-muted"
+                                            data-container="body" data-toggle="popover" data-placement="top"
+                                            data-content="Aqui você deve adicionar suas intolerâncias alimentícias para que caso algum prato seja prejudicial à sua saúde, isso fique mais fácil de ser detectado. Intolerâncias de contaminação, são aquelas que com o mínimo requício dela, causará uma reação. Analogamente, temos as intolerâncias de não contaminação.">
                                             <i class="fas fa-question-circle"></i>
                                         </a>
                                     </th>
                                     <th class="text-right">
-                                        <a href="#" class="text-decoration-none" data-toggle="modal" data-target="#addIntoleranceModal"><i
-                                                class="fas fa-plus-circle"></i>
-                                            Editar</a>
+                                        <a href="#" class="text-decoration-none" data-toggle="modal"
+                                            data-target="#addIntoleranceModal">
+                                            Editar
+                                            <i class="fas fa-plus-circle ml-2"></i>
+                                        </a>
                                     </th>
                                 </tr>
                                 <% locals.user.intolerances.forEach(intolerance => { %>
@@ -106,8 +109,13 @@
                     <div class="row">
                         <div class="col-sm-12 table-responsive-sm text-uppercase">
                             <table class="table table-borderless">
-                                <tr class="text-info">
-                                    <th><i class="fas fa-ticket-alt"></i> Suas Fichas</th>
+                                <tr class="text-info d-flex justify-content-between">
+                                    <th><i class="fas fa-ticket-alt mr-2"></i> Suas Fichas</th>
+                                    <th><a href="#" class="text-decoration-none">
+                                            Comprar Fichas
+                                            <i class="fas fa-plus-circle ml-2"></i>
+                                        </a>
+                                    </th>
                                 </tr>
                             </table>
                         </div>
@@ -117,25 +125,29 @@
                                     <td>
                                         <div class="tickets-slide d-flex">
                                             <% if (locals.tickets.length > 0) { %>
-                                                <% locals.tickets.forEach(ticket => { %>
-                                                <div class="card ticket m-2 shadow">
-                                                    <div class="card-header">
-                                                        Ficha Disponível
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <p class="card-text">
-                                                            <strong>Valor:</strong> R$ <%= ticket.value.toFixed(2) %> <br>
-                                                            <strong>Data:</strong> <%= ticket.date.getDate() %>/<%= ticket.date.getMonth() %>/<%= ticket.date.getFullYear() %> <br>
-                                                            <strong>Hora:</strong> <%= ticket.date.getHours() %>:<%= ticket.date.getMinutes() %>
-                                                        </p>
-
-                                                        <button class="btn btn-outline-success text-center form-control" onclick="showQrCode('<%= ticket.id %>')">VISUALIZAR
-                                                            FICHA</button>
-                                                    </div>
+                                            <% locals.tickets.forEach(ticket => { %>
+                                            <div class="card ticket m-2 shadow">
+                                                <div class="card-header">
+                                                    Ficha Disponível
                                                 </div>
-                                                <% }) %>
+                                                <div class="card-body">
+                                                    <p class="card-text">
+                                                        <strong>Valor:</strong> R$ <%= ticket.value.toFixed(2) %> <br>
+                                                        <strong>Data:</strong>
+                                                        <%= ticket.date.getDate() %>/<%= ticket.date.getMonth() %>/<%= ticket.date.getFullYear() %>
+                                                        <br>
+                                                        <strong>Hora:</strong>
+                                                        <%= ticket.date.getHours() %>:<%= ticket.date.getMinutes() %>
+                                                    </p>
+
+                                                    <button class="btn btn-outline-success text-center form-control"
+                                                        onclick="showQrCode('<%= ticket.id %>')">VISUALIZAR
+                                                        FICHA</button>
+                                                </div>
+                                            </div>
+                                            <% }) %>
                                             <% } else { %>
-                                                Você não possui fichas disponíveis
+                                            Você não possui fichas disponíveis
                                             <% } %>
                                         </div>
                                     </td>
@@ -148,8 +160,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="addIntoleranceModal" tabindex="-1" role="dialog" aria-labelledby="addIntoleranceModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="addIntoleranceModal" tabindex="-1" role="dialog"
+        aria-labelledby="addIntoleranceModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -159,10 +171,12 @@
                         <i class="far fa-times-circle"></i>
                     </button>
                 </div>
-                <form action="/user/intolerances/update" method="POST" enctype="application/json" id="newIntoleranceForm">
+                <form action="/user/intolerances/update" method="POST" enctype="application/json"
+                    id="newIntoleranceForm">
                     <div class="modal-body">
                         <div class="form-group">
-                            <select multiple data-live-search="true" class="form-control" id="intolerancesSelect" name="intolerances[]">
+                            <select multiple data-live-search="true" class="form-control" id="intolerancesSelect"
+                                name="intolerances[]">
                                 <% locals.notIntolerances.forEach((notIntolerance) => { %>
                                 <option value="<%= notIntolerance.food %>">
                                     <%= notIntolerance.food %>
@@ -191,7 +205,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-hand-holding-usd"></i> Recarga</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-hand-holding-usd mr-2"></i> Recarga</h5>
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i class="far fa-times-circle"></i>
@@ -204,7 +218,8 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">R$</div>
                                 </div>
-                                <input type="number" class="form-control" name="amount" step="0.01" min="3" value="3.00">
+                                <input type="number" class="form-control" name="amount" step="0.01" min="3"
+                                    value="3.00">
                             </div>
                         </div>
                     </div>

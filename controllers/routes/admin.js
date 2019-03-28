@@ -35,12 +35,18 @@ router.get('/profile', adminMiddleware.proceedIfAuthenticated, (req, res) => {
                 Dish.getAll((dishError, dishes) => {
                     if (dishError) throw dishError;
 
-                    res.render('pages/admin/profile', {
-                        title: 'Perfil Administração',
-                        intolerances: intolerances,
-                        ruUsers: users,
-                        admins: admins,
-                        dishes: dishes
+                    Menu.getAll((menuError, menus) => {
+                        if (menuError) throw menuError;
+
+                        res.render('pages/admin/profile', {
+                            title: 'Perfil Administração',
+                            intolerances: intolerances,
+                            ruUsers: users,
+                            admins: admins,
+                            dishes: dishes,
+                            menus: menus
+                        });
+
                     });
                 });
             });
@@ -249,19 +255,19 @@ router.post('/validation', adminMiddleware.proceedIfAuthenticated, (req, res) =>
 
         if (ticket) {
             if (ticket.validatedStatus === false) {
-                Ticket.validateTicket(ticket._id, req.body.dishs, (err2, affected, response) => {
+                Ticket.validateTicket(ticket._id, (err2, affected, response) => {
 
                     if (err2) throw err2;
-
                     else {
-                        console.log('success message');
-                        //TODO: redirect
+                        res.status(200).json({
+                            name        : ticket.user_info.name,
+                            registration: ticket.user_info.registration,
+                            value       : ticket.value
+                        });
                     }
                 });
             } else {
                 res.status(404).send('ticket ja validado.');
-                console.log('ticket ja validado.');
-                //TODO: redirect
             }
 
         } else {
