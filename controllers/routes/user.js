@@ -10,6 +10,7 @@ const Ticket      = module.require('../../models/ticket');
 router.all('/*', middleware.proceedIfAuthenticated);
 
 router.get('/', (req, res) => {
+<<<<<<< HEAD
     Intolerance.getManyBut(req.user.intolerances, (err, notIntolerances) => {
         if (err) throw err;
         Ticket.getByUserID(req.user._id, (err2, tickets) => {
@@ -19,9 +20,25 @@ router.get('/', (req, res) => {
                 title       : 'Meu Perfil',
                 notIntolerances: notIntolerances,
                 tickets     : tickets
+=======
+    User.getUserWithoutPassword(req.user._id, (userErr, user) => {
+        if (userErr) throw userErr;
+
+        Intolerance.getManyBut(req.user.intolerances, (err, notIntolerances) => {
+            if (err) throw err;
+            Ticket.getByUserID(req.user._id, (err2, tickets) => {
+                if (err2) throw err2;
+
+                res.render('pages/profile', {
+                    title       : 'Meu Perfil',
+                    notIntolerances: notIntolerances,
+                    user: user,
+                    tickets     : tickets
+                });
+>>>>>>> 3dce575deead554352f185c87173f1df863a700d
             });
-        });
-    })
+        })
+    });
 });
 
 router.get('/tickets', (req, res) => {

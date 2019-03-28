@@ -50,6 +50,7 @@ router.get('/profile', adminMiddleware.proceedIfAuthenticated, (req, res) => {
 
 router.get('/intolerances/new', adminMiddleware.proceedIfAuthenticated, (req, res) => {
     res.render('pages/admin/intolerances/new', {
+        title: 'Adicionar Intolerância'
     });
 });
 
@@ -72,8 +73,7 @@ router.post('/intolerances/new', adminMiddleware.proceedIfAuthenticated, adminMi
         res.redirect('/admin/intolerances/new');
     } else {
         var newIntolerance = new Intolerance({
-            food         : req.body.food,
-            contamination: req.body.contamination
+            food: req.body.food,
         });
 
         Intolerance.createIntolerance(newIntolerance, (err, intolerance) => {
@@ -102,8 +102,7 @@ router.post('/intolerances/new', adminMiddleware.proceedIfAuthenticated, adminMi
 
 router.put('/intolerances/edit/:id', adminMiddleware.proceedIfAuthenticated, adminMiddleware.validateIntoleranceCreation, (req, res) => {
     var updatedIntolerance = new Intolerance({
-        food: req.body.food,
-        contamination: req.body.contamination
+        food: req.body.food
     });
     Intolerance.updateIntoleranceById(req.params.id, updatedIntolerance, (err, resultIntolerance) => {
         if (err) throw err;

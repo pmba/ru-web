@@ -43,29 +43,6 @@
                                     alergia é definida. (Ex: Camarão, Glúten)</small>
                             </div>
 
-                            <div class="col-sm-12 form-group">
-                                <label for="username" class="sans-13">Contaminação</label>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fas fa-allergies"></i></div>
-                                    </div>
-                                    <select class="form-control" name="contamination">
-                                        <% if (locals.intolerance.contamination) { %>
-                                            <option value="true" selected>Contaminação</option>
-                                            <option value="false">Não Contaminação</option>
-                                        <% } else { %>
-                                            <option value="true">Contaminação</option>
-                                            <option value="false" selected>Não Contaminação</option>
-                                        <% } %>
-                                    </select>
-                                </div>
-                                <small id="contaminationHelp" class="form-text text-muted">Alergia de Contaminação, são
-                                    alergias
-                                    que com traços mínimos ou até restícios dele podem causar uma reação.<br>Selecione
-                                    "Não
-                                    Contaminação" se, e somente se tiver <span
-                                        class="text-danger font-weight-bold">absoluta certeza</span>.</small>
-                            </div>
                         </div>
 
                     </div>

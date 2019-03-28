@@ -16,7 +16,6 @@ module.exports.proceedIfNotAuthenticated = (req, res, next) => {
 
 module.exports.validateIntoleranceCreation = (req, res, next) => {
     req.checkBody('food', 'Alimento não pode ser vazio').notEmpty();
-    req.checkBody('contamination', 'Selecione o tipo de alergia').notEmpty();
 
     next();
 }
