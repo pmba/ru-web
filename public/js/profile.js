@@ -1,6 +1,10 @@
 $(document).ready(() => {
-    $('select').selectpicker({
+    $('#intolerancesSelect').selectpicker({
         noneSelectedText : 'Adicione ou remova intolerâncias' 
+    });
+
+    $('#buyTicketSelect').selectpicker({
+        noneSelectedText : 'Selecione o valor da ficha' 
     });
 
     $('#intolerancesSelect').change(() => {

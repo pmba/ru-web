@@ -39,22 +39,20 @@ router.get('/tickets', (req, res) => {
 
 router.post('/tickets/buy', middleware.validatePurchase, (req, res) => {
 
-    const ticket = new Ticket({
+    const newTicket = new Ticket({
         user_info: {
             name: req.user.name,
             id: req.user._id,
             registration: req.user.registration
         },
-        value: req.body.amount
+        value: parseFloat(req.body.amount)
     });
 
-    Ticket.createTicket(ticket, (err) => {
-        console.log('ticket created')
-        if (err) throw err;
+    Ticket.createTicket(newTicket, (ticketErr) => {
+        if (ticketErr) throw ticketErr;
 
-        User.updateWallet(req.user._id, req.body.amount * (-1), (err2, affected, response) => {
-            if (err2) throw err2;
-
+        User.updateWallet(req.user._id, req.body.amount * (-1), (userErr, affected, response) => {
+            if (userErr) throw userErr;
             req.flash('alerts', [{
                 param: 'user-wallet',
                 msg: `R$ ${req.body.amount} Retirados da sua carteira`,

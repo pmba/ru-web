@@ -111,7 +111,7 @@
                             <table class="table table-borderless">
                                 <tr class="text-info d-flex justify-content-between">
                                     <th><i class="fas fa-ticket-alt mr-2"></i> Suas Fichas</th>
-                                    <th><a href="#" class="text-decoration-none">
+                                    <th><a href="#" class="text-decoration-none" data-toggle="modal" data-target="#buyTicketModal">
                                             Comprar Fichas
                                             <i class="fas fa-plus-circle ml-2"></i>
                                         </a>
@@ -119,7 +119,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="col-sm-12 table-responsive-sm text-uppercase">
+                        <div class="col-sm-12 table-responsive-lg text-uppercase">
                             <table class="table tickets-table">
                                 <tr>
                                     <td>
@@ -134,10 +134,10 @@
                                                     <p class="card-text">
                                                         <strong>Valor:</strong> R$ <%= ticket.value.toFixed(2) %> <br>
                                                         <strong>Data:</strong>
-                                                        <%= ticket.date.getDate() %>/<%= ticket.date.getMonth() %>/<%= ticket.date.getFullYear() %>
+                                                        <%= ticket.date.getDate() %>/<%= ("0" + ticket.date.getMonth()).slice(-2) %>/<%= ticket.date.getFullYear() %>
                                                         <br>
                                                         <strong>Hora:</strong>
-                                                        <%= ticket.date.getHours() %>:<%= ticket.date.getMinutes() %>
+                                                        <%= ticket.date.getHours() %>:<%= ("0" + ticket.date.getMinutes()).slice(-2) %>:<%= ("0" + ticket.date.getSeconds()).slice(-2) %>
                                                     </p>
 
                                                     <button class="btn btn-outline-success text-center form-control"
@@ -220,6 +220,40 @@
                                 </div>
                                 <input type="number" class="form-control" name="amount" step="0.01" min="3"
                                     value="3.00">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="submitCash">Salvar Mudanças</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="buyTicketModal" tabindex="-1" role="dialog" aria-labelledby="buyTicketModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-hand-holding-usd mr-2"></i> Comprar Ticket</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="far fa-times-circle"></i>
+                    </button>
+                </div>
+                <form action="/user/tickets/buy" method="POST" enctype="application/json" id="buyTicketModalForm">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12 input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">R$</div>
+                                </div>
+                                <select data-live-search="true" class="form-control" id="buyTicketSelect" name="amount">
+                                    <option value="3.00">R$ 3,00</option>
+                                    <option value="1.00">R$ 1,00</option>
+                                </select>
                             </div>
                         </div>
                     </div>

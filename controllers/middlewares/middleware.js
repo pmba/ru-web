@@ -41,17 +41,21 @@ module.exports = {
       req.flash('alerts', [{
         param: 'user-wallet',
         msg  : `Operação inválida`,
-        type : 'warning'
+        type : 'danger'
       }]);
+
       res.redirect('/user');
-    } else if (req.user.wallet >= req.body.amount) {
+    } 
+    
+    if (req.user.wallet >= req.body.amount) {
       next();
     } else {
       req.flash('alerts', [{
         param: 'user-wallet',
-        msg  : `Fundos insuficientes`,
+        msg  : `Você não possui créditos suficientes`,
         type : 'warning'
       }]);
+
       res.redirect('/user');
     }
   }
