@@ -3,6 +3,7 @@
 
 <head>
     <% include ../../../partials/head %>
+    <link rel="stylesheet" href="/css/bootstrap/bootstrap-datepicker.min.css">
 </head>
 
 <body>
@@ -32,177 +33,259 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-4 mb-4">
-                                <div class="list-group" id="list-tab" role="tablist">
-                                    <a class="d-flex justify-content-between align-items-center list-group-item list-group-item-action active"
-                                        id="list-intolerances-list" data-toggle="list" role="tab" href="#list-monday"
+                                <div class="card mb-3">
+                                    <div class="card-header d-flex justify-content-center">
+                                        Semana do Cardápio
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="week-picker" class="date d-flex justify-content-center"></div>
+                                    </div>
+                                </div>
+                                <div class="list-group disabled-div" id="list-tab" role="tablist">
+                                    <a onclick="selectDay(1);"
+                                        class="d-flex justify-content-between align-items-center list-group-item list-group-item-action active"
+                                        id="list-intolerances-list" data-toggle="list" role="tab" href="#"
                                         aria-controls="monday">
                                         Segunda
 
-                                        <span class="badge"><i class="fas fa-times"></i></span>
+                                        <small id="dayDate1"></small>
                                     </a>
 
-                                    <a class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
-                                        id="list-intolerances-list" data-toggle="list" role="tab" href="#list-tuesday"
+                                    <a onclick="selectDay(2);"
+                                        class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
+                                        id="list-intolerances-list" data-toggle="list" role="tab" href="#"
                                         aria-controls="tuesday">
                                         Terça
 
-                                        <span class="badge"><i class="fas fa-times"></i></span>
+                                        <small id="dayDate2"></small>
                                     </a>
 
-                                    <a class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
-                                        id="list-intolerances-list" data-toggle="list" role="tab" href="#list-wednesday"
+                                    <a onclick="selectDay(3);"
+                                        class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
+                                        id="list-intolerances-list" data-toggle="list" role="tab" href="#"
                                         aria-controls="wednesday">
                                         Quarta
 
-                                        <span class="badge"><i class="fas fa-times"></i></span>
+                                        <small id="dayDate3"></small>
                                     </a>
 
-                                    <a class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
-                                        id="list-intolerances-list" data-toggle="list" role="tab" href="#list-thursday"
+                                    <a onclick="selectDay(4);"
+                                        class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
+                                        id="list-intolerances-list" data-toggle="list" role="tab" href="#"
                                         aria-controls="thursday">
                                         Quinta
 
-                                        <span class="badge"><i class="fas fa-times"></i></span>
+                                        <small id="dayDate4"></small>
                                     </a>
 
-                                    <a class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
-                                        id="list-intolerances-list" data-toggle="list" role="tab" href="#list-friday"
+                                    <a onclick="selectDay(5);"
+                                        class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
+                                        id="list-intolerances-list" data-toggle="list" role="tab" href="#"
                                         aria-controls="friday">
                                         Sexta
 
-                                        <span class="badge"><i class="fas fa-times"></i></span>
+                                        <small id="dayDate5"></small>
                                     </a>
 
-                                    <a class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
-                                        id="list-intolerances-list" data-toggle="list" role="tab" href="#list-saturday"
+                                    <a onclick="selectDay(6);"
+                                        class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
+                                        id="list-intolerances-list" data-toggle="list" role="tab" href="#"
                                         aria-controls="saturday">
                                         Sábado
 
-                                        <span class="badge"><i class="fas fa-times"></i></span>
+                                        <small id="dayDate6"></small>
                                     </a>
 
-                                    <a class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
-                                        id="list-intolerances-list" data-toggle="list" role="tab" href="#list-sunday"
+                                    <a onclick="selectDay(0);"
+                                        class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
+                                        id="list-intolerances-list" data-toggle="list" role="tab" href="#"
                                         aria-controls="sunday">
                                         Domingo
 
-                                        <span class="badge"><i class="fas fa-times"></i></span>
+                                        <small id="dayDate0"></small>
                                     </a>
                                 </div>
                             </div>
 
                             <div class="col-lg-8">
-                                <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-content disabled-div" id="nav-tabContent">
 
-                                    <!-- Segunda -->
-                                    <div class="table-responsive tab-pane fade show active" id="list-monday"
-                                        role="tabpanel" aria-labelledby="list-home-list">
-                                        <div class="card">
-                                            <div class="card-header d-flex justify-content-between">
-                                                Segunda
+                                    <!-- Day -->
+
+                                    <div class="card">
+                                        <div class="card-header d-flex justify-content-between">
+                                            <div class="btn-group input-group" role="group">
+                                                <button type="button" class="btn btn-primary text-uppercase"
+                                                    onclick="showCard(0);">Almoço</button>
+                                                <button type="button" class="btn btn-dark text-uppercase"
+                                                    onclick="showCard(1);">Janta</button>
                                             </div>
-                                            <div class="card-body">
-                                                <div class="card mb-2">
-                                                    <div class="card-header bg-white">
-                                                        <i class="fas fa-sun mr-2"></i>
-                                                        Almoço
-                                                    </div>
-                                                    <div class="card-body">
-                                                        ok
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="card mb-2" id="lunchCard">
+                                                <div class="card-header bg-white">
+                                                    <i class="fas fa-sun mr-2"></i>
+                                                    Almoço
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <!-- Carnes Almoço -->
+                                                        <div class="col-sm-12 form-group">
+                                                            <label for="lunchMeat">Carne</label>
+                                                            <select placeholder="ok" multiple data-live-search="true"
+                                                                class="form-control" id="lunchMeat" name="lunchMeat[]">
+                                                                <option value="Carnívoro">Carnívoro</option>
+                                                                <option value="Vegetariano">Vegetariano</option>
+                                                                <option value="Acompanhamento">Acompanhamento
+                                                                </option>
+                                                                <option value="Sobremesa">Sobremesa</option>
+                                                                <option value="Bebida">Bebida</option>
+                                                            </select>
+                                                        </div>
+                                                        <!-- Vegetariano Almoço -->
+                                                        <div class="col-sm-12 form-group">
+                                                            <label for="lunchVegetarian">Vegetariano</label>
+                                                            <select multiple data-live-search="true"
+                                                                class="form-control" id="lunchVegetarian"
+                                                                name="lunchVegetarian[]">
+                                                                <option value="Carnívoro">Carnívoro</option>
+                                                                <option value="Vegetariano">Vegetariano</option>
+                                                                <option value="Acompanhamento">Acompanhamento
+                                                                </option>
+                                                                <option value="Sobremesa">Sobremesa</option>
+                                                                <option value="Bebida">Bebida</option>
+                                                            </select>
+                                                        </div>
+                                                        <!-- Acompanhamento Almoço -->
+                                                        <div class="col-sm-12 form-group">
+                                                            <label for="lunchSideDish">Acompanhamento</label>
+                                                            <select multiple data-live-search="true"
+                                                                class="form-control" id="lunchSideDish"
+                                                                name="lunchSideDish[]">
+                                                                <option value="Carnívoro">Carnívoro</option>
+                                                                <option value="Vegetariano">Vegetariano</option>
+                                                                <option value="Acompanhamento">Acompanhamento
+                                                                </option>
+                                                                <option value="Sobremesa">Sobremesa</option>
+                                                                <option value="Bebida">Bebida</option>
+                                                            </select>
+                                                        </div>
+                                                        <!-- Sobremesa Almoço -->
+                                                        <div class="col-sm-12 form-group">
+                                                            <label for="lunchDessert">Sobremesa</label>
+                                                            <select multiple data-live-search="true"
+                                                                class="form-control" id="lunchDessert"
+                                                                name="lunchDessert[]">
+                                                                <option value="Carnívoro">Carnívoro</option>
+                                                                <option value="Vegetariano">Vegetariano</option>
+                                                                <option value="Acompanhamento">Acompanhamento
+                                                                </option>
+                                                                <option value="Sobremesa">Sobremesa</option>
+                                                                <option value="Bebida">Bebida</option>
+                                                            </select>
+                                                        </div>
+                                                        <!-- Bebida Almoço -->
+                                                        <div class="col-sm-12 form-group">
+                                                            <label for="lunchDrink">Bebida</label>
+                                                            <select multiple data-live-search="true"
+                                                                class="form-control" id="lunchDrink"
+                                                                name="lunchDrink[]">
+                                                                <option value="Carnívoro">Carnívoro</option>
+                                                                <option value="Vegetariano">Vegetariano</option>
+                                                                <option value="Acompanhamento">Acompanhamento
+                                                                </option>
+                                                                <option value="Sobremesa">Sobremesa</option>
+                                                                <option value="Bebida">Bebida</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                            </div>
 
-                                                <div class="card">
-                                                    <div class="card-header bg-white">
-                                                        <i class="fas fa-moon mr-2"></i>
-                                                        Janta
-                                                    </div>
-                                                    <div class="card-body">
-                                                        ok
+                                            <div class="card" style="display:none;" id="dinnerCard">
+                                                <div class="card-header bg-white">
+                                                    <i class="fas fa-moon mr-2"></i>
+                                                    Janta
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <!-- Carnes Janta -->
+                                                        <div class="col-sm-12 form-group">
+                                                            <label for="dinnerMeat">Carne</label>
+                                                            <select placeholder="ok" multiple data-live-search="true"
+                                                                class="form-control" id="dinnerMeat"
+                                                                name="dinnerMeat[]">
+                                                                <option value="Carnívoro">Carnívoro</option>
+                                                                <option value="Vegetariano">Vegetariano</option>
+                                                                <option value="Acompanhamento">Acompanhamento
+                                                                </option>
+                                                                <option value="Sobremesa">Sobremesa</option>
+                                                                <option value="Bebida">Bebida</option>
+                                                            </select>
+                                                        </div>
+                                                        <!-- Vegetariano Janta -->
+                                                        <div class="col-sm-12 form-group">
+                                                            <label for="dinnerVegetarian">Vegetariano</label>
+                                                            <select multiple data-live-search="true"
+                                                                class="form-control" id="dinnerVegetarian"
+                                                                name="dinnerVegetarian[]">
+                                                                <option value="Carnívoro">Carnívoro</option>
+                                                                <option value="Vegetariano">Vegetariano</option>
+                                                                <option value="Acompanhamento">Acompanhamento
+                                                                </option>
+                                                                <option value="Sobremesa">Sobremesa</option>
+                                                                <option value="Bebida">Bebida</option>
+                                                            </select>
+                                                        </div>
+                                                        <!-- Acompanhamento Janta -->
+                                                        <div class="col-sm-12 form-group">
+                                                            <label for="dinnerSideDish">Acompanhamento</label>
+                                                            <select multiple data-live-search="true"
+                                                                class="form-control" id="dinnerSideDish"
+                                                                name="dinnerSideDish[]">
+                                                                <option value="Carnívoro">Carnívoro</option>
+                                                                <option value="Vegetariano">Vegetariano</option>
+                                                                <option value="Acompanhamento">Acompanhamento
+                                                                </option>
+                                                                <option value="Sobremesa">Sobremesa</option>
+                                                                <option value="Bebida">Bebida</option>
+                                                            </select>
+                                                        </div>
+                                                        <!-- Sobremesa Janta -->
+                                                        <div class="col-sm-12 form-group">
+                                                            <label for="dinnerDessert">Sobremesa</label>
+                                                            <select multiple data-live-search="true"
+                                                                class="form-control" id="dinnerDessert"
+                                                                name="dinnerDessert[]">
+                                                                <option value="Carnívoro">Carnívoro</option>
+                                                                <option value="Vegetariano">Vegetariano</option>
+                                                                <option value="Acompanhamento">Acompanhamento
+                                                                </option>
+                                                                <option value="Sobremesa">Sobremesa</option>
+                                                                <option value="Bebida">Bebida</option>
+                                                            </select>
+                                                        </div>
+                                                        <!-- Bebida Janta -->
+                                                        <div class="col-sm-12 form-group">
+                                                            <label for="dinnerDrink">Bebida</label>
+                                                            <select multiple data-live-search="true"
+                                                                class="form-control" id="dinnerDrink"
+                                                                name="dinnerDrink[]">
+                                                                <option value="Carnívoro">Carnívoro</option>
+                                                                <option value="Vegetariano">Vegetariano</option>
+                                                                <option value="Acompanhamento">Acompanhamento
+                                                                </option>
+                                                                <option value="Sobremesa">Sobremesa</option>
+                                                                <option value="Bebida">Bebida</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card-footer">
-                                                
-                                            </div>
                                         </div>
-                                    </div>
-
-                                    <!-- Terça -->
-                                    <div class="table-responsive tab-pane fade show" id="list-tuesday"
-                                        role="tabpanel" aria-labelledby="list-home-list">
-                                        <div class="card">
-                                            <div class="card-header d-flex justify-content-between">
-                                                Terça
-                                            </div>
-                                            <div class="card-body">
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Quarta -->
-                                    <div class="table-responsive tab-pane fade show" id="list-wednesday"
-                                        role="tabpanel" aria-labelledby="list-home-list">
-                                        <div class="card">
-                                            <div class="card-header d-flex justify-content-between">
-                                                Quarta
-                                            </div>
-                                            <div class="card-body">
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Quinta -->
-                                    <div class="table-responsive tab-pane fade show" id="list-thursday"
-                                        role="tabpanel" aria-labelledby="list-home-list">
-                                        <div class="card">
-                                            <div class="card-header d-flex justify-content-between">
-                                                Quinta
-                                            </div>
-                                            <div class="card-body">
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Sexta -->
-                                    <div class="table-responsive tab-pane fade show" id="list-friday"
-                                        role="tabpanel" aria-labelledby="list-home-list">
-                                        <div class="card">
-                                            <div class="card-header d-flex justify-content-between">
-                                                Sexta
-                                            </div>
-                                            <div class="card-body">
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Sábado -->
-                                    <div class="table-responsive tab-pane fade show" id="list-saturday"
-                                        role="tabpanel" aria-labelledby="list-home-list">
-                                        <div class="card">
-                                            <div class="card-header d-flex justify-content-between">
-                                                Sábado
-                                            </div>
-                                            <div class="card-body">
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Domingo -->
-                                    <div class="table-responsive tab-pane fade show" id="list-sunday"
-                                        role="tabpanel" aria-labelledby="list-home-list">
-                                        <div class="card">
-                                            <div class="card-header d-flex justify-content-between">
-                                                Domingo
-                                            </div>
-                                            <div class="card-body">
-
-                                            </div>
+                                        <div class="card-footer">
+                                            <button id="saveDailyBtn" day="1" type="button" class="btn btn-primary form-control" onclick="saveDaily(this.day);" >Salvar
+                                                Cardápio Diário</button>
                                         </div>
                                     </div>
                                 </div>
@@ -219,8 +302,9 @@
 
 
     <% include ../../../partials/footer %>
+    <script src="/js/bootstrap/bootstrap-datepicker.min.js"></script>
+    <script src="/js/bootstrap/bootstrap-datepicker.pt-BR.min.js"></script>
     <script src="/js/main.js"></script>
-    <script src="/js/profile.js"></script>
     <script src="/js/new-menu.js"></script>
 </body>
 
