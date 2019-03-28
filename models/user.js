@@ -72,7 +72,7 @@ module.exports.updateIntolerances = (userID, intolerances, callback) => {
     }, callback);
 }
 
-module.exports.addMoneyToWallet = (userID, amount, callback) => {
+module.exports.updateWallet = (userID, amount, callback) => {
     User.updateOne({_id: userID}, {
         $inc: { wallet: amount }
     }, callback);

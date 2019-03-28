@@ -34,6 +34,26 @@ module.exports = {
       }]);
       res.redirect('/user');
     }
+  },
+
+  validatePurchase: (req, res, next) => {
+    if(req.body.amount <= 0) {
+      req.flash('alerts', [{
+        param: 'user-wallet',
+        msg  : `Operação inválida`,
+        type : 'warning'
+      }]);
+      res.redirect('/user');
+    } else if (req.user.wallet >= req.body.amount) {
+      next();
+    } else {
+      req.flash('alerts', [{
+        param: 'user-wallet',
+        msg  : `Fundos insuficientes`,
+        type : 'warning'
+      }]);
+      res.redirect('/user');
+    }
   }
 }
 

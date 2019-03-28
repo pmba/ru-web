@@ -35,6 +35,34 @@ router.get('/tickets', (req, res) => {
     });
 });
 
+router.post('/tickets/buy', middleware.validatePurchase, (req, res) => {
+
+    const ticket = new Ticket({
+        user_info: {
+          name: req.user.name,
+          id : req.user._id,
+          registration: req.user.registration
+        },
+        value: req.body.amount
+    });
+
+    Ticket.createTicket(ticket, (err) => {
+        if(err) throw err;
+
+        User.updateWallet(req.user._id, req.body.amount*(-1), (err2, affected, response) => {
+            if (err2) throw err2;
+
+            req.flash('alerts', [{
+                param: 'user-wallet',
+                msg  : `R$ ${req.body.amount} Retirados da sua carteira`,
+                type : 'success'
+            }]);
+
+            res.redirect('/user');
+        });
+    });
+});
+
 router.post('/intolerances/update', (req, res) => {
     Intolerance.getMany(req.body.intolerances, (err, intolerances) => {
         if (err) throw err;
@@ -47,7 +75,7 @@ router.post('/intolerances/update', (req, res) => {
 });
 
 router.post('/wallet/update', middleware.validateWalletCash, (req, res) => {
-    User.addMoneyToWallet(req.user._id, req.body.amount, (err, affected, response) => {
+    User.updateWallet(req.user._id, req.body.amount, (err, affected, response) => {
         if (err) throw err;
         req.flash('alerts', [{
             param: 'user-wallet',
