@@ -254,7 +254,7 @@ router.post('/validation', adminMiddleware.proceedIfAuthenticated, (req, res) =>
         if (err) res.status(404).send('Ocorreu um erro ao tentar validar, tente novamente.')
 
         if (ticket) {
-            if (ticket.validatedStatus === false) {
+            if (ticket.validation.status === false) {
                 Ticket.validateTicket(ticket._id, (err2, affected, response) => {
 
                     if (err2) throw err2;
@@ -428,10 +428,10 @@ router.post('/menu/new', adminMiddleware.proceedIfAuthenticated, (req, res) => {
     const start = async () => {
         console.log(`[${Date.now()}] NEW MENU CREATION`)
         await asyncForEach(req.body.days, async (day) => {
-        
+
             let newDailyMenu = await new DailyMenu();
             let currentDate = new Date(day.date);
-            
+
             if (weekIsDone == 0) {
                 week = currentDate.getWeek();
                 weekIsDone = 1;
@@ -482,7 +482,7 @@ router.post('/menu/new', adminMiddleware.proceedIfAuthenticated, (req, res) => {
 
             await DailyMenuArray.push(newDailyMenu);
         });
-        
+
         let todayDate = await new Date();
         let newMenu = await new Menu.MenuSchema({
             date: {
