@@ -15,7 +15,7 @@ var TicketSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    validate: {
+    validation: {
         status: {
             type: Boolean,
             default: false
@@ -49,22 +49,19 @@ module.exports.getById = (ticketID, callback) => {
 
 //Validar quando o usuário usar o ticket
 module.exports.validateTicket = (ticketID, callback) => {
-    Ticket.updateOne(
-    {
-        _id: ticketID
-    }, {
-        'validate.status': true,
-        'validate.date': Date.now()
+    Ticket.updateOne( { _id: ticketID }, {
+        'validation.status': true,
+        'validation.date': Date.now()
     }, callback);
 }
 
 //Validar quando o usuário avaliar os pratos do ticket
-module.exports.validateRating = (ticketID, comment, callback) => {
+module.exports.validationRating = (ticketID, comment, callback) => {
     Ticket.updateOne({
         _id: ticketID
     }, {
-        validateRating: true,
-        ratingComment: comment
+        'rating.status': true,
+        'rating.comment': comment
     }, callback);
 }
 
