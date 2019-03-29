@@ -427,10 +427,10 @@ router.post('/menu/new', adminMiddleware.proceedIfAuthenticated, (req, res) => {
     const start = async () => {
         console.log(`[${Date.now()}] NEW MENU CREATION`)
         await asyncForEach(req.body.days, async (day) => {
-        
+
             let newDailyMenu = await new DailyMenu();
             let currentDate = new Date(day.date);
-            
+
             if (weekIsDone == 0) {
                 week = currentDate.getWeek();
                 weekIsDone = 1;
@@ -481,7 +481,7 @@ router.post('/menu/new', adminMiddleware.proceedIfAuthenticated, (req, res) => {
 
             await DailyMenuArray.push(newDailyMenu);
         });
-        
+
         let todayDate = await new Date();
         let newMenu = await new Menu.MenuSchema({
             date: {

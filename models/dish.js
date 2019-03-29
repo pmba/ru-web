@@ -78,22 +78,27 @@ module.exports.updateDishById = (id, modifiedDish, callback) => {
 }
 
 //Calcular a nova média com a quantidade de avaliações existentes e a nova nota
-module.exports.addRating = (dish, rating, callback) => {
-    calculateRating(dish, rating, (newNumber) => {
-        Dish.updateOne({ _id: dish._id }, {
+module.exports.addRating = (dishID, rating, callback) => {
+    calculateRating(dishID, rating, (newNumber) => {
+        Dish.updateOne({ _id: dishID }, {
             rating: newNumber
         }, callback);
     })
 }
 
-function calculateRating(dish, rating, callback) {
-  var newNumber = ((dish.rating * dish.ratingCounter) + rating) / (dish.ratingCounter + 1);
-  callback(newNumber);
+//Pega a nota atual contida em DB.dishs, e não do objeto dish passado no argumento
+function calculateRating(dishID, rating, callback) {
+    Dish.findById(dishID, (err, dbDish) => {
+        if (err) throw err;
+
+        var newNumber = ((dbDish.rating * dbDish.ratingCounter) + rating) / (dbDish.ratingCounter + 1);
+        callback(newNumber);
+    });
 }
 
 //Adicionar um contador de avaliação
-module.exports.addRatingCounter = (dish, callback) => {
-    Dish.updateOne({ _id: dish._id }, {
+module.exports.addRatingCounter = (dishID, callback) => {
+    Dish.updateOne({ _id: dishID }, {
         $inc: { ratingCounter: 1 }
     }, callback);
 }

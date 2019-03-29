@@ -49,14 +49,17 @@ module.exports.getById = (ticketID, callback) => {
 
 //Validar quando o usuário usar o ticket
 module.exports.validateTicket = (ticketID, callback) => {
-    Ticket.updateOne( { _id: ticketID }, {
+    Ticket.updateOne(
+    {
+        _id: ticketID
+    }, {
         'validation.status': true,
         'validation.date': Date.now()
     }, callback);
 }
 
 //Validar quando o usuário avaliar os pratos do ticket
-module.exports.validationRating = (ticketID, comment, callback) => {
+module.exports.validateRating = (ticketID, comment, callback) => {
     Ticket.updateOne({
         _id: ticketID
     }, {

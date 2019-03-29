@@ -1,12 +1,13 @@
 const express = module.require('express');
-const router = express.Router();
+const router  = express.Router();
 
-const middleware = module.require('../middlewares/middleware');
+const middleware  = module.require('../middlewares/middleware');
 
 const Intolerance = module.require('../../models/intolerance');
-const User = module.require('../../models/user');
-const Ticket = module.require('../../models/ticket');
-const Dish = module.require('../../models/dish');
+const User        = module.require('../../models/user');
+const Ticket      = module.require('../../models/ticket');
+const Dish        = module.require('../../models/dish');
+const Menu        = module.require('../../models/menu');
 
 router.all('/*', middleware.proceedIfAuthenticated);
 
@@ -57,7 +58,7 @@ router.post('/tickets/buy', middleware.validatePurchase, (req, res) => {
                 msg: `R$ ${req.body.amount} Retirados da sua carteira`,
                 type: 'success'
             }]);
-    
+
             res.redirect('/user');
         });
     });
@@ -91,35 +92,52 @@ router.post('/rating', middleware.proceedIfAuthenticated, (req, res) => {
     //req.body.id = ID do ticket
     Ticket.getById(req.body.id, (err, ticket) => {
         if (err) throw err;
+        console.log('ticket found');
 
-        if (ticket.validatedStatus === true) {
+        if (ticket.validation.status === true) {
+          //Ticket ja foi utilizado
+
             //req.body.dishRating[] = array contendo a nota de cada Prato
             //req.body.comment = string do comentario da avaliação
-            var waiting = ticket.validatedDishs.length;
 
-            validateDishs(req, res, ticket, waiting, () => {
-                Ticket.validateRating(ticket._id, req.body.comment, (err2, affected, response) => {
-                    if (err2) throw err2;
 
-                    console.log("success validate ticket");
-                    res.redirect('/user');
-                })
-            });
+            if(ticket.rating.status === false) {
+              //Ticket ainda nao foi avaliado
 
+                Menu.findDishesByTime(ticket.validation.date, (dishesID) => {
+                    console.log(dishesID);
+                    let waiting = dishesID.length;
+                    validateDishs(req, res, dishesID, waiting, () => {
+
+                        Ticket.validateRating(ticket._id, req.body.comment, (err2, affected, response) => {
+                            if (err2) throw err2;
+
+                            console.log("success validating rating");
+                            res.redirect('/user');
+                        });
+                    });
+                });
+            } else {
+                  console.log("Ticket ja foi avaliado")
+            }
         } else {
             console.log("Ticket ainda nao utilizado");
         }
     });
 });
 
-async function validateDishs(req, res, ticket, waiting, callback) {
+async function validateDishs(req, res, dishesID, waiting, callback) {
 
-    ticket.validatedDishs.forEach((dish, index, array) => {
+    dishesID.forEach((dishID, index, array) => {
 
-        Dish.addRating(dish, req.body.dishRating[index], (err, affected, response) => {
+        Dish.addRating(dishID, req.body.dishRating[index], (err, affected, response) => {
+          //TODO: As notas do array req.body.dishRating [ nota1, nota2, nota3, nota4 ] tem que ser atribuidas
+          //corretamente ao dishID correto. (os indices do array dishesID podem estar diferentes do body.dishRating)
+
             if (err) throw err;
 
-            Dish.addRatingCounter(dish, (err2, affected, response) => {
+            console.log(affected.name + ' was rated');
+            Dish.addRatingCounter(dishID, (err2, affected, response) => {
                 if (err2) throw err2;
 
                 waiting--;
