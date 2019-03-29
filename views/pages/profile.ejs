@@ -110,7 +110,7 @@
                         <div class="col-sm-12 table-responsive-sm text-uppercase">
                             <table class="table table-borderless">
                                 <tr class="text-info d-flex justify-content-between">
-                                    <th><i class="fas fa-ticket-alt mr-2"></i> Suas Fichas</th>
+                                    <th><i class="fas fa-ticket-alt mr-2"></i> Suas Fichas Disponíveis</th>
                                     <th><a href="#" class="text-decoration-none" data-toggle="modal" data-target="#buyTicketModal">
                                             Comprar Fichas
                                             <i class="fas fa-plus-circle ml-2"></i>
@@ -126,6 +126,7 @@
                                         <div class="tickets-slide d-flex">
                                             <% if (locals.tickets.length > 0) { %>
                                             <% locals.tickets.forEach(ticket => { %>
+                                            <% if (!ticket.validation.status) { %>
                                             <div class="card ticket m-2 shadow">
                                                 <div class="card-header">
                                                     Ficha Disponível
@@ -145,6 +146,55 @@
                                                         FICHA</button>
                                                 </div>
                                             </div>
+                                            <% } %>
+                                            <% }) %>
+                                            <% } else { %>
+                                            Você não possui fichas disponíveis
+                                            <% } %>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 table-responsive-sm text-uppercase">
+                            <table class="table table-borderless">
+                                <tr class="text-success d-flex justify-content-between">
+                                    <th><i class="fas fa-utensils mr-2"></i> Avalie Suas Refeições</th>
+                                    <th>
+                                    </th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-sm-12 table-responsive-lg text-uppercase">
+                            <table class="table tickets-table">
+                                <tr>
+                                    <td>
+                                        <div class="tickets-slide d-flex">
+                                            <% if (locals.tickets.length > 0) { %>
+                                            <% locals.tickets.forEach(ticket => { %>
+                                            <% if (ticket.validation.status) { %>
+                                            <div class="card ticket m-2 shadow">
+                                                <div class="card-header">
+                                                    <%= ticket.validation.date.getHours() >= 17 ? 'Janta' : 'Almoço' %>
+                                                </div>
+                                                <div class="card-body">
+                                                    <p class="card-text">
+                                                        <strong>Valor:</strong> R$ <%= ticket.value.toFixed(2) %> <br>
+                                                        <strong>Utilizado em:</strong>
+                                                        <%= ticket.validation.date.getDate() %>/<%= ("0" + ticket.validation.date.getMonth()).slice(-2) %>/<%= ticket.validation.date.getFullYear() %>
+                                                        <br>
+                                                        <strong>Utilizado às:</strong>
+                                                        <%= ticket.validation.date.getHours() %>:<%= ("0" + ticket.validation.date.getMinutes()).slice(-2) %>:<%= ("0" + ticket.validation.date.getSeconds()).slice(-2) %>
+                                                    </p>
+
+                                                    <button class="btn btn-outline-success text-center form-control"
+                                                        onclick="">AVALIAR REFEIÇÃO</button>
+                                                </div>
+                                            </div>
+                                            <% } %>
                                             <% }) %>
                                             <% } else { %>
                                             Você não possui fichas disponíveis
