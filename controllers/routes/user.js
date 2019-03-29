@@ -88,7 +88,39 @@ router.post('/wallet/update', middleware.validateWalletCash, (req, res) => {
     });
 });
 
-router.post('/rating', middleware.proceedIfAuthenticated, (req, res) => {
+router.get('/rating/:id/:week/:day/:period', (req, res) => {
+    Menu.getMenuByWeek(req.params.week, (err, menu) => {
+        if (err) throw err;
+
+        let dayOfTheWeek = menu.days[req.params.day];
+
+        if (req.params.period == 'lunch') {
+
+            res.render('pages/rating/index', {
+                title: 'Avaliar Refeição',
+                ticketId: req.params.id,
+                menu: dayOfTheWeek.lunch
+            });
+        } else if (req.params.period == 'dinner') {
+
+            res.render('pages/rating/index', {
+                title: 'Avaliar Refeição',
+                ticketId: req.params.id,
+                menu: dayOfTheWeek.dinner
+            });
+        } else {
+            req.flash('alerts', [{
+                param: 'day-period',
+                msg: `Período do dia inválido`,
+                type: 'danger'
+            }]);
+
+            res.redirect(`/user/rating/${req.params.id}/${req.params.week}/${req.params.period}`);
+        }
+    });
+});
+
+router.post('/rating', (req, res) => {
     //req.body.id = ID do ticket
     Ticket.getById(req.body.id, (err, ticket) => {
         if (err) throw err;

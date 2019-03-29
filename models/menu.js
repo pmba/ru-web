@@ -95,6 +95,10 @@ module.exports.getAll = (callback) => {
     Menu.find({}, callback);
 }
 
+module.exports.getMenuByWeek = (week, callback) => {
+    Menu.findOne({'date.week': week},callback);
+}
+
 module.exports.findDishesByTime = (dateValidated, callback) => {
     Menu.findOne({'date.week': dateValidated.getWeek()}, (err, menu) => {
         if (err) throw err;

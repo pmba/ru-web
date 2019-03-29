@@ -22,3 +22,4 @@ function showQrCode(id) {
 
     $('#qrCodeTicket').modal('toggle');
 }
+

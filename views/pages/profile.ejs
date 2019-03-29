@@ -190,8 +190,7 @@
                                                         <%= ticket.validation.date.getHours() %>:<%= ("0" + ticket.validation.date.getMinutes()).slice(-2) %>:<%= ("0" + ticket.validation.date.getSeconds()).slice(-2) %>
                                                     </p>
 
-                                                    <button class="btn btn-outline-success text-center form-control"
-                                                        onclick="">AVALIAR REFEIÇÃO</button>
+                                                    <a href="/user/rating/<%= ticket._id %>/<%= ticket.validation.date.getWeek() %>/<%= ticket.validation.date.getDay() %>/<%= ticket.validation.date.getHours() >= 17 ? 'dinner' : 'lunch' %>" class="btn btn-outline-success text-center form-control">AVALIAR REFEIÇÃO</a>
                                                 </div>
                                             </div>
                                             <% } %>

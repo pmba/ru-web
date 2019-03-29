@@ -17,11 +17,11 @@ var DishSchema = new mongoose.Schema({
     },
     rating: {
         type: Number,
-        default: 7
+        default: 0
     },
     ratingCounter: {
         type: Number,
-        default: 1
+        default: 0
     }
 });
 
