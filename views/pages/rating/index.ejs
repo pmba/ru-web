@@ -3,13 +3,25 @@
 
 <head>
     <% include ../../partials/head %>
+    <link rel="stylesheet" href="/css/simple-rating/simple-rating.css">
+
+    <style>
+        .bootstrap-select button {
+            background: #e9ecef !important;
+            border: 1px solid #ced4da;
+        }
+
+        .rating-star {
+            color: rgb(255, 196, 0) !important;
+        }
+    </style>
 </head>
 
 <body>
     <% include ../../partials/navbar %>
 
-    <div class="container-fluid p-4 main-home background-blue text-uppercase" id="home">
-        <h1 class="d-none">Avaliar Pratos - Usuário</h1>
+    <div class="container-fluid p-4 main-home background-blue" id="home">
+        <h1 class="d-none">Avaliar Refeição - Usuário</h1>
 
         <div class="container">
             <% include ../../partials/alerts %>
@@ -18,33 +30,130 @@
         <div class="container">
 
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
+                <ol class="breadcrumb text-uppercase">
                     <li class="breadcrumb-item"><a href="/user" class="text-decoration-none">Perfil</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Avaliar Prato</li>
+                    <li class="breadcrumb-item active" aria-current="page">Avaliar Refeição</li>
                 </ol>
             </nav>
 
             <div class="card shadow">
-                <div class="card-header">
-                    Avaliar Prato
+                <div class="card-header text-uppercase">
+                    Avaliar Refeição
                 </div>
                 <form action="" method="POST">
                     <div class="card-body">
-                        <form action="" method="POST">
-                            <!-- TODO: Terminar essa caralha -->
-                        </form>
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <label for="dishType">Qual tipo de prato você comeu?</label>
+                                <select data-live-search="true" class="form-control single-select" id="dishType"
+                                    name="dishType">
+                                    <option value="meat">Carnívoro</option>
+                                    <option value="vegie">Vegetariano</option>
+                                </select>
+                            </div>
+
+                            <div class="col-sm-12" id="meat">
+                                <label for="meatSelect">Qual carne você comeu e qual nota você dá para o
+                                    prato?</label>
+                                <div class="input-group">
+                                    <select value="" data-live-search="true" class="form-control single-select" id="meatSelect" name="meatAte">
+                                        <option selected disabled>Selecione a carne</option>
+                                        <% locals.menu.meat.forEach(meat => { %>
+                                        <option value="<%= meat._id %>"><%= meat.name %></option>
+                                        <% }) %>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">
+                                            <input class="rating" name="meatRating" id="meatRating">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12" id="vegie" style="display:none;">
+                                <label for="vegieAte">Qual prato vegetariano você comeu e qual nota você dá para o
+                                    prato?</label>
+                                <div class="input-group">
+                                    <select value="" data-live-search="true" class="form-control single-select" id="vegieSelect" name="vegieAte" disabled="disabled">
+                                        <option selected disabled>Selecione o prato vegetariano</option>
+                                        <% locals.menu.vegetarian.forEach(vegie => { %>
+                                        <option value="<%= vegie._id %>"><%= vegie.name %></option>
+                                        <% }) %>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">
+                                            <input class="rating" name="vegieRating" id="vegieRating" disabled="disabled">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 mt-3" id="sideDish">
+                                <label for="sideDishesAte">Avalie os acompanhamentos que você comeu</label>
+                                <% locals.menu.sideDish.forEach((dish, i) => { %>
+                                <div class="input-group mb-1">
+                                    <input type="text" class="form-control" readonly value="<%= dish.name %>">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">
+                                            <input class="rating" name="sideDishRating[<%= dish._id %>]">
+                                        </span>
+                                    </div>
+                                </div>
+                                <% }) %>
+                            </div>
+
+                            <div class="col-sm-12 mt-2" id="dessert">
+                                <label for="dessertSelect">Qual sobremesa você comeu e qual nota você dá para o
+                                    prato?</label>
+                                <div class="input-group">
+                                    <select value="" data-live-search="true" class="form-control single-select"
+                                        name="dessertAte">
+                                        <option selected disabled>Selecione a sobremesa</option>
+                                        <% locals.menu.dessert.forEach(dessert => { %>
+                                        <option value="<%= dessert._id %>"><%= dessert.name %></option>
+                                        <% }) %>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">
+                                            <input class="rating" name="dessertRating">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 mt-3" id="drink">
+                                <label for="drinkSelect">Qual bebida você bebeu e qual nota você dá para ela?</label>
+                                <div class="input-group">
+                                    <select value="" data-live-search="true" class="form-control single-select"
+                                        name="drinkDrank">
+                                        <option selected disabled>Selecione a bebida</option>
+                                        <% locals.menu.drinks.forEach(drink => { %>
+                                        <option value="<%= drink._id %>"><%= drink.name %></option>
+                                        <% }) %>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">
+                                            <input class="rating" name="drinkRating">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                     <div class="card-footer">
-                        
+                        <button type="submit" class="btn btn-success form-control">Tudo Pronto!</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
-
     <% include ../../partials/footer %>
+    <script src="/js/simple-rating/simple-rating.js"></script>
     <script src="/js/main.js"></script>
+    <script src="/js/rating.js"></script>
+
 </body>
 
 </html>

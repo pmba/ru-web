@@ -99,39 +99,39 @@ module.exports.getMenuByWeek = (week, callback) => {
     Menu.findOne({'date.week': week},callback);
 }
 
-module.exports.findDishesByTime = (dateValidated, callback) => {
-    Menu.findOne({'date.week': dateValidated.getWeek()}, (err, menu) => {
-        if (err) throw err;
+// module.exports.findDishesByTime = (dateValidated, callback) => {
+//     Menu.findOne({'date.week': dateValidated.getWeek()}, (err, menu) => {
+//         if (err) throw err;
 
-        createDishesIDArray(dateValidated, menu, (dishesID) => {
+//         createDishesIDArray(dateValidated, menu, (dishesID) => {
 
-            callback(dishesID);
-        });
-    });
-}
+//             callback(dishesID);
+//         });
+//     });
+// }
 
-function createDishesIDArray(dateValidated, menu, callback) {
-    let dishesID = [];
-    const weekDay = dateValidated.getDay();
+// function createDishesIDArray(dateValidated, menu, callback) {
+//     let dishesID = [];
+//     const weekDay = dateValidated.getDay();
 
 
-    //TODO: usar Promises?
-    if(dateValidated.getHours() < 16 - 3) {// TIMEZONE = +3
-        // Almoço
-        menu.days[weekDay].lunch.meat.forEach((dish) => dishesID.push(dish._id));
-        menu.days[weekDay].lunch.vegetarian.forEach((dish) => dishesID.push(dish._id));
-        menu.days[weekDay].lunch.sideDish.forEach((dish) => dishesID.push(dish._id));
-        menu.days[weekDay].lunch.dessert.forEach((dish) => dishesID.push(dish._id));
-        menu.days[weekDay].lunch.drinks.forEach((dish) => dishesID.push(dish._id));
+//     //TODO: usar Promises?
+//     if(dateValidated.getHours() < 16 - 3) {// TIMEZONE = +3
+//         // Almoço
+//         menu.days[weekDay].lunch.meat.forEach((dish) => dishesID.push(dish._id));
+//         menu.days[weekDay].lunch.vegetarian.forEach((dish) => dishesID.push(dish._id));
+//         menu.days[weekDay].lunch.sideDish.forEach((dish) => dishesID.push(dish._id));
+//         menu.days[weekDay].lunch.dessert.forEach((dish) => dishesID.push(dish._id));
+//         menu.days[weekDay].lunch.drinks.forEach((dish) => dishesID.push(dish._id));
 
-    } else {
-        // Janta
-        menu.days[weekDay].dinner.meat.forEach((dish) => dishesID.push(dish._id));
-        menu.days[weekDay].dinner.vegetarian.forEach((dish) => dishesID.push(dish._id));
-        menu.days[weekDay].dinner.sideDish.forEach((dish) => dishesID.push(dish._id));
-        menu.days[weekDay].dinner.dessert.forEach((dish) => dishesID.push(dish._id));
-        menu.days[weekDay].dinner.drinks.forEach((dish) => dishesID.push(dish._id));
-    }
+//     } else {
+//         // Janta
+//         menu.days[weekDay].dinner.meat.forEach((dish) => dishesID.push(dish._id));
+//         menu.days[weekDay].dinner.vegetarian.forEach((dish) => dishesID.push(dish._id));
+//         menu.days[weekDay].dinner.sideDish.forEach((dish) => dishesID.push(dish._id));
+//         menu.days[weekDay].dinner.dessert.forEach((dish) => dishesID.push(dish._id));
+//         menu.days[weekDay].dinner.drinks.forEach((dish) => dishesID.push(dish._id));
+//     }
 
-    callback(dishesID);
-}
+//     callback(dishesID);
+// }

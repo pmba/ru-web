@@ -173,9 +173,8 @@
                                 <tr>
                                     <td>
                                         <div class="tickets-slide d-flex">
-                                            <% if (locals.tickets.length > 0) { %>
                                             <% locals.tickets.forEach(ticket => { %>
-                                            <% if (ticket.validation.status) { %>
+                                            <% if (ticket.validation.status && !ticket.rating.status) { %>
                                             <div class="card ticket m-2 shadow">
                                                 <div class="card-header">
                                                     <%= ticket.validation.date.getHours() >= 17 ? 'Janta' : 'Almoço' %>
@@ -195,9 +194,6 @@
                                             </div>
                                             <% } %>
                                             <% }) %>
-                                            <% } else { %>
-                                            Você não possui fichas disponíveis
-                                            <% } %>
                                         </div>
                                     </td>
                                 </tr>

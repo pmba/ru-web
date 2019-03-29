@@ -82,8 +82,6 @@ app.use(flash());
 app.use((req, res, next) => {
     res.locals.user = req.user || null;
     res.locals.alerts = req.flash('alerts') || null;
-    res.locals.profile_link = '/user';
-    res.locals.logout_link = '/auth/logout';
 
     next();
 });

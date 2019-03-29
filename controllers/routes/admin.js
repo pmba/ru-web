@@ -15,13 +15,6 @@ const DailyMenu = module.require('../../models/menu').DailyMenuSchema;
 
 var dayNames = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
 
-router.all('/*', (req, res, next) => {
-    res.locals.profile_link = '/admin/profile';
-    res.locals.logout_link = '/admin/logout';
-
-    next();
-});
-
 router.get('/profile', adminMiddleware.proceedIfAuthenticated, (req, res) => {
     Intolerance.getAll((intoleranceError, intolerances) => {
         if (intoleranceError) throw intoleranceError;

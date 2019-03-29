@@ -120,65 +120,133 @@ router.get('/rating/:id/:week/:day/:period', (req, res) => {
     });
 });
 
-router.post('/rating', (req, res) => {
-    //req.body.id = ID do ticket
-    Ticket.getById(req.body.id, (err, ticket) => {
-        if (err) throw err;
-        console.log('ticket found');
-
-        if (ticket.validation.status === true) {
-          //Ticket ja foi utilizado
-
-            //req.body.dishRating[] = array contendo a nota de cada Prato
-            //req.body.comment = string do comentario da avaliação
-
-
-            if(ticket.rating.status === false) {
-              //Ticket ainda nao foi avaliado
-
-                Menu.findDishesByTime(ticket.validation.date, (dishesID) => {
-                    console.log(dishesID);
-                    let waiting = dishesID.length;
-                    validateDishs(req, res, dishesID, waiting, () => {
-
-                        Ticket.validateRating(ticket._id, req.body.comment, (err2, affected, response) => {
-                            if (err2) throw err2;
-
-                            console.log("success validating rating");
-                            res.redirect('/user');
-                        });
-                    });
-                });
-            } else {
-                  console.log("Ticket ja foi avaliado")
-            }
-        } else {
-            console.log("Ticket ainda nao utilizado");
-        }
+router.get('/rating/reset', (req, res) => {
+    Dish.resetAllRatingNumbers(() => {
+        res.send('Done');
     });
 });
 
-async function validateDishs(req, res, dishesID, waiting, callback) {
+router.post('/rating/:id/:week/:day/:period', (req, res) => {
+    //id do ticket está nos parâmetros já
 
-    dishesID.forEach((dishID, index, array) => {
-
-        Dish.addRating(dishID, req.body.dishRating[index], (err, affected, response) => {
-          //TODO: As notas do array req.body.dishRating [ nota1, nota2, nota3, nota4 ] tem que ser atribuidas
-          //corretamente ao dishID correto. (os indices do array dishesID podem estar diferentes do body.dishRating)
-
-            if (err) throw err;
-
-            console.log(affected.name + ' was rated');
-            Dish.addRatingCounter(dishID, (err2, affected, response) => {
-                if (err2) throw err2;
-
-                waiting--;
-                if (waiting === 0) {
-                    callback();
-                }
+    var dishType = req.body.dishType; // Tipo da refeição, carnívora ou vegetariana
+    var dishesAndScores = [];
+    
+    if (dishType === 'meat' && (req.body.meatAte && req.body.meatAte != "")) {
+        if (req.body.meatRating && req.body.meatRating != "") {
+            dishesAndScores.push({
+                '_id': req.body.meatAte,
+                'score': req.body.meatRating
             });
-        });
+        }
+    } else if (dishType === 'vegie' && (req.body.vegieAte && req.body.vegieAte != "")) {
+        if (req.body.vegieRating && req.body.vegieRating != "") {
+            dishesAndScores.push({
+                '_id': req.body.vegieAte,
+                'score': req.body.vegieRating
+            });
+        }
+    }
+
+    if (req.body.dessertAte && req.body.dessertAte != "") {
+        if (req.body.dessertRating && req.body.dessertRating != "") {
+            dishesAndScores.push({
+                '_id': req.body.dessertAte,
+                'score': req.body.dessertRating
+            });
+        }
+    }
+
+    if (req.body.drinkDrank && req.body.drinkDrank != "") {
+        if (req.body.drinkRating && req.body.drinkRating != "") {
+            dishesAndScores.push({
+                '_id': req.body.drinkDrank,
+                'score': req.body.drinkRating
+            });
+        }
+    }
+
+    Object.keys(req.body.sideDishRating).forEach(key => {
+        if (req.body.sideDishRating[key] != "") {
+            dishesAndScores.push({
+                '_id': key,
+                'score': req.body.sideDishRating[key]
+            });
+        }
     });
-}
+
+    Ticket.getById(req.params.id, (ticketErr, ticket) => {
+        if (ticketErr) throw err;
+
+        if (ticket.validation.status === true && ticket.rating.status === false) {
+            //pode validar
+
+            dishesAndScores.forEach(dish => {
+                Dish.updateRatingNumbers(dish._id, dish.score, (dishErr, result) => {
+                    if (dishErr) console.log(`\t[ERR] UPDATING DISH SCORE : ${dish._id}`);
+                    else console.log(`\t[RATING] DISH SCORE UPDATED : ${dish._id}`);
+                });
+            });
+
+            Ticket.validateRating(req.params.id, '', (ticketErr, result) => {
+                if (ticketErr) throw ticketErr;
+
+                req.flash('alerts', [{
+                    param: 'ticket-validation',
+                    msg: `Obrigado pela sua avaliação. ♥`,
+                    type: 'success'
+                }]);
+                
+                res.redirect('/user');
+            });
+        } else {
+            req.flash('alerts', [{
+                param: 'ticket-validation',
+                msg: `O Ticket não pode ser validado ainda`,
+                type: 'danger'
+            }]);
+
+            res.redirect('/user');
+        }
+    })
+});
+
+// router.post('/rating', (req, res) => {
+//     //req.body.id = ID do ticket
+//     Ticket.getById(req.body.id, (err, ticket) => {
+//         if (err) throw err;
+//         console.log('ticket found');
+
+//         if (ticket.validation.status === true) {
+//           //Ticket ja foi utilizado
+
+//             //req.body.dishRating[] = array contendo a nota de cada Prato
+//             //req.body.comment = string do comentario da avaliação
+
+
+//             if(ticket.rating.status === false) {
+//               //Ticket ainda nao foi avaliado
+
+//                 Menu.findDishesByTime(ticket.validation.date, (dishesID) => {
+//                     console.log(dishesID);
+//                     let waiting = dishesID.length;
+//                     validateDishs(req, res, dishesID, waiting, () => {
+
+//                         Ticket.validateRating(ticket._id, req.body.comment, (err2, affected, response) => {
+//                             if (err2) throw err2;
+
+//                             console.log("success validating rating");
+//                             res.redirect('/user');
+//                         });
+//                     });
+//                 });
+//             } else {
+//                   console.log("Ticket ja foi avaliado")
+//             }
+//         } else {
+//             console.log("Ticket ainda nao utilizado");
+//         }
+//     });
+// });
 
 module.exports = router;

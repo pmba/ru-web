@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <% include ../partials/head %>
+
+    <style>
+        .fa-star {
+            color: rgb(255, 196, 0) !important;
+        }
+
+        .dataTables_filter label {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <% include ../partials/navbar %>
+
+    <div class="container-fluid p-4 main-home background-blue text-uppercase" id="home">
+        <h1 class="d-none">Pratos do Restaurante Universitário - UFAL</h1>
+
+        <div class="container">
+            <% include ../partials/alerts %>
+        </div>
+
+        <div class="container">
+
+            <div class="card shadow">
+                <div class="card-header">
+                    Pratos do Restaurante Universitário
+                </div>
+                <form action="" method="POST">
+                    <div class="card-body table-responsive">
+                        <table class="table mb-3">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Intolerâncias</th>
+                                    <th scope="col">Avaliação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% locals.dishes.forEach(dish => { %>
+                                    <tr>
+                                        <td><%= dish.name %></td>
+                                        <td><%= dish.intolerances.length > 0 ? dish.intolerances : 'Não Possui' %></td>
+                                        <% if (dish.ratingCounter > 0) { %>
+                                            <td><%= (dish.rating/dish.ratingCounter).toFixed(1) %> <i class="fas fa-star ml-2"></i></td>
+                                        <% } else { %>
+                                            <td>Nenhuma <i class="fas fa-star ml-2"></i></td>
+                                        <% } %>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <% include ../partials/footer %>
+    <script src="/js/main.js"></script>
+    <script src="/js/datatables/datatables.min.js"></script>
+</body>
+
+</html>

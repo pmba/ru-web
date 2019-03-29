@@ -11,7 +11,7 @@ module.exports = {
     if (req.isAuthenticated() && req.user.role == 0) {
       next();
     } else {
-      res.redirect('/inicio');
+      res.redirect('/auth');
     }
   },
 
@@ -19,7 +19,7 @@ module.exports = {
     if (!req.isAuthenticated()) {
       next();
     } else {
-      res.redirect('/inicio');
+      res.redirect('/user');
     }
   },
 

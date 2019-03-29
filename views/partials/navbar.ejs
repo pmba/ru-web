@@ -9,11 +9,15 @@
         <div id="navOptions" class="nav-op d-flex justify-content-between .d-md-none .d-lg-block">
             <a href="/inicio#home" class="py-2 px-4">Início</a>
             <a href="/inicio#menu" class="py-2 px-4">Cardápio</a>
+            <a href="/pratos" class="py-2 px-4">Pratos</a>
             <% if (!locals.user) { %>
             <a href="/auth" class="py-2 px-4">Login</a>
+            <% } else if(locals.user.role >= 0) { %>
+            <a href="/user" class="py-2 px-4 right">Perfil</a>
+            <a href="/auth/logout" class="py-2 px-4">Logout</a>
             <% } else { %>
-            <a href="<%= profile_link %>" class="py-2 px-4 right">Perfil</a>
-            <a href="<%= logout_link %>" class="py-2 px-4">Logout</a>
+            <a href="/admin/profile" class="py-2 px-4 right">Perfil</a>
+            <a href="/admin/logout" class="py-2 px-4">Logout</a>    
             <% } %>
         </div>
     </div>
