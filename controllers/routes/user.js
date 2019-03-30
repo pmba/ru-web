@@ -131,7 +131,7 @@ router.post('/rating/:id/:week/:day/:period', (req, res) => {
 
     var dishType = req.body.dishType; // Tipo da refeição, carnívora ou vegetariana
     var dishesAndScores = [];
-    
+
     if (dishType === 'meat' && (req.body.meatAte && req.body.meatAte != "")) {
         if (req.body.meatRating && req.body.meatRating != "") {
             dishesAndScores.push({
@@ -181,24 +181,23 @@ router.post('/rating/:id/:week/:day/:period', (req, res) => {
         if (ticket.validation.status === true && ticket.rating.status === false) {
             //pode validar
 
-            dishesAndScores.forEach(dish => {
-                Dish.updateRatingNumbers(dish._id, dish.score, (dishErr, result) => {
-                    if (dishErr) console.log(`\t[ERR] UPDATING DISH SCORE : ${dish._id}`);
-                    else console.log(`\t[RATING] DISH SCORE UPDATED : ${dish._id}`);
+            let waiting = dishesAndScores.length;
+
+            validateAllDishes(dishesAndScores, waiting, () => {
+
+                Ticket.validateRating(req.params.id, '', (ticketErr, result) => {
+                    if (ticketErr) throw ticketErr;
+
+                    req.flash('alerts', [{
+                        param: 'ticket-validation',
+                        msg: `Obrigado pela sua avaliação. ♥`,
+                        type: 'success'
+                    }]);
+
+                    res.redirect('/user');
                 });
-            });
+            })
 
-            Ticket.validateRating(req.params.id, '', (ticketErr, result) => {
-                if (ticketErr) throw ticketErr;
-
-                req.flash('alerts', [{
-                    param: 'ticket-validation',
-                    msg: `Obrigado pela sua avaliação. ♥`,
-                    type: 'success'
-                }]);
-                
-                res.redirect('/user');
-            });
         } else {
             req.flash('alerts', [{
                 param: 'ticket-validation',
@@ -211,6 +210,19 @@ router.post('/rating/:id/:week/:day/:period', (req, res) => {
     })
 });
 
+function validateAllDishes(dishesAndScores, waiting, callback) {
+    dishesAndScores.forEach(dish => {
+        Dish.updateRatingNumbers(dish._id, dish.score, (dishErr, result) => {
+            if (dishErr) console.log(`\t[ERR] UPDATING DISH SCORE : ${dish._id}`);
+            else console.log(`\t[RATING] DISH SCORE UPDATED : ${dish._id}`);
+        });
+
+        waiting--;
+
+        if(waiting === 0)
+            callback();
+    });
+}
 // router.post('/rating', (req, res) => {
 //     //req.body.id = ID do ticket
 //     Ticket.getById(req.body.id, (err, ticket) => {
