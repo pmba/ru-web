@@ -475,7 +475,6 @@ router.post('/menu/new', adminMiddleware.proceedIfAuthenticated, (req, res) => {
             await DailyMenuArray.push(newDailyMenu);
         });
 
-        let todayDate = await new Date();
         let newMenu = await new Menu.MenuSchema({
             date: {
                 day: DailyMenuArray[0].date.day,

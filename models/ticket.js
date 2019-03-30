@@ -54,7 +54,7 @@ module.exports.validateTicket = (ticketID, callback) => {
         _id: ticketID
     }, {
         'validation.status': true,
-        'validation.date': Date.now()
+        'validation.date': new Date(new Date().toLocaleDateString('pt-BR'))
     }, callback);
 }
 
