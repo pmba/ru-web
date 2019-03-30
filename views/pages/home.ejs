@@ -47,18 +47,25 @@
         </div>
     </div>
 
-    <div class="container-fluid bg-light pb-5" id="menu">
-        <div class="container">
-            <div class="row text-center text-uppercase mb-3">
-                <p class="h1 w-100 content-title this-is-from-matilda">
-                    Cardápio<br>Semanal
-                </p>
-            </div>
-
+    <div class="container-fluid background-food pb-5" id="menu">
+        <div class="container content-padding">
             <% if (locals.menu) { %>
             <div class="row">
                 <div class="col-sm-4">
                     <div class="list-group" id="list-tab" role="tablist">
+                        <a class="bg-dono list-group-item list-group-item-action d-flex justify-content-center disabled content-title"
+                            id="list-header">
+
+                            <img src="/img/menu.png" class="ratio">
+                        </a>
+                        <a class="list-group-item list-group-item-action d-flex justify-content-between disabled"
+                            id="list-help">
+                            Dia da Semana
+
+                            <small class="small-day">
+                                Data
+                            </small>
+                        </a>
                         <a class="list-group-item list-group-item-action d-flex justify-content-between active"
                             id="list-monday" data-toggle="list" href="#list-tab-monday" role="tab" aria-controls="home">
                             Segunda
@@ -133,6 +140,15 @@
                                                 <dt>Carnes</dt>
                                                 <% locals.menu.days[1].lunch.meat.forEach(meat => { %>
                                                 <dd><%= meat.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (meat.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -140,6 +156,15 @@
                                                 <dt>Pratos Vegetariano</dt>
                                                 <% locals.menu.days[1].lunch.vegetarian.forEach(vegie => { %>
                                                 <dd><%= vegie.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (vegie.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -147,6 +172,15 @@
                                                 <dt>Acompanhamentos</dt>
                                                 <% locals.menu.days[1].lunch.sideDish.forEach(sideDish => { %>
                                                 <dd><%= sideDish.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (sideDish.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -154,6 +188,15 @@
                                                 <dt>Sobremesas</dt>
                                                 <% locals.menu.days[1].lunch.dessert.forEach(dessert => { %>
                                                 <dd><%= dessert.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (dessert.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -161,6 +204,15 @@
                                                 <dt>Bebidas</dt>
                                                 <% locals.menu.days[1].lunch.drinks.forEach(drink => { %>
                                                 <dd><%= drink.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (drink.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -180,6 +232,15 @@
                                                 <dt>Carnes</dt>
                                                 <% locals.menu.days[1].dinner.meat.forEach(meat => { %>
                                                 <dd><%= meat.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (meat.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -187,6 +248,15 @@
                                                 <dt>Pratos Vegetariano</dt>
                                                 <% locals.menu.days[1].dinner.vegetarian.forEach(vegie => { %>
                                                 <dd><%= vegie.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (vegie.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -194,6 +264,15 @@
                                                 <dt>Acompanhamentos</dt>
                                                 <% locals.menu.days[1].dinner.sideDish.forEach(sideDish => { %>
                                                 <dd><%= sideDish.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (sideDish.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -201,6 +280,15 @@
                                                 <dt>Sobremesas</dt>
                                                 <% locals.menu.days[1].dinner.dessert.forEach(dessert => { %>
                                                 <dd><%= dessert.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (dessert.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -208,6 +296,15 @@
                                                 <dt>Bebidas</dt>
                                                 <% locals.menu.days[1].dinner.drinks.forEach(drink => { %>
                                                 <dd><%= drink.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (drink.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -236,6 +333,15 @@
                                                 <dt>Carnes</dt>
                                                 <% locals.menu.days[2].lunch.meat.forEach(meat => { %>
                                                 <dd><%= meat.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (meat.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -243,6 +349,15 @@
                                                 <dt>Pratos Vegetariano</dt>
                                                 <% locals.menu.days[2].lunch.vegetarian.forEach(vegie => { %>
                                                 <dd><%= vegie.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (vegie.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -250,6 +365,15 @@
                                                 <dt>Acompanhamentos</dt>
                                                 <% locals.menu.days[2].lunch.sideDish.forEach(sideDish => { %>
                                                 <dd><%= sideDish.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (sideDish.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -257,6 +381,15 @@
                                                 <dt>Sobremesas</dt>
                                                 <% locals.menu.days[2].lunch.dessert.forEach(dessert => { %>
                                                 <dd><%= dessert.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (dessert.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -264,6 +397,15 @@
                                                 <dt>Bebidas</dt>
                                                 <% locals.menu.days[2].lunch.drinks.forEach(drink => { %>
                                                 <dd><%= drink.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (drink.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -283,6 +425,15 @@
                                                 <dt>Carnes</dt>
                                                 <% locals.menu.days[2].dinner.meat.forEach(meat => { %>
                                                 <dd><%= meat.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (meat.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -290,6 +441,15 @@
                                                 <dt>Pratos Vegetariano</dt>
                                                 <% locals.menu.days[2].dinner.vegetarian.forEach(vegie => { %>
                                                 <dd><%= vegie.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (vegie.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -297,6 +457,15 @@
                                                 <dt>Acompanhamentos</dt>
                                                 <% locals.menu.days[2].dinner.sideDish.forEach(sideDish => { %>
                                                 <dd><%= sideDish.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (sideDish.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -304,6 +473,15 @@
                                                 <dt>Sobremesas</dt>
                                                 <% locals.menu.days[2].dinner.dessert.forEach(dessert => { %>
                                                 <dd><%= dessert.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (dessert.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -311,6 +489,15 @@
                                                 <dt>Bebidas</dt>
                                                 <% locals.menu.days[2].dinner.drinks.forEach(drink => { %>
                                                 <dd><%= drink.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (drink.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -337,6 +524,15 @@
                                                 <dt>Carnes</dt>
                                                 <% locals.menu.days[3].lunch.meat.forEach(meat => { %>
                                                 <dd><%= meat.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (meat.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -344,6 +540,15 @@
                                                 <dt>Pratos Vegetariano</dt>
                                                 <% locals.menu.days[3].lunch.vegetarian.forEach(vegie => { %>
                                                 <dd><%= vegie.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (vegie.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -351,6 +556,15 @@
                                                 <dt>Acompanhamentos</dt>
                                                 <% locals.menu.days[3].lunch.sideDish.forEach(sideDish => { %>
                                                 <dd><%= sideDish.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (sideDish.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -358,6 +572,15 @@
                                                 <dt>Sobremesas</dt>
                                                 <% locals.menu.days[3].lunch.dessert.forEach(dessert => { %>
                                                 <dd><%= dessert.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (dessert.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -365,6 +588,15 @@
                                                 <dt>Bebidas</dt>
                                                 <% locals.menu.days[3].lunch.drinks.forEach(drink => { %>
                                                 <dd><%= drink.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (drink.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -384,6 +616,15 @@
                                                 <dt>Carnes</dt>
                                                 <% locals.menu.days[3].dinner.meat.forEach(meat => { %>
                                                 <dd><%= meat.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (meat.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -391,6 +632,15 @@
                                                 <dt>Pratos Vegetariano</dt>
                                                 <% locals.menu.days[3].dinner.vegetarian.forEach(vegie => { %>
                                                 <dd><%= vegie.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (vegie.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -398,6 +648,15 @@
                                                 <dt>Acompanhamentos</dt>
                                                 <% locals.menu.days[3].dinner.sideDish.forEach(sideDish => { %>
                                                 <dd><%= sideDish.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (sideDish.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -405,6 +664,15 @@
                                                 <dt>Sobremesas</dt>
                                                 <% locals.menu.days[3].dinner.dessert.forEach(dessert => { %>
                                                 <dd><%= dessert.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (dessert.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -412,6 +680,15 @@
                                                 <dt>Bebidas</dt>
                                                 <% locals.menu.days[3].dinner.drinks.forEach(drink => { %>
                                                 <dd><%= drink.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (drink.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -429,6 +706,7 @@
                             aria-labelledby="list-settings-list">
                             <div class="card">
                                 <div class="row">
+                                    
                                     <div class="col-sm-6 border-right">
                                         <dl class="p-4">
                                             <dt class="day-period border-bottom">Almoço</dt>
@@ -439,6 +717,15 @@
                                                 <dt>Carnes</dt>
                                                 <% locals.menu.days[4].lunch.meat.forEach(meat => { %>
                                                 <dd><%= meat.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (meat.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -446,6 +733,15 @@
                                                 <dt>Pratos Vegetariano</dt>
                                                 <% locals.menu.days[4].lunch.vegetarian.forEach(vegie => { %>
                                                 <dd><%= vegie.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (vegie.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -453,6 +749,15 @@
                                                 <dt>Acompanhamentos</dt>
                                                 <% locals.menu.days[4].lunch.sideDish.forEach(sideDish => { %>
                                                 <dd><%= sideDish.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (sideDish.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -460,6 +765,15 @@
                                                 <dt>Sobremesas</dt>
                                                 <% locals.menu.days[4].lunch.dessert.forEach(dessert => { %>
                                                 <dd><%= dessert.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (dessert.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -467,6 +781,15 @@
                                                 <dt>Bebidas</dt>
                                                 <% locals.menu.days[4].lunch.drinks.forEach(drink => { %>
                                                 <dd><%= drink.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (drink.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -486,6 +809,15 @@
                                                 <dt>Carnes</dt>
                                                 <% locals.menu.days[4].dinner.meat.forEach(meat => { %>
                                                 <dd><%= meat.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (meat.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -493,6 +825,15 @@
                                                 <dt>Pratos Vegetariano</dt>
                                                 <% locals.menu.days[4].dinner.vegetarian.forEach(vegie => { %>
                                                 <dd><%= vegie.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (vegie.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -500,6 +841,15 @@
                                                 <dt>Acompanhamentos</dt>
                                                 <% locals.menu.days[4].dinner.sideDish.forEach(sideDish => { %>
                                                 <dd><%= sideDish.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (sideDish.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -507,6 +857,15 @@
                                                 <dt>Sobremesas</dt>
                                                 <% locals.menu.days[4].dinner.dessert.forEach(dessert => { %>
                                                 <dd><%= dessert.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (dessert.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -514,6 +873,15 @@
                                                 <dt>Bebidas</dt>
                                                 <% locals.menu.days[4].dinner.drinks.forEach(drink => { %>
                                                 <dd><%= drink.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (drink.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -522,6 +890,7 @@
                                             <% } %>
                                         </dl>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -530,6 +899,7 @@
                             aria-labelledby="list-settings-list">
                             <div class="card">
                                 <div class="row">
+                                    
                                     <div class="col-sm-6 border-right">
                                         <dl class="p-4">
                                             <dt class="day-period border-bottom">Almoço</dt>
@@ -540,6 +910,15 @@
                                                 <dt>Carnes</dt>
                                                 <% locals.menu.days[5].lunch.meat.forEach(meat => { %>
                                                 <dd><%= meat.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (meat.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -547,6 +926,15 @@
                                                 <dt>Pratos Vegetariano</dt>
                                                 <% locals.menu.days[5].lunch.vegetarian.forEach(vegie => { %>
                                                 <dd><%= vegie.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (vegie.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -554,6 +942,15 @@
                                                 <dt>Acompanhamentos</dt>
                                                 <% locals.menu.days[5].lunch.sideDish.forEach(sideDish => { %>
                                                 <dd><%= sideDish.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (sideDish.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -561,6 +958,15 @@
                                                 <dt>Sobremesas</dt>
                                                 <% locals.menu.days[5].lunch.dessert.forEach(dessert => { %>
                                                 <dd><%= dessert.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (dessert.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -568,6 +974,15 @@
                                                 <dt>Bebidas</dt>
                                                 <% locals.menu.days[5].lunch.drinks.forEach(drink => { %>
                                                 <dd><%= drink.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (drink.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -587,6 +1002,15 @@
                                                 <dt>Carnes</dt>
                                                 <% locals.menu.days[5].dinner.meat.forEach(meat => { %>
                                                 <dd><%= meat.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (meat.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -594,6 +1018,15 @@
                                                 <dt>Pratos Vegetariano</dt>
                                                 <% locals.menu.days[5].dinner.vegetarian.forEach(vegie => { %>
                                                 <dd><%= vegie.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (vegie.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -601,6 +1034,15 @@
                                                 <dt>Acompanhamentos</dt>
                                                 <% locals.menu.days[5].dinner.sideDish.forEach(sideDish => { %>
                                                 <dd><%= sideDish.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (sideDish.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -608,6 +1050,15 @@
                                                 <dt>Sobremesas</dt>
                                                 <% locals.menu.days[5].dinner.dessert.forEach(dessert => { %>
                                                 <dd><%= dessert.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (dessert.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -615,6 +1066,15 @@
                                                 <dt>Bebidas</dt>
                                                 <% locals.menu.days[5].dinner.drinks.forEach(drink => { %>
                                                 <dd><%= drink.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (drink.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -623,6 +1083,7 @@
                                             <% } %>
                                         </dl>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -631,6 +1092,7 @@
                             aria-labelledby="list-settings-list">
                             <div class="card">
                                 <div class="row">
+                                    
                                     <div class="col-sm-6 border-right">
                                         <dl class="p-4">
                                             <dt class="day-period border-bottom">Almoço</dt>
@@ -641,6 +1103,15 @@
                                                 <dt>Carnes</dt>
                                                 <% locals.menu.days[6].lunch.meat.forEach(meat => { %>
                                                 <dd><%= meat.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (meat.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -648,6 +1119,15 @@
                                                 <dt>Pratos Vegetariano</dt>
                                                 <% locals.menu.days[6].lunch.vegetarian.forEach(vegie => { %>
                                                 <dd><%= vegie.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (vegie.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -655,6 +1135,15 @@
                                                 <dt>Acompanhamentos</dt>
                                                 <% locals.menu.days[6].lunch.sideDish.forEach(sideDish => { %>
                                                 <dd><%= sideDish.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (sideDish.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -662,6 +1151,15 @@
                                                 <dt>Sobremesas</dt>
                                                 <% locals.menu.days[6].lunch.dessert.forEach(dessert => { %>
                                                 <dd><%= dessert.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (dessert.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -669,6 +1167,15 @@
                                                 <dt>Bebidas</dt>
                                                 <% locals.menu.days[6].lunch.drinks.forEach(drink => { %>
                                                 <dd><%= drink.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (drink.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -688,6 +1195,15 @@
                                                 <dt>Carnes</dt>
                                                 <% locals.menu.days[6].dinner.meat.forEach(meat => { %>
                                                 <dd><%= meat.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (meat.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -695,6 +1211,15 @@
                                                 <dt>Pratos Vegetariano</dt>
                                                 <% locals.menu.days[6].dinner.vegetarian.forEach(vegie => { %>
                                                 <dd><%= vegie.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (vegie.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -702,6 +1227,15 @@
                                                 <dt>Acompanhamentos</dt>
                                                 <% locals.menu.days[6].dinner.sideDish.forEach(sideDish => { %>
                                                 <dd><%= sideDish.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (sideDish.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -709,6 +1243,15 @@
                                                 <dt>Sobremesas</dt>
                                                 <% locals.menu.days[6].dinner.dessert.forEach(dessert => { %>
                                                 <dd><%= dessert.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (dessert.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -716,6 +1259,15 @@
                                                 <dt>Bebidas</dt>
                                                 <% locals.menu.days[6].dinner.drinks.forEach(drink => { %>
                                                 <dd><%= drink.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (drink.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -724,6 +1276,7 @@
                                             <% } %>
                                         </dl>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -732,6 +1285,7 @@
                             aria-labelledby="list-settings-list">
                             <div class="card">
                                 <div class="row">
+                                    
                                     <div class="col-sm-6 border-right">
                                         <dl class="p-4">
                                             <dt class="day-period border-bottom">Almoço</dt>
@@ -742,6 +1296,15 @@
                                                 <dt>Carnes</dt>
                                                 <% locals.menu.days[0].lunch.meat.forEach(meat => { %>
                                                 <dd><%= meat.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (meat.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -749,6 +1312,15 @@
                                                 <dt>Pratos Vegetariano</dt>
                                                 <% locals.menu.days[0].lunch.vegetarian.forEach(vegie => { %>
                                                 <dd><%= vegie.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (vegie.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -756,6 +1328,15 @@
                                                 <dt>Acompanhamentos</dt>
                                                 <% locals.menu.days[0].lunch.sideDish.forEach(sideDish => { %>
                                                 <dd><%= sideDish.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (sideDish.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -763,6 +1344,15 @@
                                                 <dt>Sobremesas</dt>
                                                 <% locals.menu.days[0].lunch.dessert.forEach(dessert => { %>
                                                 <dd><%= dessert.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (dessert.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -770,6 +1360,15 @@
                                                 <dt>Bebidas</dt>
                                                 <% locals.menu.days[0].lunch.drinks.forEach(drink => { %>
                                                 <dd><%= drink.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (drink.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -789,6 +1388,15 @@
                                                 <dt>Carnes</dt>
                                                 <% locals.menu.days[0].dinner.meat.forEach(meat => { %>
                                                 <dd><%= meat.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (meat.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -796,6 +1404,15 @@
                                                 <dt>Pratos Vegetariano</dt>
                                                 <% locals.menu.days[0].dinner.vegetarian.forEach(vegie => { %>
                                                 <dd><%= vegie.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (vegie.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -803,6 +1420,15 @@
                                                 <dt>Acompanhamentos</dt>
                                                 <% locals.menu.days[0].dinner.sideDish.forEach(sideDish => { %>
                                                 <dd><%= sideDish.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (sideDish.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -810,6 +1436,15 @@
                                                 <dt>Sobremesas</dt>
                                                 <% locals.menu.days[0].dinner.dessert.forEach(dessert => { %>
                                                 <dd><%= dessert.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (dessert.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -817,6 +1452,15 @@
                                                 <dt>Bebidas</dt>
                                                 <% locals.menu.days[0].dinner.drinks.forEach(drink => { %>
                                                 <dd><%= drink.name %></dd>
+                                                <% if (locals.user && locals.user.role >= 0) { %>
+                                                    <dd class="text-danger">
+                                                    <% locals.user.intolerances.forEach(userIntolerance => { %>
+                                                        <% if (drink.intolerances.includes(userIntolerance.food)) { %>
+                                                            <%= userIntolerance.food %> 
+                                                        <% } %>
+                                                    <% }) %>
+                                                    </dd>
+                                                <% } %>
                                                 <% }) %>
                                             </dl>
 
@@ -825,7 +1469,6 @@
                                             <% } %>
                                         </dl>
                                     </div>
-
 
                                 </div>
                             </div>

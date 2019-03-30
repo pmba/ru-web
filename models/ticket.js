@@ -73,3 +73,9 @@ module.exports.getByUserID = (userID, callback) => {
         'user_info.id': userID
     }, callback);
 }
+
+module.exports.deleteById = (id, callback) => {
+    Ticket.deleteOne({
+        _id: id
+    }, callback);
+}

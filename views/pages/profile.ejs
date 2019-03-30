@@ -190,6 +190,9 @@
                                                     </p>
 
                                                     <a href="/user/rating/<%= ticket._id %>/<%= ticket.validation.date.getWeek() %>/<%= ticket.validation.date.getDay() %>/<%= ticket.validation.date.getHours() >= 17 ? 'dinner' : 'lunch' %>" class="btn btn-outline-success text-center form-control">AVALIAR REFEIÇÃO</a>
+                                                    <form action="/user/rating/dismiss/<%= ticket._id %>/?_method=DELETE" method="POST">
+                                                        <button type="submit" class="btn btn-outline-danger text-center form-control mt-2">NÃO AVALIAR</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                             <% } %>

@@ -92,30 +92,40 @@ router.get('/rating/:id/:week/:day/:period', (req, res) => {
     Menu.getMenuByWeek(req.params.week, (err, menu) => {
         if (err) throw err;
 
-        let dayOfTheWeek = menu.days[req.params.day];
-
-        if (req.params.period == 'lunch') {
-
-            res.render('pages/rating/index', {
-                title: 'Avaliar Refeição',
-                ticketId: req.params.id,
-                menu: dayOfTheWeek.lunch
-            });
-        } else if (req.params.period == 'dinner') {
-
-            res.render('pages/rating/index', {
-                title: 'Avaliar Refeição',
-                ticketId: req.params.id,
-                menu: dayOfTheWeek.dinner
-            });
+        if (menu) {
+            let dayOfTheWeek = menu.days[req.params.day];
+    
+            if (req.params.period == 'lunch') {
+    
+                res.render('pages/rating/index', {
+                    title: 'Avaliar Refeição',
+                    ticketId: req.params.id,
+                    menu: dayOfTheWeek.lunch
+                });
+            } else if (req.params.period == 'dinner') {
+    
+                res.render('pages/rating/index', {
+                    title: 'Avaliar Refeição',
+                    ticketId: req.params.id,
+                    menu: dayOfTheWeek.dinner
+                });
+            } else {
+                req.flash('alerts', [{
+                    param: 'day-period',
+                    msg: `Período do dia inválido`,
+                    type: 'danger'
+                }]);
+    
+                res.redirect(`/user/rating/${req.params.id}/${req.params.week}/${req.params.period}`);
+            }
         } else {
             req.flash('alerts', [{
-                param: 'day-period',
-                msg: `Período do dia inválido`,
+                param: 'menu',
+                msg: `Ocorreu um erro ao tentar recuperar o menu desse dia`,
                 type: 'danger'
             }]);
 
-            res.redirect(`/user/rating/${req.params.id}/${req.params.week}/${req.params.period}`);
+            res.redirect(`/user`);
         }
     });
 });
@@ -123,6 +133,20 @@ router.get('/rating/:id/:week/:day/:period', (req, res) => {
 router.get('/rating/reset', (req, res) => {
     Dish.resetAllRatingNumbers(() => {
         res.send('Done');
+    });
+});
+
+router.delete('/rating/dismiss/:id', (req, res) => {
+    Ticket.deleteById(req.params.id, (err) => {
+        if (err) throw err;
+
+        req.flash('alerts', [{
+            param: 'ticket-dismiss',
+            msg: `Ta bom então <i class="far fa-sad-cry"></i>`,
+            type: 'success'
+        }]);
+
+        res.redirect('/user');
     });
 });
 
@@ -190,7 +214,7 @@ router.post('/rating/:id/:week/:day/:period', (req, res) => {
 
                     req.flash('alerts', [{
                         param: 'ticket-validation',
-                        msg: `Obrigado pela sua avaliação. ♥`,
+                        msg: `Obrigado pela sua avaliação <i class="fas fa-heart ml-2"></i>`,
                         type: 'success'
                     }]);
 

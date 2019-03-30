@@ -33,6 +33,11 @@ hr {
     background-size: cover;
 }
 
+.background-food {
+    background: url('../img/bg-food.png');
+    background-size: cover;
+}
+
 .sans-13,
 .site-nav {
     letter-spacing: 2px !important;
@@ -208,6 +213,11 @@ hr {
     font-family: 'Raleway', sans-serif;
 }
 
+.content-padding {
+    padding: 3em 0;
+    font-family: 'Raleway', sans-serif;
+}
+
 .small-day {
     line-height: 25px;
 }
@@ -218,4 +228,14 @@ hr {
     text-transform: uppercase;
     padding-bottom: 1em;
     margin-bottom: 1em;
+}
+
+.bg-dono {
+    background: #f8f9fa !important;
+    padding: 3em !important;
+}
+
+.ratio {
+    width: 70%;
+    height: 80%;
 }
