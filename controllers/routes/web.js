@@ -11,8 +11,6 @@ router.get('/', (req, res) => res.redirect('/inicio'));
 router.get('/inicio', (req, res) => {
     let currentWeek = new Date(new Date().toLocaleDateString('pt-BR')).getWeek();
 
-    console.log(currentWeek);
-
     Menu.getMenuByWeek(currentWeek, (err, menu) => {
         if (err) throw err;
 
