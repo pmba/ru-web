@@ -211,3 +211,11 @@ hr {
 .small-day {
     line-height: 25px;
 }
+
+.day-period {
+    text-align: center;
+    font-size: 18px;
+    text-transform: uppercase;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+}

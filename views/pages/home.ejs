@@ -47,136 +47,802 @@
         </div>
     </div>
 
-    <div class="container-fluid bg-light" id="menu">
+    <div class="container-fluid bg-light pb-5" id="menu">
         <div class="container">
             <div class="row text-center text-uppercase mb-3">
-                <p class="h1 w-100 content-title">
+                <p class="h1 w-100 content-title this-is-from-matilda">
                     Cardápio<br>Semanal
                 </p>
             </div>
+
+            <% if (locals.menu) { %>
             <div class="row">
                 <div class="col-sm-4">
                     <div class="list-group" id="list-tab" role="tablist">
-                        <a class="list-group-item list-group-item-action d-flex justify-content-between active" id="list-monday" data-toggle="list"
-                            href="#list-tab-monday" role="tab" aria-controls="home">
+                        <a class="list-group-item list-group-item-action d-flex justify-content-between active"
+                            id="list-monday" data-toggle="list" href="#list-tab-monday" role="tab" aria-controls="home">
                             Segunda
-                            
-                            <small class="small-day"><%= locals.menu.days[1].date.day %>/<%= locals.menu.days[1].date.month %>/<%= locals.menu.days[1].date.year %></small>
+
+                            <small
+                                class="small-day"><%= locals.menu.days[1].date.day %>/<%= locals.menu.days[1].date.month %>/<%= locals.menu.days[1].date.year %></small>
                         </a>
-                        <a class="list-group-item list-group-item-action d-flex justify-content-between" id="list-tuesday" data-toggle="list"
-                            href="#list-tab-tuesday" role="tab" aria-controls="profile">
+                        <a class="list-group-item list-group-item-action d-flex justify-content-between"
+                            id="list-tuesday" data-toggle="list" href="#list-tab-tuesday" role="tab"
+                            aria-controls="profile">
                             Terça
 
-                            <small class="small-day"><%= locals.menu.days[2].date.day %>/<%= locals.menu.days[2].date.month %>/<%= locals.menu.days[2].date.year %></small>
+                            <small
+                                class="small-day"><%= locals.menu.days[2].date.day %>/<%= locals.menu.days[2].date.month %>/<%= locals.menu.days[2].date.year %></small>
                         </a>
-                        <a class="list-group-item list-group-item-action d-flex justify-content-between" id="list-wednesday" data-toggle="list"
-                            href="#list-tab-wednesday" role="tab" aria-controls="messages">
+                        <a class="list-group-item list-group-item-action d-flex justify-content-between"
+                            id="list-wednesday" data-toggle="list" href="#list-tab-wednesday" role="tab"
+                            aria-controls="messages">
                             Quarta
 
-                            <small class="small-day"><%= locals.menu.days[3].date.day %>/<%= locals.menu.days[3].date.month %>/<%= locals.menu.days[3].date.year %></small>
+                            <small
+                                class="small-day"><%= locals.menu.days[3].date.day %>/<%= locals.menu.days[3].date.month %>/<%= locals.menu.days[3].date.year %></small>
                         </a>
-                        <a class="list-group-item list-group-item-action d-flex justify-content-between" id="list-thursday" data-toggle="list"
-                            href="#list-tab-thursday" role="tab" aria-controls="settings">
+                        <a class="list-group-item list-group-item-action d-flex justify-content-between"
+                            id="list-thursday" data-toggle="list" href="#list-tab-thursday" role="tab"
+                            aria-controls="settings">
                             Quinta
 
-                            <small class="small-day"><%= locals.menu.days[4].date.day %>/<%= locals.menu.days[4].date.month %>/<%= locals.menu.days[4].date.year %></small>
+                            <small
+                                class="small-day"><%= locals.menu.days[4].date.day %>/<%= locals.menu.days[4].date.month %>/<%= locals.menu.days[4].date.year %></small>
                         </a>
-                        <a class="list-group-item list-group-item-action d-flex justify-content-between" id="list-thursday" data-toggle="list"
-                            href="#list-tab-friday" role="tab" aria-controls="settings">
+                        <a class="list-group-item list-group-item-action d-flex justify-content-between"
+                            id="list-thursday" data-toggle="list" href="#list-tab-friday" role="tab"
+                            aria-controls="settings">
                             Sexta
 
-                            <small class="small-day"><%= locals.menu.days[5].date.day %>/<%= locals.menu.days[5].date.month %>/<%= locals.menu.days[5].date.year %></small>
+                            <small
+                                class="small-day"><%= locals.menu.days[5].date.day %>/<%= locals.menu.days[5].date.month %>/<%= locals.menu.days[5].date.year %></small>
                         </a>
-                        <a class="list-group-item list-group-item-action d-flex justify-content-between" id="list-thursday" data-toggle="list"
-                            href="#list-tab-saturday" role="tab" aria-controls="settings">
+                        <a class="list-group-item list-group-item-action d-flex justify-content-between"
+                            id="list-thursday" data-toggle="list" href="#list-tab-saturday" role="tab"
+                            aria-controls="settings">
                             Sábado
 
-                            <small class="small-day"><%= locals.menu.days[6].date.day %>/<%= locals.menu.days[6].date.month %>/<%= locals.menu.days[6].date.year %></small>
+                            <small
+                                class="small-day"><%= locals.menu.days[6].date.day %>/<%= locals.menu.days[6].date.month %>/<%= locals.menu.days[6].date.year %></small>
                         </a>
-                        <a class="list-group-item list-group-item-action d-flex justify-content-between" id="list-thursday" data-toggle="list"
-                            href="#list-tab-sunday" role="tab" aria-controls="settings">
+                        <a class="list-group-item list-group-item-action d-flex justify-content-between"
+                            id="list-thursday" data-toggle="list" href="#list-tab-sunday" role="tab"
+                            aria-controls="settings">
                             Domingo
 
-                            <small class="small-day"><%= locals.menu.days[0].date.day %>/<%= locals.menu.days[0].date.month %>/<%= locals.menu.days[0].date.year %></small>
+                            <small
+                                class="small-day"><%= locals.menu.days[0].date.day %>/<%= locals.menu.days[0].date.month %>/<%= locals.menu.days[0].date.year %></small>
                         </a>
                     </div>
                 </div>
+
                 <div class="col-sm-8">
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="list-tab-monday" role="tabpanel"
                             aria-labelledby="list-home-list">
-                            <div class="card text-center">
+                            <div class="card">
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-6 border-right">
                                         <dl class="p-4">
-                                            <dt>Almoço</dt>
-                                            
+                                            <dt class="day-period border-bottom">Almoço</dt>
+
+                                            <% if (locals.menu.days[1].lunch.meat.length > 0 || locals.menu.days[1].lunch.vegetarian.length > 0 || locals.menu.days[1].lunch.sideDish.length > 0 || locals.menu.days[1].lunch.dessert.length > 0 || locals.menu.days[1].lunch.drinks.length > 0) { %>
+
                                             <dl>
                                                 <dt>Carnes</dt>
                                                 <% locals.menu.days[1].lunch.meat.forEach(meat => { %>
-                                                    <dd><%= meat.name %></dd>
+                                                <dd><%= meat.name %></dd>
                                                 <% }) %>
                                             </dl>
-                                            
+
                                             <dl>
                                                 <dt>Pratos Vegetariano</dt>
                                                 <% locals.menu.days[1].lunch.vegetarian.forEach(vegie => { %>
-                                                    <dd><%= vegie.name %></dd>
+                                                <dd><%= vegie.name %></dd>
                                                 <% }) %>
                                             </dl>
-                                            
+
                                             <dl>
                                                 <dt>Acompanhamentos</dt>
                                                 <% locals.menu.days[1].lunch.sideDish.forEach(sideDish => { %>
-                                                    <dd><%= sideDish.name %></dd>
+                                                <dd><%= sideDish.name %></dd>
                                                 <% }) %>
                                             </dl>
-                                            
+
                                             <dl>
                                                 <dt>Sobremesas</dt>
                                                 <% locals.menu.days[1].lunch.dessert.forEach(dessert => { %>
-                                                    <dd><%= dessert.name %></dd>
+                                                <dd><%= dessert.name %></dd>
                                                 <% }) %>
                                             </dl>
-                                            
+
                                             <dl>
                                                 <dt>Bebidas</dt>
                                                 <% locals.menu.days[1].lunch.drinks.forEach(drink => { %>
-                                                    <dd><%= drink.name %></dd>
+                                                <dd><%= drink.name %></dd>
                                                 <% }) %>
                                             </dl>
+
+                                            <% } else { %>
+                                            Nada
+                                            <% } %>
+                                        </dl>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <dl class="p-4">
+                                            <dt class="day-period border-bottom">Janta</dt>
+
+                                            <% if (locals.menu.days[1].dinner.meat.length > 0 || locals.menu.days[1].dinner.vegetarian.length > 0 || locals.menu.days[1].dinner.sideDish.length > 0 || locals.menu.days[1].dinner.dessert.length > 0 || locals.menu.days[1].dinner.drinks.length > 0) { %>
+
+                                            <dl>
+                                                <dt>Carnes</dt>
+                                                <% locals.menu.days[1].dinner.meat.forEach(meat => { %>
+                                                <dd><%= meat.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Pratos Vegetariano</dt>
+                                                <% locals.menu.days[1].dinner.vegetarian.forEach(vegie => { %>
+                                                <dd><%= vegie.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Acompanhamentos</dt>
+                                                <% locals.menu.days[1].dinner.sideDish.forEach(sideDish => { %>
+                                                <dd><%= sideDish.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Sobremesas</dt>
+                                                <% locals.menu.days[1].dinner.dessert.forEach(dessert => { %>
+                                                <dd><%= dessert.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Bebidas</dt>
+                                                <% locals.menu.days[1].dinner.drinks.forEach(drink => { %>
+                                                <dd><%= drink.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <% } else { %>
+                                            Nada
+                                            <% } %>
+                                        </dl>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="list-tab-tuesday" role="tabpanel"
+                            aria-labelledby="list-profile-list">
+                            <div class="card">
+                                <div class="row">
+                                    <div class="col-sm-6 border-right">
+                                        <dl class="p-4">
+                                            <dt class="day-period border-bottom">Almoço</dt>
+
+                                            <% if (locals.menu.days[2].lunch.meat.length > 0 || locals.menu.days[2].lunch.vegetarian.length > 0 || locals.menu.days[2].lunch.sideDish.length > 0 || locals.menu.days[2].lunch.dessert.length > 0 || locals.menu.days[2].lunch.drinks.length > 0) { %>
+
+                                            <dl>
+                                                <dt>Carnes</dt>
+                                                <% locals.menu.days[2].lunch.meat.forEach(meat => { %>
+                                                <dd><%= meat.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Pratos Vegetariano</dt>
+                                                <% locals.menu.days[2].lunch.vegetarian.forEach(vegie => { %>
+                                                <dd><%= vegie.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Acompanhamentos</dt>
+                                                <% locals.menu.days[2].lunch.sideDish.forEach(sideDish => { %>
+                                                <dd><%= sideDish.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Sobremesas</dt>
+                                                <% locals.menu.days[2].lunch.dessert.forEach(dessert => { %>
+                                                <dd><%= dessert.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Bebidas</dt>
+                                                <% locals.menu.days[2].lunch.drinks.forEach(drink => { %>
+                                                <dd><%= drink.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <% } else { %>
+                                            Nada
+                                            <% } %>
+                                        </dl>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <dl class="p-4">
+                                            <dt class="day-period border-bottom">Janta</dt>
+
+                                            <% if (locals.menu.days[2].dinner.meat.length > 0 || locals.menu.days[2].dinner.vegetarian.length > 0 || locals.menu.days[2].dinner.sideDish.length > 0 || locals.menu.days[2].dinner.dessert.length > 0 || locals.menu.days[2].dinner.drinks.length > 0) { %>
+
+                                            <dl>
+                                                <dt>Carnes</dt>
+                                                <% locals.menu.days[2].dinner.meat.forEach(meat => { %>
+                                                <dd><%= meat.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Pratos Vegetariano</dt>
+                                                <% locals.menu.days[2].dinner.vegetarian.forEach(vegie => { %>
+                                                <dd><%= vegie.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Acompanhamentos</dt>
+                                                <% locals.menu.days[2].dinner.sideDish.forEach(sideDish => { %>
+                                                <dd><%= sideDish.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Sobremesas</dt>
+                                                <% locals.menu.days[2].dinner.dessert.forEach(dessert => { %>
+                                                <dd><%= dessert.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Bebidas</dt>
+                                                <% locals.menu.days[2].dinner.drinks.forEach(drink => { %>
+                                                <dd><%= drink.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <% } else { %>
+                                            Nada
+                                            <% } %>
                                         </dl>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="list-tab-tuesday" role="tabpanel"
-                            aria-labelledby="list-profile-list">
-                            Terça
-                        </div>
+
                         <div class="tab-pane fade" id="list-tab-wednesday" role="tabpanel"
                             aria-labelledby="list-messages-list">
-                            Quarta
+                            <div class="card">
+                                <div class="row">
+                                    <div class="col-sm-6 border-right">
+                                        <dl class="p-4">
+                                            <dt class="day-period border-bottom">Almoço</dt>
+
+                                            <% if (locals.menu.days[3].lunch.meat.length > 0 || locals.menu.days[3].lunch.vegetarian.length > 0 || locals.menu.days[3].lunch.sideDish.length > 0 || locals.menu.days[3].lunch.dessert.length > 0 || locals.menu.days[3].lunch.drinks.length > 0) { %>
+
+                                            <dl>
+                                                <dt>Carnes</dt>
+                                                <% locals.menu.days[3].lunch.meat.forEach(meat => { %>
+                                                <dd><%= meat.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Pratos Vegetariano</dt>
+                                                <% locals.menu.days[3].lunch.vegetarian.forEach(vegie => { %>
+                                                <dd><%= vegie.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Acompanhamentos</dt>
+                                                <% locals.menu.days[3].lunch.sideDish.forEach(sideDish => { %>
+                                                <dd><%= sideDish.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Sobremesas</dt>
+                                                <% locals.menu.days[3].lunch.dessert.forEach(dessert => { %>
+                                                <dd><%= dessert.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Bebidas</dt>
+                                                <% locals.menu.days[3].lunch.drinks.forEach(drink => { %>
+                                                <dd><%= drink.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <% } else { %>
+                                            Nada
+                                            <% } %>
+                                        </dl>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <dl class="p-4">
+                                            <dt class="day-period border-bottom">Janta</dt>
+
+                                            <% if (locals.menu.days[3].dinner.meat.length > 0 || locals.menu.days[3].dinner.vegetarian.length > 0 || locals.menu.days[3].dinner.sideDish.length > 0 || locals.menu.days[3].dinner.dessert.length > 0 || locals.menu.days[3].dinner.drinks.length > 0) { %>
+
+                                            <dl>
+                                                <dt>Carnes</dt>
+                                                <% locals.menu.days[3].dinner.meat.forEach(meat => { %>
+                                                <dd><%= meat.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Pratos Vegetariano</dt>
+                                                <% locals.menu.days[3].dinner.vegetarian.forEach(vegie => { %>
+                                                <dd><%= vegie.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Acompanhamentos</dt>
+                                                <% locals.menu.days[3].dinner.sideDish.forEach(sideDish => { %>
+                                                <dd><%= sideDish.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Sobremesas</dt>
+                                                <% locals.menu.days[3].dinner.dessert.forEach(dessert => { %>
+                                                <dd><%= dessert.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Bebidas</dt>
+                                                <% locals.menu.days[3].dinner.drinks.forEach(drink => { %>
+                                                <dd><%= drink.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <% } else { %>
+                                            Nada
+                                            <% } %>
+                                        </dl>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
+
                         <div class="tab-pane fade" id="list-tab-thursday" role="tabpanel"
                             aria-labelledby="list-settings-list">
-                            Quinta
+                            <div class="card">
+                                <div class="row">
+                                    <div class="col-sm-6 border-right">
+                                        <dl class="p-4">
+                                            <dt class="day-period border-bottom">Almoço</dt>
+
+                                            <% if (locals.menu.days[4].lunch.meat.length > 0 || locals.menu.days[4].lunch.vegetarian.length > 0 || locals.menu.days[4].lunch.sideDish.length > 0 || locals.menu.days[4].lunch.dessert.length > 0 || locals.menu.days[4].lunch.drinks.length > 0) { %>
+
+                                            <dl>
+                                                <dt>Carnes</dt>
+                                                <% locals.menu.days[4].lunch.meat.forEach(meat => { %>
+                                                <dd><%= meat.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Pratos Vegetariano</dt>
+                                                <% locals.menu.days[4].lunch.vegetarian.forEach(vegie => { %>
+                                                <dd><%= vegie.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Acompanhamentos</dt>
+                                                <% locals.menu.days[4].lunch.sideDish.forEach(sideDish => { %>
+                                                <dd><%= sideDish.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Sobremesas</dt>
+                                                <% locals.menu.days[4].lunch.dessert.forEach(dessert => { %>
+                                                <dd><%= dessert.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Bebidas</dt>
+                                                <% locals.menu.days[4].lunch.drinks.forEach(drink => { %>
+                                                <dd><%= drink.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <% } else { %>
+                                            Nada
+                                            <% } %>
+                                        </dl>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <dl class="p-4">
+                                            <dt class="day-period border-bottom">Janta</dt>
+
+                                            <% if (locals.menu.days[4].dinner.meat.length > 0 || locals.menu.days[4].dinner.vegetarian.length > 0 || locals.menu.days[4].dinner.sideDish.length > 0 || locals.menu.days[4].dinner.dessert.length > 0 || locals.menu.days[4].dinner.drinks.length > 0) { %>
+
+                                            <dl>
+                                                <dt>Carnes</dt>
+                                                <% locals.menu.days[4].dinner.meat.forEach(meat => { %>
+                                                <dd><%= meat.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Pratos Vegetariano</dt>
+                                                <% locals.menu.days[4].dinner.vegetarian.forEach(vegie => { %>
+                                                <dd><%= vegie.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Acompanhamentos</dt>
+                                                <% locals.menu.days[4].dinner.sideDish.forEach(sideDish => { %>
+                                                <dd><%= sideDish.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Sobremesas</dt>
+                                                <% locals.menu.days[4].dinner.dessert.forEach(dessert => { %>
+                                                <dd><%= dessert.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Bebidas</dt>
+                                                <% locals.menu.days[4].dinner.drinks.forEach(drink => { %>
+                                                <dd><%= drink.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <% } else { %>
+                                            Nada
+                                            <% } %>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="tab-pane fade" id="list-tab-friday" role="tabpanel"
                             aria-labelledby="list-settings-list">
-                            Sexta
+                            <div class="card">
+                                <div class="row">
+                                    <div class="col-sm-6 border-right">
+                                        <dl class="p-4">
+                                            <dt class="day-period border-bottom">Almoço</dt>
+
+                                            <% if (locals.menu.days[5].lunch.meat.length > 0 || locals.menu.days[5].lunch.vegetarian.length > 0 || locals.menu.days[5].lunch.sideDish.length > 0 || locals.menu.days[5].lunch.dessert.length > 0 || locals.menu.days[5].lunch.drinks.length > 0) { %>
+
+                                            <dl>
+                                                <dt>Carnes</dt>
+                                                <% locals.menu.days[5].lunch.meat.forEach(meat => { %>
+                                                <dd><%= meat.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Pratos Vegetariano</dt>
+                                                <% locals.menu.days[5].lunch.vegetarian.forEach(vegie => { %>
+                                                <dd><%= vegie.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Acompanhamentos</dt>
+                                                <% locals.menu.days[5].lunch.sideDish.forEach(sideDish => { %>
+                                                <dd><%= sideDish.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Sobremesas</dt>
+                                                <% locals.menu.days[5].lunch.dessert.forEach(dessert => { %>
+                                                <dd><%= dessert.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Bebidas</dt>
+                                                <% locals.menu.days[5].lunch.drinks.forEach(drink => { %>
+                                                <dd><%= drink.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <% } else { %>
+                                            Nada
+                                            <% } %>
+                                        </dl>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <dl class="p-4">
+                                            <dt class="day-period border-bottom">Janta</dt>
+
+                                            <% if (locals.menu.days[5].dinner.meat.length > 0 || locals.menu.days[5].dinner.vegetarian.length > 0 || locals.menu.days[5].dinner.sideDish.length > 0 || locals.menu.days[5].dinner.dessert.length > 0 || locals.menu.days[5].dinner.drinks.length > 0) { %>
+
+                                            <dl>
+                                                <dt>Carnes</dt>
+                                                <% locals.menu.days[5].dinner.meat.forEach(meat => { %>
+                                                <dd><%= meat.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Pratos Vegetariano</dt>
+                                                <% locals.menu.days[5].dinner.vegetarian.forEach(vegie => { %>
+                                                <dd><%= vegie.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Acompanhamentos</dt>
+                                                <% locals.menu.days[5].dinner.sideDish.forEach(sideDish => { %>
+                                                <dd><%= sideDish.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Sobremesas</dt>
+                                                <% locals.menu.days[5].dinner.dessert.forEach(dessert => { %>
+                                                <dd><%= dessert.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Bebidas</dt>
+                                                <% locals.menu.days[5].dinner.drinks.forEach(drink => { %>
+                                                <dd><%= drink.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <% } else { %>
+                                            Nada
+                                            <% } %>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="tab-pane fade" id="list-tab-saturday" role="tabpanel"
                             aria-labelledby="list-settings-list">
-                            Sábado
+                            <div class="card">
+                                <div class="row">
+                                    <div class="col-sm-6 border-right">
+                                        <dl class="p-4">
+                                            <dt class="day-period border-bottom">Almoço</dt>
+
+                                            <% if (locals.menu.days[6].lunch.meat.length > 0 || locals.menu.days[6].lunch.vegetarian.length > 0 || locals.menu.days[6].lunch.sideDish.length > 0 || locals.menu.days[6].lunch.dessert.length > 0 || locals.menu.days[6].lunch.drinks.length > 0) { %>
+
+                                            <dl>
+                                                <dt>Carnes</dt>
+                                                <% locals.menu.days[6].lunch.meat.forEach(meat => { %>
+                                                <dd><%= meat.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Pratos Vegetariano</dt>
+                                                <% locals.menu.days[6].lunch.vegetarian.forEach(vegie => { %>
+                                                <dd><%= vegie.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Acompanhamentos</dt>
+                                                <% locals.menu.days[6].lunch.sideDish.forEach(sideDish => { %>
+                                                <dd><%= sideDish.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Sobremesas</dt>
+                                                <% locals.menu.days[6].lunch.dessert.forEach(dessert => { %>
+                                                <dd><%= dessert.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Bebidas</dt>
+                                                <% locals.menu.days[6].lunch.drinks.forEach(drink => { %>
+                                                <dd><%= drink.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <% } else { %>
+                                            Nada
+                                            <% } %>
+                                        </dl>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <dl class="p-4">
+                                            <dt class="day-period border-bottom">Janta</dt>
+
+                                            <% if (locals.menu.days[6].dinner.meat.length > 0 || locals.menu.days[6].dinner.vegetarian.length > 0 || locals.menu.days[6].dinner.sideDish.length > 0 || locals.menu.days[6].dinner.dessert.length > 0 || locals.menu.days[6].dinner.drinks.length > 0) { %>
+
+                                            <dl>
+                                                <dt>Carnes</dt>
+                                                <% locals.menu.days[6].dinner.meat.forEach(meat => { %>
+                                                <dd><%= meat.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Pratos Vegetariano</dt>
+                                                <% locals.menu.days[6].dinner.vegetarian.forEach(vegie => { %>
+                                                <dd><%= vegie.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Acompanhamentos</dt>
+                                                <% locals.menu.days[6].dinner.sideDish.forEach(sideDish => { %>
+                                                <dd><%= sideDish.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Sobremesas</dt>
+                                                <% locals.menu.days[6].dinner.dessert.forEach(dessert => { %>
+                                                <dd><%= dessert.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Bebidas</dt>
+                                                <% locals.menu.days[6].dinner.drinks.forEach(drink => { %>
+                                                <dd><%= drink.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <% } else { %>
+                                            Nada
+                                            <% } %>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="tab-pane fade" id="list-tab-sunday" role="tabpanel"
                             aria-labelledby="list-settings-list">
-                            Domingo
+                            <div class="card">
+                                <div class="row">
+                                    <div class="col-sm-6 border-right">
+                                        <dl class="p-4">
+                                            <dt class="day-period border-bottom">Almoço</dt>
+
+                                            <% if (locals.menu.days[0].lunch.meat.length > 0 || locals.menu.days[0].lunch.vegetarian.length > 0 || locals.menu.days[0].lunch.sideDish.length > 0 || locals.menu.days[0].lunch.dessert.length > 0 || locals.menu.days[0].lunch.drinks.length > 0) { %>
+
+                                            <dl>
+                                                <dt>Carnes</dt>
+                                                <% locals.menu.days[0].lunch.meat.forEach(meat => { %>
+                                                <dd><%= meat.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Pratos Vegetariano</dt>
+                                                <% locals.menu.days[0].lunch.vegetarian.forEach(vegie => { %>
+                                                <dd><%= vegie.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Acompanhamentos</dt>
+                                                <% locals.menu.days[0].lunch.sideDish.forEach(sideDish => { %>
+                                                <dd><%= sideDish.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Sobremesas</dt>
+                                                <% locals.menu.days[0].lunch.dessert.forEach(dessert => { %>
+                                                <dd><%= dessert.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Bebidas</dt>
+                                                <% locals.menu.days[0].lunch.drinks.forEach(drink => { %>
+                                                <dd><%= drink.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <% } else { %>
+                                            Nada
+                                            <% } %>
+                                        </dl>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <dl class="p-4">
+                                            <dt class="day-period border-bottom">Janta</dt>
+
+                                            <% if (locals.menu.days[0].dinner.meat.length > 0 || locals.menu.days[0].dinner.vegetarian.length > 0 || locals.menu.days[0].dinner.sideDish.length > 0 || locals.menu.days[0].dinner.dessert.length > 0 || locals.menu.days[0].dinner.drinks.length > 0) { %>
+
+                                            <dl>
+                                                <dt>Carnes</dt>
+                                                <% locals.menu.days[0].dinner.meat.forEach(meat => { %>
+                                                <dd><%= meat.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Pratos Vegetariano</dt>
+                                                <% locals.menu.days[0].dinner.vegetarian.forEach(vegie => { %>
+                                                <dd><%= vegie.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Acompanhamentos</dt>
+                                                <% locals.menu.days[0].dinner.sideDish.forEach(sideDish => { %>
+                                                <dd><%= sideDish.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Sobremesas</dt>
+                                                <% locals.menu.days[0].dinner.dessert.forEach(dessert => { %>
+                                                <dd><%= dessert.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <dl>
+                                                <dt>Bebidas</dt>
+                                                <% locals.menu.days[0].dinner.drinks.forEach(drink => { %>
+                                                <dd><%= drink.name %></dd>
+                                                <% }) %>
+                                            </dl>
+
+                                            <% } else { %>
+                                            Nada
+                                            <% } %>
+                                        </dl>
+                                    </div>
+
+
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
+            <% } else { %>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            Nenhum Cardápio Encontrado
+                        </div>
+                    </div>
+                </div>
+            <% } %>
         </div>
     </div>
 
