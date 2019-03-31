@@ -149,7 +149,7 @@
                                                             <select multiple data-live-search="true"
                                                                 class="form-control" id="lunchMeat" name="lunchMeat[]">
                                                                 <% locals.meats.forEach(meat => { %>
-                                                                    <option value="<%= meat.name %>"><%= meat.name %></option>
+                                                                    <option value="<%= meat._id %>"><%= meat.name %></option>
                                                                 <% }) %>
                                                             </select>
                                                         </div>
@@ -160,7 +160,7 @@
                                                                 class="form-control" id="lunchVegetarian"
                                                                 name="lunchVegetarian[]">
                                                                 <% locals.vegetarians.forEach(vegetarian => { %>
-                                                                    <option value="<%= vegetarian.name %>"><%= vegetarian.name %></option>
+                                                                    <option value="<%= vegetarian._id %>"><%= vegetarian.name %></option>
                                                                 <% }) %>
                                                             </select>
                                                         </div>
@@ -171,7 +171,7 @@
                                                                 class="form-control" id="lunchSideDish"
                                                                 name="lunchSideDish[]">
                                                                 <% locals.sideDishes.forEach(sideDish => { %>
-                                                                    <option value="<%= sideDish.name %>"><%= sideDish.name %></option>
+                                                                    <option value="<%= sideDish._id %>"><%= sideDish.name %></option>
                                                                 <% }) %>
                                                             </select>
                                                         </div>
@@ -182,7 +182,7 @@
                                                                 class="form-control" id="lunchDessert"
                                                                 name="lunchDessert[]">
                                                                 <% locals.desserts.forEach(dessert => { %>
-                                                                    <option value="<%= dessert.name %>"><%= dessert.name %></option>
+                                                                    <option value="<%= dessert._id %>"><%= dessert.name %></option>
                                                                 <% }) %>
                                                             </select>
                                                         </div>
@@ -193,7 +193,7 @@
                                                                 class="form-control" id="lunchDrink"
                                                                 name="lunchDrink[]">
                                                                 <% locals.drinks.forEach(drink => { %>
-                                                                    <option value="<%= drink.name %>"><%= drink.name %></option>
+                                                                    <option value="<%= drink._id %>"><%= drink.name %></option>
                                                                 <% }) %>
                                                             </select>
                                                         </div>
@@ -215,7 +215,7 @@
                                                                 class="form-control" id="dinnerMeat"
                                                                 name="dinnerMeat[]">
                                                                 <% locals.meats.forEach(meat => { %>
-                                                                    <option value="<%= meat.name %>"><%= meat.name %></option>
+                                                                    <option value="<%= meat._id %>"><%= meat.name %></option>
                                                                 <% }) %>
                                                             </select>
                                                         </div>
@@ -226,7 +226,7 @@
                                                                 class="form-control" id="dinnerVegetarian"
                                                                 name="dinnerVegetarian[]">
                                                                 <% locals.vegetarians.forEach(vegetarian => { %>
-                                                                    <option value="<%= vegetarian.name %>"><%= vegetarian.name %></option>
+                                                                    <option value="<%= vegetarian._id %>"><%= vegetarian.name %></option>
                                                                 <% }) %>
                                                             </select>
                                                         </div>
@@ -237,7 +237,7 @@
                                                                 class="form-control" id="dinnerSideDish"
                                                                 name="dinnerSideDish[]">
                                                                 <% locals.sideDishes.forEach(sideDish => { %>
-                                                                    <option value="<%= sideDish.name %>"><%= sideDish.name %></option>
+                                                                    <option value="<%= sideDish._id %>"><%= sideDish.name %></option>
                                                                 <% }) %>
                                                             </select>
                                                         </div>
@@ -248,7 +248,7 @@
                                                                 class="form-control" id="dinnerDessert"
                                                                 name="dinnerDessert[]">
                                                                 <% locals.desserts.forEach(dessert => { %>
-                                                                    <option value="<%= dessert.name %>"><%= dessert.name %></option>
+                                                                    <option value="<%= dessert._id %>"><%= dessert.name %></option>
                                                                 <% }) %>
                                                             </select>
                                                         </div>
@@ -259,7 +259,7 @@
                                                                 class="form-control" id="dinnerDrink"
                                                                 name="dinnerDrink[]">
                                                                 <% locals.drinks.forEach(drink => { %>
-                                                                    <option value="<%= drink.name %>"><%= drink.name %></option>
+                                                                    <option value="<%= drink._id %>"><%= drink.name %></option>
                                                                 <% }) %>
                                                             </select>
                                                         </div>

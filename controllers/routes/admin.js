@@ -418,7 +418,10 @@ router.post('/menu/new', adminMiddleware.proceedIfAuthenticated, (req, res) => {
     var week, weekIsDone = 0;
 
     const start = async () => {
-        console.log(`[${Date.now()}] NEW MENU CREATION`)
+        console.log(`[${Date.now()}] NEW MENU CREATION`);
+
+        // return res.json(req.body.days[1].lunch.meat);
+
         await asyncForEach(req.body.days, async (day) => {
 
             let newDailyMenu = await new DailyMenu();
@@ -438,37 +441,37 @@ router.post('/menu/new', adminMiddleware.proceedIfAuthenticated, (req, res) => {
 
             if (typeof day.lunch != "undefined") {
                 if (typeof day.lunch.meat != "undefined") {
-                    newDailyMenu.lunch.meat = await Dish.getManyPromisses(day.lunch.meat);
+                    newDailyMenu.lunch.meat = day.lunch.meat;
                 }
                 if (typeof day.lunch.vegetarian != "undefined") {
-                    newDailyMenu.lunch.vegetarian = await Dish.getManyPromisses(day.lunch.vegetarian);
+                    newDailyMenu.lunch.vegetarian = day.lunch.vegetarian;
                 }
                 if (typeof day.lunch.sideDish != "undefined") {
-                    newDailyMenu.lunch.sideDish = await Dish.getManyPromisses(day.lunch.sideDish);
+                    newDailyMenu.lunch.sideDish = day.lunch.sideDish;
                 }
                 if (typeof day.lunch.dessert != "undefined") {
-                    newDailyMenu.lunch.dessert = await Dish.getManyPromisses(day.lunch.dessert);
+                    newDailyMenu.lunch.dessert = day.lunch.dessert;
                 }
                 if (typeof day.lunch.drinks != "undefined") {
-                    newDailyMenu.lunch.drinks = await Dish.getManyPromisses(day.lunch.drinks);
+                    newDailyMenu.lunch.drinks = day.lunch.drinks;
                 }
             }
 
             if (typeof day.dinner != "undefined") {
                 if (typeof day.dinner.meat != "undefined") {
-                    newDailyMenu.dinner.meat = await Dish.getManyPromisses(day.dinner.meat);
+                    newDailyMenu.dinner.meat = day.dinner.meat;
                 }
                 if (typeof day.dinner.vegetarian != "undefined") {
-                    newDailyMenu.dinner.vegetarian = await Dish.getManyPromisses(day.dinner.vegetarian);
+                    newDailyMenu.dinner.vegetarian = day.dinner.vegetarian;
                 }
                 if (typeof day.dinner.sideDish != "undefined") {
-                    newDailyMenu.dinner.sideDish = await Dish.getManyPromisses(day.dinner.sideDish);
+                    newDailyMenu.dinner.sideDish = day.dinner.sideDish;
                 }
                 if (typeof day.dinner.dessert != "undefined") {
-                    newDailyMenu.dinner.dessert = await Dish.getManyPromisses(day.dinner.dessert);
+                    newDailyMenu.dinner.dessert = day.dinner.dessert;
                 }
                 if (typeof day.dinner.drinks != "undefined") {
-                    newDailyMenu.dinner.drinks = await Dish.getManyPromisses(day.dinner.drinks);
+                    newDailyMenu.dinner.drinks = day.dinner.drinks;
                 }
             }
 
@@ -499,6 +502,20 @@ router.post('/menu/new', adminMiddleware.proceedIfAuthenticated, (req, res) => {
     }
 
     start();
+});
+
+router.delete('/menu/delete/:id', adminMiddleware.proceedIfAuthenticated, (req, res) => {
+    Menu.deleteMenuById(req.params.id, (err) => {
+        if (err) throw err;
+
+        req.flash('alerts', [{
+            param: 'menu',
+            msg: `Cardápio Semanal deletado com sucesso `,
+            type: 'success'
+        }]);
+
+        res.redirect('/admin/profile');
+    });
 });
 
 /* Authentication Group */

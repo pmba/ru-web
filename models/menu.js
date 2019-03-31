@@ -23,36 +23,46 @@ var DailyMenuSchema = new mongoose.Schema({
     },
     lunch: {
         meat: {
-            type: [Object]
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: 'Dish'
         },
         vegetarian: {
-            type: [Object]
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: 'Dish'
         },
         sideDish: {
-            type: [Object]
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: 'Dish'
         },
         dessert: {
-            type: [Object]
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: 'Dish'
         },
         drinks: {
-            type: [Object]
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: 'Dish'
         }
     },
     dinner: {
         meat: {
-            type: [Object]
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: 'Dish'
         },
         vegetarian: {
-            type: [Object]
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: 'Dish'
         },
         sideDish: {
-            type: [Object]
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: 'Dish'
         },
         dessert: {
-            type: [Object]
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: 'Dish'
         },
         drinks: {
-            type: [Object]
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: 'Dish'
         }
     }
 });
@@ -99,39 +109,8 @@ module.exports.getMenuByWeek = (week, callback) => {
     Menu.findOne({'date.week': week},callback);
 }
 
-// module.exports.findDishesByTime = (dateValidated, callback) => {
-//     Menu.findOne({'date.week': dateValidated.getWeek()}, (err, menu) => {
-//         if (err) throw err;
-
-//         createDishesIDArray(dateValidated, menu, (dishesID) => {
-
-//             callback(dishesID);
-//         });
-//     });
-// }
-
-// function createDishesIDArray(dateValidated, menu, callback) {
-//     let dishesID = [];
-//     const weekDay = dateValidated.getDay();
-
-
-//     //TODO: usar Promises?
-//     if(dateValidated.getHours() < 16 - 3) {// TIMEZONE = +3
-//         // Almoço
-//         menu.days[weekDay].lunch.meat.forEach((dish) => dishesID.push(dish._id));
-//         menu.days[weekDay].lunch.vegetarian.forEach((dish) => dishesID.push(dish._id));
-//         menu.days[weekDay].lunch.sideDish.forEach((dish) => dishesID.push(dish._id));
-//         menu.days[weekDay].lunch.dessert.forEach((dish) => dishesID.push(dish._id));
-//         menu.days[weekDay].lunch.drinks.forEach((dish) => dishesID.push(dish._id));
-
-//     } else {
-//         // Janta
-//         menu.days[weekDay].dinner.meat.forEach((dish) => dishesID.push(dish._id));
-//         menu.days[weekDay].dinner.vegetarian.forEach((dish) => dishesID.push(dish._id));
-//         menu.days[weekDay].dinner.sideDish.forEach((dish) => dishesID.push(dish._id));
-//         menu.days[weekDay].dinner.dessert.forEach((dish) => dishesID.push(dish._id));
-//         menu.days[weekDay].dinner.drinks.forEach((dish) => dishesID.push(dish._id));
-//     }
-
-//     callback(dishesID);
-// }
+module.exports.deleteMenuById = (id, callback) => {
+    Menu.deleteOne({
+        _id: id
+    }, callback);
+}

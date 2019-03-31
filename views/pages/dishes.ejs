@@ -38,7 +38,8 @@
                                 <tr>
                                     <th scope="col">Nome</th>
                                     <th scope="col">Intolerâncias</th>
-                                    <th scope="col">Avaliação</th>
+                                    <th class="col">Avaliações</th>
+                                    <th scope="col">Nota</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,6 +47,7 @@
                                     <tr>
                                         <td><%= dish.name %></td>
                                         <td><%= dish.intolerances.length > 0 ? dish.intolerances : 'Não Possui' %></td>
+                                        <td><%= dish.ratingCounter %></td>
                                         <% if (dish.ratingCounter > 0) { %>
                                             <td><%= (dish.rating/dish.ratingCounter).toFixed(1) %> <i class="fas fa-star ml-2"></i></td>
                                         <% } else { %>
