@@ -4,7 +4,12 @@ const puppeteer = module.require('puppeteer');
 module.exports = {
     collectData: async (username, password) => {
         try {
-            const browser = await puppeteer.launch();
+            const browser = await puppeteer.launch({
+                'args' : [
+                    '--no-sandbox',
+                    '--disable-setuid-sandbox'
+                ]
+            });
             console.log('Headless browser launched');
 
             const page = await browser.newPage();
